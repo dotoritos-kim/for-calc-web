@@ -1,15 +1,16 @@
 FROM python:3.12-slim
 
-# See app.py for expected repo layout: REPO_ROOT is set to parents[3] of backend/app.py.
-# If file is /app/for-calc-web/backend/app.py, then REPO_ROOT=/app, and CALC_ROOT=/app/10k-calc.
+# app.py: REPO_ROOT = Path(__file__).resolve().parents[3]
+# /app/for-calc-web/backend/app.py → parents[3] = / → CALC_ROOT = /10k-calc
 WORKDIR /app/for-calc-web/backend
 
-# install python dependencies
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# add full repo at expected relative path for app.py
 COPY . /app/for-calc-web
+
+# copy 10k-calc to the path app.py actually resolves (/10k-calc)
+RUN cp -r /app/for-calc-web/10k-calc /10k-calc
 
 WORKDIR /app/for-calc-web/backend
 
