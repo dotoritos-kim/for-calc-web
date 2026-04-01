@@ -9,10 +9,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/for-calc-web
 
-# copy 10k-calc to the path app.py actually resolves (/10k-calc)
-RUN cp -r /app/for-calc-web/10k-calc /10k-calc
-
-WORKDIR /app/for-calc-web/backend
+# directly place 10k-calc at the path app.py resolves (/10k-calc)
+COPY 10k-calc /10k-calc
 
 EXPOSE 8000
 
