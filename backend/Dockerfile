@@ -1,16 +1,21 @@
+FROM node:20-alpine AS frontend-builder
+WORKDIR /app
+COPY frontend-source/package*.json ./
+RUN npm ci
+COPY frontend-source ./
+RUN npm run build
+
 FROM python:3.12-slim
 
-# app.py: REPO_ROOT = Path(__file__).resolve().parents[3]
-# /app/for-calc-web/backend/app.py → parents[3] = / → CALC_ROOT = /10k-calc
+# app.py: parents[3] of /app/for-calc-web/backend/app.py = / → CALC_ROOT = /10k-calc
 WORKDIR /app/for-calc-web/backend
 
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/for-calc-web
-
-# directly place 10k-calc at the path app.py resolves (/10k-calc)
 COPY 10k-calc /10k-calc
+COPY --from=frontend-builder /app/dist /app/static
 
 EXPOSE 8000
 

@@ -12,6 +12,7 @@ from typing import Any
 import yaml
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 CALC_ROOT = REPO_ROOT / "10k-calc"
@@ -434,3 +435,8 @@ async def calculate(
                 os.unlink(temp_path)
             except OSError:
                 pass
+
+
+_STATIC_DIR = Path("/app/static")
+if _STATIC_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(_STATIC_DIR), html=True), name="static")

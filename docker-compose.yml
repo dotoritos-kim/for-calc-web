@@ -10,20 +10,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 15s
-    networks:
-      - app-network
-
-  frontend:
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
-    restart: unless-stopped
-    depends_on:
-      backend:
-        condition: service_healthy
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
