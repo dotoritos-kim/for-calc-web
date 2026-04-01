@@ -1,11 +1,12 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY frontend-source/package*.json ./
+RUN npm ci
+COPY frontend-source ./
+RUN npm run build
+
 FROM nginx:stable-alpine
-
-# Copy built static assets
-COPY frontend-dist /usr/share/nginx/html
-
-# Replace default nginx config for routing /api to backend service
+COPY --from=builder /app/dist /usr/share/nginx/html
 COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
-
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]

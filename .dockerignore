@@ -3,4 +3,6 @@
 **/*.pyo
 **/.git
 **/node_modules
-frontend-source
+frontend-dist
+compare_parity.py
+parity-scan-10Key-Revive-pack.txt
