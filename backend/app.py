@@ -12,11 +12,13 @@ from typing import Any
 import yaml
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 CALC_ROOT = REPO_ROOT / "10k-calc"
 CONFIG_PATH = CALC_ROOT / "config.yaml"
+TABLE_DIR = REPO_ROOT / "10key-table"
 
 if str(CALC_ROOT) not in sys.path:
     sys.path.insert(0, str(CALC_ROOT))
@@ -435,6 +437,17 @@ async def calculate(
                 os.unlink(temp_path)
             except OSError:
                 pass
+
+
+@app.get("/table/{filename:path}")
+def serve_table(filename: str) -> FileResponse:
+    safe_name = Path(filename).name
+    if safe_name not in ("header.json", "body.json"):
+        raise HTTPException(status_code=404, detail="Not found")
+    file_path = TABLE_DIR / safe_name
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Not found")
+    return FileResponse(file_path, media_type="application/json")
 
 
 _STATIC_DIR = Path("/app/static")
