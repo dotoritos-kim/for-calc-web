@@ -19,6 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 CALC_ROOT = REPO_ROOT / "10k-calc"
 CONFIG_PATH = CALC_ROOT / "config.yaml"
 TABLE_DIR = REPO_ROOT / "10key-table"
+TABLE_HTML = Path(__file__).resolve().parents[1] / "table" / "table.html"
 
 if str(CALC_ROOT) not in sys.path:
     sys.path.insert(0, str(CALC_ROOT))
@@ -437,6 +438,13 @@ async def calculate(
                 os.unlink(temp_path)
             except OSError:
                 pass
+
+
+@app.get("/table.html")
+def serve_table_html() -> FileResponse:
+    if not TABLE_HTML.exists():
+        raise HTTPException(status_code=404, detail="Not found")
+    return FileResponse(TABLE_HTML, media_type="text/html")
 
 
 @app.get("/table/{filename:path}")

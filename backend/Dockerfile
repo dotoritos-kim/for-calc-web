@@ -16,6 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app/for-calc-web
 COPY 10k-calc /10k-calc
 COPY 10key-table /10key-table
+COPY table /app/for-calc-web/table
 COPY --from=frontend-builder /app/dist /app/static
 
 EXPOSE 8000
