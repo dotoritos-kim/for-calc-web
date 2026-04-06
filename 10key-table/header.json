@@ -2,7 +2,7 @@
   "name": "10Key Revive Pack",
   "symbol": "\u24C7",
   "data_url": "table/body.json",
-  "levelorder": [
+  "level_order": [
     "1",
     "2",
     "3",
