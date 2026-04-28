@@ -55,6 +55,7 @@
       }
 
       .file-label,
+      .discord-link,
       button {
         min-height: 36px;
         border: 1px solid #cbd2dc;
@@ -68,8 +69,15 @@
       }
 
       .file-label:hover,
+      .discord-link:hover,
       button:hover {
         border-color: #7f8da0;
+      }
+
+      .discord-link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
       }
 
       input[type="file"] {
@@ -283,9 +291,10 @@
       <header>
         <div>
           <h1>10Key Revive Pack Level Viewer</h1>
-          <p class="sub">1~20 레벨 버튼을 눌러 현재 body.json에 들어있는 곡을 확인합니다.</p>
+          <p class="sub">1~19 레벨 버튼을 눌러 현재 body.json에 들어있는 곡을 확인합니다.</p>
         </div>
         <div class="tools">
+          <a class="discord-link" href="https://discord.gg/2vwNSa54X9" target="_blank" rel="noreferrer">10키 한국 디스코드</a>
           <button id="reloadButton" type="button">body.json 다시 읽기</button>
           <label class="file-label" for="fileInput">body.json 선택</label>
           <input id="fileInput" type="file" accept="application/json,.json" />
@@ -394,7 +403,7 @@
       function renderLevels() {
         const counts = countByLevel();
         levelsEl.innerHTML = "";
-        for (let level = 1; level <= 20; level += 1) {
+        for (let level = 1; level <= 19; level += 1) {
           const button = document.createElement("button");
           button.type = "button";
           button.className = `level-button${level === state.selectedLevel ? " active" : ""}`;
@@ -492,7 +501,7 @@
         const match = location.hash.match(/level-(\d+)/);
         if (!match) return;
         const level = Number(match[1]);
-        if (Number.isInteger(level) && level >= 1 && level <= 20) {
+        if (Number.isInteger(level) && level >= 1 && level <= 19) {
           state.selectedLevel = level;
         }
       }
