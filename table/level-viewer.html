@@ -54,7 +54,6 @@
         gap: 8px;
       }
 
-      .file-label,
       .discord-link,
       button {
         min-height: 36px;
@@ -68,7 +67,6 @@
         cursor: pointer;
       }
 
-      .file-label:hover,
       .discord-link:hover,
       button:hover {
         border-color: #7f8da0;
@@ -77,11 +75,11 @@
       .discord-link {
         display: inline-flex;
         align-items: center;
+        min-height: 42px;
+        padding: 10px 16px;
+        font-size: 16px;
+        font-weight: 700;
         text-decoration: none;
-      }
-
-      input[type="file"] {
-        display: none;
       }
 
       .summary {
@@ -295,9 +293,6 @@
         </div>
         <div class="tools">
           <a class="discord-link" href="https://discord.gg/2vwNSa54X9" target="_blank" rel="noreferrer">10키 한국 디스코드</a>
-          <button id="reloadButton" type="button">body.json 다시 읽기</button>
-          <label class="file-label" for="fileInput">body.json 선택</label>
-          <input id="fileInput" type="file" accept="application/json,.json" />
         </div>
       </header>
 
@@ -347,8 +342,6 @@
       const panelTitleEl = document.getElementById("panelTitle");
       const tableWrapEl = document.getElementById("tableWrap");
       const searchInputEl = document.getElementById("searchInput");
-      const reloadButtonEl = document.getElementById("reloadButton");
-      const fileInputEl = document.getElementById("fileInput");
 
       function escapeHtml(value) {
         return String(value ?? "")
@@ -483,20 +476,6 @@
         render();
       }
 
-      function loadFromFile(file) {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => {
-          try {
-            state.rows = normalizeRows(JSON.parse(String(reader.result)));
-            state.source = "file";
-            render();
-          } catch (error) {
-            tableWrapEl.innerHTML = `<div class="error">${escapeHtml(error.message)}</div>`;
-          }
-        });
-        reader.readAsText(file, "utf-8");
-      }
-
       function applyHashLevel() {
         const match = location.hash.match(/level-(\d+)/);
         if (!match) return;
@@ -505,23 +484,6 @@
           state.selectedLevel = level;
         }
       }
-
-      reloadButtonEl.addEventListener("click", () => {
-        tableWrapEl.innerHTML = '<div class="empty">body.json을 다시 읽는 중입니다.</div>';
-        loadFromFetch().catch((error) => {
-          tableWrapEl.innerHTML = `
-            <div class="error">
-              ${escapeHtml(error.message)}<br />
-              file://로 바로 열었다면 오른쪽의 body.json 선택 버튼을 사용하세요.
-            </div>
-          `;
-        });
-      });
-
-      fileInputEl.addEventListener("change", () => {
-        const file = fileInputEl.files?.[0];
-        if (file) loadFromFile(file);
-      });
 
       searchInputEl.addEventListener("input", () => {
         state.query = searchInputEl.value;
@@ -539,7 +501,7 @@
         tableWrapEl.innerHTML = `
           <div class="error">
             ${escapeHtml(error.message)}<br />
-            file://로 바로 열었다면 오른쪽의 body.json 선택 버튼을 사용하세요.
+            서버에서 table/level-viewer.html로 열어 주세요.
           </div>
         `;
       });
