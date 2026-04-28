@@ -20,6 +20,7 @@ CALC_ROOT = REPO_ROOT / "10k-calc"
 CONFIG_PATH = CALC_ROOT / "config.yaml"
 TABLE_DIR = REPO_ROOT / "10key-table"
 TABLE_HTML = Path(__file__).resolve().parents[1] / "table" / "table.html"
+LEVEL_VIEWER_HTML = Path(__file__).resolve().parents[1] / "table" / "level-viewer.html"
 
 if str(CALC_ROOT) not in sys.path:
     sys.path.insert(0, str(CALC_ROOT))
@@ -450,6 +451,10 @@ def serve_table_html() -> FileResponse:
 @app.get("/table/{filename:path}")
 def serve_table(filename: str) -> FileResponse:
     safe_name = Path(filename).name
+    if safe_name == "level-viewer.html":
+        if not LEVEL_VIEWER_HTML.exists():
+            raise HTTPException(status_code=404, detail="Not found")
+        return FileResponse(LEVEL_VIEWER_HTML, media_type="text/html")
     if safe_name not in ("header.json", "body.json"):
         raise HTTPException(status_code=404, detail="Not found")
     file_path = TABLE_DIR / safe_name
