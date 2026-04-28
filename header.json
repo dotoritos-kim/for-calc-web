@@ -1,6 +1,6 @@
 {
   "name": "10Key Revive Pack",
-  "symbol": "\u24C7",
+  "symbol": "Ⓡ",
   "data_url": "table/body.json",
   "level_order": [
     "1",
@@ -21,7 +21,8 @@
     "16",
     "17",
     "18",
-    "19"
+    "19",
+    "20"
   ],
   "enum_level_order": [
     "1",
@@ -42,6 +43,7 @@
     "16",
     "17",
     "18",
-    "19"
+    "19",
+    "20"
   ]
 }
