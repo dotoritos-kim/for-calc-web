@@ -47,6 +47,7 @@ type CalculationResponse = {
 };
 
 const API_BASE = (import.meta.env.VITE_API_BASE as string | undefined)?.trim() ?? "";
+const DISCORD_URL = "https://discord.gg/2vwNSa54X9";
 const FEATURED_METRICS = [
   { key: "circus_rating", label: "Circus Rating", precision: 3 },
   { key: "revive_lv", label: "Revive LV", precision: 0 },
@@ -374,6 +375,14 @@ export default function App() {
               <span className="option-chip">Circus Rating + Revive LV</span>
               <span className="option-chip">Original Python Core</span>
             </div>
+            <a
+              className="mt-5 inline-flex min-h-11 items-center rounded-full border border-ink/12 bg-white/75 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ember/40 hover:text-emberDeep"
+              href={DISCORD_URL}
+              rel="noreferrer"
+              target="_blank"
+            >
+              10키 한국 디스코드
+            </a>
           </div>
         </header>
 
