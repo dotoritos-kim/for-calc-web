@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import contextlib
 import io
+import json
 import os
+import re
 import sys
 import tempfile
 from functools import lru_cache
@@ -10,17 +12,35 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import Body, FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+BACKEND_ROOT = Path(__file__).resolve().parent
+PACKAGE_ROOT = BACKEND_ROOT.parent
+
+
+def _find_repo_root() -> Path:
+    for candidate in (PACKAGE_ROOT, *PACKAGE_ROOT.parents):
+        if (candidate / "10k-calc").exists():
+            return candidate
+    if Path("/10k-calc").exists():
+        return Path("/")
+    return PACKAGE_ROOT
+
+
+REPO_ROOT = _find_repo_root()
 CALC_ROOT = REPO_ROOT / "10k-calc"
 CONFIG_PATH = CALC_ROOT / "config.yaml"
 TABLE_DIR = REPO_ROOT / "10key-table"
-TABLE_HTML = Path(__file__).resolve().parents[1] / "table" / "table.html"
-LEVEL_VIEWER_HTML = Path(__file__).resolve().parents[1] / "table" / "level-viewer.html"
+TABLE_HTML = PACKAGE_ROOT / "table" / "table.html"
+LEVEL_VIEWER_HTML = PACKAGE_ROOT / "table" / "level-viewer.html"
+ADMIN_HTML = PACKAGE_ROOT / "table" / "admin.html"
+TABLE_ADMIN_TOKEN = os.getenv("TABLE_ADMIN_TOKEN", "").strip()
+TABLE_ROW_FIELDS = ("md5", "sha256", "title", "artist", "level", "comment")
+EDITABLE_TABLE_FIELDS = ("title", "artist", "level", "comment", "md5", "sha256")
+OBJ_PATTERN = re.compile(r"\bobj(?:ecter)?\s*[:：]?\s*([^\s,\[\]()/]+)", re.IGNORECASE)
 
 if str(CALC_ROOT) not in sys.path:
     sys.path.insert(0, str(CALC_ROOT))
@@ -79,6 +99,141 @@ GRAPH_DATA_OPTIONS = [
     "nps_v2",
     "sv_list",
 ]
+
+
+def _table_body_paths() -> list[Path]:
+    candidates = [
+        PACKAGE_ROOT / "body.json",
+        PACKAGE_ROOT / "10key-table" / "body.json",
+        PACKAGE_ROOT / "table" / "body.json",
+        TABLE_DIR / "body.json",
+    ]
+    paths: list[Path] = []
+    seen: set[Path] = set()
+    for candidate in candidates:
+        try:
+            key = candidate.resolve()
+        except OSError:
+            key = candidate
+        if key in seen:
+            continue
+        seen.add(key)
+        paths.append(candidate)
+    return paths
+
+
+def _primary_body_path() -> Path:
+    for path in _table_body_paths():
+        if path.exists():
+            return path
+    raise HTTPException(status_code=404, detail="body.json not found")
+
+
+def _load_table_rows() -> list[dict[str, Any]]:
+    try:
+        with _primary_body_path().open("r", encoding="utf-8") as stream:
+            rows = json.load(stream)
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=500, detail=f"body.json parse failed: {exc}") from exc
+    if not isinstance(rows, list):
+        raise HTTPException(status_code=500, detail="body.json root must be an array")
+    return [row if isinstance(row, dict) else {} for row in rows]
+
+
+def _write_table_rows(rows: list[dict[str, Any]]) -> list[str]:
+    text = json.dumps(rows, ensure_ascii=False, indent=2) + "\n"
+    written: list[str] = []
+    for path in _table_body_paths():
+        if not path.exists() and not path.parent.exists():
+            continue
+        tmp_path = path.with_name(f".{path.name}.tmp")
+        tmp_path.write_text(text, encoding="utf-8")
+        tmp_path.replace(path)
+        written.append(str(path))
+    if not written:
+        raise HTTPException(status_code=500, detail="No body.json paths were writable")
+    return written
+
+
+def _extract_objecters_from_row(row: dict[str, Any]) -> list[str]:
+    values = [str(row.get(key, "")) for key in ("title", "artist", "comment")]
+    found: list[str] = []
+    for match in OBJ_PATTERN.finditer(" ".join(values)):
+        value = match.group(1).strip(" .;:")
+        if value and value not in found:
+            found.append(value)
+    return found
+
+
+def _normalize_objecter_values(value: Any) -> list[str]:
+    if value is None:
+        return []
+    raw_values = value if isinstance(value, list) else [value]
+    objecters: list[str] = []
+    for raw_value in raw_values:
+        text = str(raw_value or "").strip()
+        if not text:
+            continue
+        matches = list(OBJ_PATTERN.finditer(text))
+        candidates = [match.group(1) for match in matches] if matches else re.split(r"[,/;\s]+", text)
+        for candidate in candidates:
+            objecter = re.sub(r"^obj(?:ecter)?\s*[:：]?", "", str(candidate), flags=re.IGNORECASE).strip(" .;:")
+            if objecter and objecter not in objecters:
+                objecters.append(objecter)
+    return objecters
+
+
+def _sync_comment_objecters(comment: str, objecters: list[str]) -> str:
+    comment_without_obj = OBJ_PATTERN.sub("", comment)
+    comment_without_obj = re.sub(r"\s+", " ", comment_without_obj).strip(" /")
+    markers = " ".join(f"obj:{objecter}" for objecter in objecters)
+    return f"{comment_without_obj} {markers}".strip()
+
+
+def _payload_objecters(payload: dict[str, Any]) -> list[str] | None:
+    if "objecter" in payload:
+        return _normalize_objecter_values(payload.get("objecter"))
+    if "obj" in payload:
+        return _normalize_objecter_values(payload.get("obj"))
+    return None
+
+
+def _validate_table_row(row: dict[str, Any]) -> None:
+    title = str(row.get("title", "")).strip()
+    if not title:
+        raise HTTPException(status_code=400, detail="title is required")
+    if "level" not in row or str(row.get("level", "")).strip() == "":
+        raise HTTPException(status_code=400, detail="level is required")
+    try:
+        level_value = int(str(row["level"]))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="level must be an integer string") from exc
+    if level_value < 1 or level_value > 99:
+        raise HTTPException(status_code=400, detail="level must be between 1 and 99")
+    row["level"] = str(level_value)
+
+
+def _find_duplicate_hash(rows: list[dict[str, Any]], row: dict[str, Any]) -> str | None:
+    for field in ("md5", "sha256"):
+        value = str(row.get(field, "")).strip().lower()
+        if not value:
+            continue
+        for existing in rows:
+            if str(existing.get(field, "")).strip().lower() == value:
+                return field
+    return None
+
+
+def _public_table_row(index: int, row: dict[str, Any]) -> dict[str, Any]:
+    payload = dict(row)
+    payload["_index"] = index
+    payload["_objecters"] = _extract_objecters_from_row(row)
+    return payload
+
+
+def _require_admin_token(x_admin_token: str | None) -> None:
+    if TABLE_ADMIN_TOKEN and x_admin_token != TABLE_ADMIN_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid admin token")
 
 
 def _batch_key_label(key_count: int | None, mode_name: str | None) -> str | None:
@@ -441,6 +596,89 @@ async def calculate(
                 pass
 
 
+@app.get("/api/table/body")
+def table_body() -> dict[str, Any]:
+    rows = _load_table_rows()
+    return {
+        "rows": [_public_table_row(index, row) for index, row in enumerate(rows)],
+        "count": len(rows),
+        "adminTokenRequired": bool(TABLE_ADMIN_TOKEN),
+        "source": str(_primary_body_path()),
+    }
+
+
+@app.post("/api/table/body")
+def create_table_body_row(
+    payload: dict[str, Any] = Body(...),
+    x_admin_token: str | None = Header(default=None, alias="X-Admin-Token"),
+) -> dict[str, Any]:
+    _require_admin_token(x_admin_token)
+    rows = _load_table_rows()
+    row = {
+        field: "" if payload.get(field) is None else str(payload.get(field, "")).strip()
+        for field in TABLE_ROW_FIELDS
+    }
+    objecters = _payload_objecters(payload)
+    if objecters is not None:
+        row["comment"] = _sync_comment_objecters(row.get("comment", ""), objecters)
+    _validate_table_row(row)
+    duplicate_field = _find_duplicate_hash(rows, row)
+    if duplicate_field:
+        raise HTTPException(status_code=409, detail=f"{duplicate_field} already exists")
+
+    rows.append(row)
+    written = _write_table_rows(rows)
+    row_index = len(rows) - 1
+    return {
+        "ok": True,
+        "row": _public_table_row(row_index, row),
+        "index": row_index,
+        "written": written,
+    }
+
+
+@app.patch("/api/table/body/{row_index}")
+def update_table_body_row(
+    row_index: int,
+    payload: dict[str, Any] = Body(...),
+    x_admin_token: str | None = Header(default=None, alias="X-Admin-Token"),
+) -> dict[str, Any]:
+    _require_admin_token(x_admin_token)
+    rows = _load_table_rows()
+    if row_index < 0 or row_index >= len(rows):
+        raise HTTPException(status_code=404, detail="Row not found")
+
+    row = dict(rows[row_index])
+    changed: dict[str, dict[str, str]] = {}
+    for field in EDITABLE_TABLE_FIELDS:
+        if field not in payload:
+            continue
+        next_value = "" if payload[field] is None else str(payload[field]).strip()
+        previous_value = "" if row.get(field) is None else str(row.get(field))
+        if next_value != previous_value:
+            row[field] = next_value
+            changed[field] = {"before": previous_value, "after": next_value}
+
+    objecters = _payload_objecters(payload)
+    if objecters is not None:
+        previous_comment = "" if row.get("comment") is None else str(row.get("comment"))
+        next_comment = _sync_comment_objecters(previous_comment, objecters)
+        if next_comment != previous_comment:
+            row["comment"] = next_comment
+            changed["objecter"] = {"before": previous_comment, "after": next_comment}
+
+    _validate_table_row(row)
+
+    rows[row_index] = row
+    written = _write_table_rows(rows) if changed else []
+    return {
+        "ok": True,
+        "changed": changed,
+        "row": _public_table_row(row_index, row),
+        "written": written,
+    }
+
+
 @app.get("/table.html")
 def serve_table_html() -> FileResponse:
     if not TABLE_HTML.exists():
@@ -455,6 +693,10 @@ def serve_table(filename: str) -> FileResponse:
         if not LEVEL_VIEWER_HTML.exists():
             raise HTTPException(status_code=404, detail="Not found")
         return FileResponse(LEVEL_VIEWER_HTML, media_type="text/html")
+    if safe_name == "admin.html":
+        if not ADMIN_HTML.exists():
+            raise HTTPException(status_code=404, detail="Not found")
+        return FileResponse(ADMIN_HTML, media_type="text/html")
     if safe_name not in ("header.json", "body.json"):
         raise HTTPException(status_code=404, detail="Not found")
     file_path = TABLE_DIR / safe_name

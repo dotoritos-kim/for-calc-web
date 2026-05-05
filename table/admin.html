@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>10Key Revive Pack Admin Editor</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          Inter, Pretendard, "Segoe UI", "Noto Sans KR", system-ui, sans-serif;
+        background: #f6f7f9;
+        color: #20242a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      main {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      .sub {
+        margin: 8px 0 0;
+        color: #5f6875;
+        font-size: 14px;
+      }
+
+      .tools,
+      .filters,
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      a,
+      button {
+        min-height: 36px;
+        border: 1px solid #cbd2dc;
+        border-radius: 6px;
+        background: #fff;
+        color: #20242a;
+        padding: 8px 12px;
+        font: inherit;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      a:hover,
+      button:hover {
+        border-color: #7f8da0;
+      }
+
+      button.primary {
+        border-color: #0a4dcc;
+        background: #1b6bff;
+        color: #fff;
+        font-weight: 700;
+      }
+
+      button.active {
+        border-color: #1b6bff;
+        background: #edf4ff;
+        color: #0a4dcc;
+        font-weight: 700;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.65fr);
+        gap: 16px;
+      }
+
+      .panel {
+        border: 1px solid #d7dde5;
+        border-radius: 8px;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .panel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid #e5e9ef;
+      }
+
+      .panel-body {
+        padding: 16px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 38px;
+        border: 1px solid #cbd2dc;
+        border-radius: 6px;
+        padding: 8px 10px;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+
+      label {
+        display: block;
+      }
+
+      .field-label {
+        display: block;
+        margin-bottom: 6px;
+        color: #667181;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .form-grid .wide {
+        grid-column: 1 / -1;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #edf0f4;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: #fafbfc;
+        color: #5f6875;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      tr.selected {
+        background: #edf4ff;
+      }
+
+      .col-level {
+        width: 68px;
+        font-weight: 800;
+      }
+
+      .col-action {
+        width: 82px;
+      }
+
+      .title {
+        min-width: 220px;
+        font-weight: 700;
+      }
+
+      .muted {
+        color: #667181;
+      }
+
+      .hash {
+        color: #667181;
+        font-family: "Cascadia Mono", Consolas, monospace;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+      }
+
+      .obj-tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        border-radius: 999px;
+        background: #edf4ff;
+        color: #0a4dcc;
+        padding: 3px 8px;
+        font-family: "Cascadia Mono", Consolas, monospace;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .status {
+        margin-top: 12px;
+        border-radius: 6px;
+        background: #edf4ff;
+        color: #0a4dcc;
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+
+      .status.error {
+        background: #fff1ee;
+        color: #a13b2b;
+      }
+
+      .empty {
+        padding: 20px;
+        color: #667181;
+      }
+
+      @media (max-width: 960px) {
+        main {
+          padding: 16px;
+        }
+
+        header,
+        .panel-head {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .layout,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        table,
+        thead,
+        tbody,
+        tr,
+        th,
+        td {
+          display: block;
+        }
+
+        thead {
+          display: none;
+        }
+
+        tr {
+          border-bottom: 1px solid #e5e9ef;
+          padding: 10px 12px;
+        }
+
+        td {
+          border: 0;
+          padding: 4px 0;
+        }
+
+        td::before {
+          display: inline-block;
+          min-width: 76px;
+          color: #667181;
+          font-size: 12px;
+          font-weight: 700;
+          content: attr(data-label);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>10Key Revive Pack Admin Editor</h1>
+          <p class="sub">body.json 항목의 Comment와 세부 정보를 수정합니다.</p>
+        </div>
+        <div class="tools">
+          <a href="level-viewer.html">레벨 뷰어</a>
+          <a href="../table.html">테이블 홈</a>
+        </div>
+      </header>
+
+      <section class="layout">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>항목 찾기</h2>
+            <div class="filters">
+              <button id="newButton" class="primary" type="button">새 패턴 추가</button>
+              <input id="searchInput" type="search" placeholder="title / artist / comment / obj / md5" />
+              <select id="levelFilter" aria-label="level filter">
+                <option value="all">All Levels</option>
+              </select>
+            </div>
+          </div>
+          <div id="rowsWrap"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2 id="formTitle">Comment / 세부 정보</h2>
+          </div>
+          <div class="panel-body">
+            <div id="selectionEmpty" class="empty">왼쪽 목록에서 수정할 항목을 선택하거나 새 패턴을 추가하세요.</div>
+            <form id="editForm" hidden>
+              <div class="form-grid">
+                <label class="wide">
+                  <span class="field-label">Title</span>
+                  <input id="titleInput" name="title" autocomplete="off" />
+                </label>
+                <label class="wide">
+                  <span class="field-label">Artist</span>
+                  <input id="artistInput" name="artist" autocomplete="off" />
+                </label>
+                <label>
+                  <span class="field-label">Level</span>
+                  <input id="levelInput" name="level" inputmode="numeric" autocomplete="off" />
+                </label>
+                <label>
+                  <span class="field-label">Obj</span>
+                  <input id="objecterInput" placeholder="obj:u_e, obj:CircusGalop" autocomplete="off" />
+                </label>
+                <label class="wide">
+                  <span class="field-label">Comment</span>
+                  <textarea id="commentInput" name="comment"></textarea>
+                </label>
+                <label class="wide">
+                  <span class="field-label">MD5</span>
+                  <input id="md5Input" name="md5" class="hash" autocomplete="off" />
+                </label>
+                <label class="wide">
+                  <span class="field-label">SHA256</span>
+                  <input id="sha256Input" name="sha256" class="hash" autocomplete="off" />
+                </label>
+                <label class="wide">
+                  <span class="field-label">Admin Token</span>
+                  <input id="tokenInput" type="password" autocomplete="off" placeholder="TABLE_ADMIN_TOKEN이 설정된 경우 입력" />
+                </label>
+              </div>
+              <div class="actions" style="margin-top: 14px">
+                <button id="submitButton" class="primary" type="submit">저장</button>
+                <button id="resetButton" type="button">되돌리기</button>
+              </div>
+            </form>
+            <div id="status" class="status" hidden></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const state = {
+        rows: [],
+        query: "",
+        level: "all",
+        selectedIndex: null,
+        mode: "edit",
+        tokenRequired: false,
+      };
+
+      const rowsWrapEl = document.getElementById("rowsWrap");
+      const newButtonEl = document.getElementById("newButton");
+      const searchInputEl = document.getElementById("searchInput");
+      const levelFilterEl = document.getElementById("levelFilter");
+      const selectionEmptyEl = document.getElementById("selectionEmpty");
+      const editFormEl = document.getElementById("editForm");
+      const formTitleEl = document.getElementById("formTitle");
+      const statusEl = document.getElementById("status");
+      const resetButtonEl = document.getElementById("resetButton");
+      const submitButtonEl = document.getElementById("submitButton");
+      const fields = {
+        title: document.getElementById("titleInput"),
+        artist: document.getElementById("artistInput"),
+        level: document.getElementById("levelInput"),
+        comment: document.getElementById("commentInput"),
+        md5: document.getElementById("md5Input"),
+        sha256: document.getElementById("sha256Input"),
+      };
+      const objecterInputEl = document.getElementById("objecterInput");
+      const tokenInputEl = document.getElementById("tokenInput");
+
+      tokenInputEl.value = localStorage.getItem("tableAdminToken") || "";
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function normalizeSearchText(value) {
+        return String(value ?? "")
+          .normalize("NFKC")
+          .toLowerCase()
+          .replace(/\bobjecter\s*[:：]?\s*/g, "obj:")
+          .replace(/\bobj\s*[:：]?\s*/g, "obj:")
+          .replace(/[\t\r\n/\\,\[\](){}]+/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function extractObjecters(value) {
+        const matches = String(value ?? "")
+          .normalize("NFKC")
+          .matchAll(/\bobj(?:ecter)?\s*[:：]?\s*([^\s,[\]()/]+)/gi);
+        const found = [];
+        for (const match of matches) {
+          const objecter = String(match[1] ?? "").replace(/[.;:]+$/g, "");
+          if (objecter && !found.includes(objecter)) {
+            found.push(objecter);
+          }
+        }
+        return found;
+      }
+
+      function normalizeRow(row) {
+        const objecters = Array.isArray(row._objecters)
+          ? row._objecters.map(String)
+          : extractObjecters(`${row.title ?? ""} ${row.artist ?? ""} ${row.comment ?? ""}`);
+        const normalized = {
+          _index: Number(row._index),
+          title: String(row.title ?? ""),
+          artist: String(row.artist ?? ""),
+          level: String(row.level ?? ""),
+          comment: String(row.comment ?? row.name_diff ?? ""),
+          md5: String(row.md5 ?? ""),
+          sha256: String(row.sha256 ?? ""),
+          objecters,
+          searchText: "",
+        };
+        const objecterTerms = objecters
+          .flatMap((objecter) => [objecter, `obj:${objecter}`, `obj ${objecter}`, `objecter ${objecter}`])
+          .join(" ");
+        normalized.searchText = normalizeSearchText(
+          `${normalized.title} ${normalized.artist} ${normalized.level} ${normalized.comment} ${normalized.md5} ${normalized.sha256} ${objecterTerms}`,
+        );
+        return normalized;
+      }
+
+      function setStatus(message, isError = false) {
+        statusEl.hidden = false;
+        statusEl.className = `status${isError ? " error" : ""}`;
+        statusEl.textContent = message;
+      }
+
+      function selectedRow() {
+        if (state.mode === "create") return null;
+        return state.rows.find((row) => row._index === state.selectedIndex) || null;
+      }
+
+      function visibleRows() {
+        const terms = normalizeSearchText(state.query).split(" ").filter(Boolean);
+        return state.rows.filter((row) => {
+          if (state.level !== "all" && row.level !== state.level) return false;
+          if (!terms.length) return true;
+          return terms.every((term) => row.searchText.includes(term));
+        });
+      }
+
+      function renderLevelFilter() {
+        const current = levelFilterEl.value || state.level;
+        const levels = [...new Set(state.rows.map((row) => row.level).filter(Boolean))]
+          .sort((left, right) => Number(left) - Number(right));
+        levelFilterEl.innerHTML = '<option value="all">All Levels</option>';
+        for (const level of levels) {
+          const option = document.createElement("option");
+          option.value = level;
+          option.textContent = `Lv.${level}`;
+          levelFilterEl.appendChild(option);
+        }
+        levelFilterEl.value = levels.includes(current) ? current : "all";
+        state.level = levelFilterEl.value;
+      }
+
+      function renderRows() {
+        const rows = visibleRows();
+        if (!state.rows.length) {
+          rowsWrapEl.innerHTML = '<div class="empty">body.json을 읽는 중입니다.</div>';
+          return;
+        }
+        if (!rows.length) {
+          rowsWrapEl.innerHTML = '<div class="empty">검색 조건에 해당하는 항목이 없습니다.</div>';
+          return;
+        }
+        rowsWrapEl.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th class="col-level">Level</th>
+                <th class="title">Title</th>
+                <th>Artist</th>
+                <th>Obj</th>
+                <th>Comment</th>
+                <th class="col-action">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows
+                .map(
+                  (row) => `
+                    <tr class="${state.mode === "edit" && row._index === state.selectedIndex ? "selected" : ""}">
+                      <td class="col-level" data-label="Level">Lv.${escapeHtml(row.level)}</td>
+                      <td class="title" data-label="Title">${escapeHtml(row.title)}</td>
+                      <td data-label="Artist">${escapeHtml(row.artist)}</td>
+                      <td data-label="Obj">${
+                        row.objecters.length
+                          ? row.objecters.map((objecter) => `<span class="obj-tag">obj:${escapeHtml(objecter)}</span>`).join(" ")
+                          : '<span class="muted">-</span>'
+                      }</td>
+                      <td class="muted" data-label="Comment">${escapeHtml(row.comment)}</td>
+                      <td class="col-action" data-label="Edit">
+                        <button type="button" data-index="${row._index}" class="${state.mode === "edit" && row._index === state.selectedIndex ? "active" : ""}">편집</button>
+                      </td>
+                    </tr>
+                  `,
+                )
+                .join("")}
+            </tbody>
+          </table>
+        `;
+        rowsWrapEl.querySelectorAll("button[data-index]").forEach((button) => {
+          button.addEventListener("click", () => {
+            selectRow(Number(button.getAttribute("data-index")));
+          });
+        });
+      }
+
+      function fillForm(row) {
+        fields.title.value = row.title;
+        fields.artist.value = row.artist;
+        fields.level.value = row.level;
+        fields.comment.value = row.comment;
+        fields.md5.value = row.md5;
+        fields.sha256.value = row.sha256;
+        objecterInputEl.value = row.objecters.length ? row.objecters.map((objecter) => `obj:${objecter}`).join(", ") : "";
+      }
+
+      function clearForm() {
+        fields.title.value = "";
+        fields.artist.value = "";
+        fields.level.value = "";
+        fields.comment.value = "";
+        fields.md5.value = "";
+        fields.sha256.value = "";
+        objecterInputEl.value = "";
+      }
+
+      function selectRow(index) {
+        state.mode = "edit";
+        state.selectedIndex = index;
+        const row = selectedRow();
+        if (!row) return;
+        formTitleEl.textContent = "Comment / 세부 정보";
+        submitButtonEl.textContent = "저장";
+        resetButtonEl.textContent = "되돌리기";
+        selectionEmptyEl.hidden = true;
+        editFormEl.hidden = false;
+        fillForm(row);
+        statusEl.hidden = true;
+        renderRows();
+      }
+
+      function startCreate() {
+        state.mode = "create";
+        state.selectedIndex = null;
+        formTitleEl.textContent = "새 패턴 추가";
+        submitButtonEl.textContent = "추가";
+        resetButtonEl.textContent = "비우기";
+        selectionEmptyEl.hidden = true;
+        editFormEl.hidden = false;
+        clearForm();
+        fields.level.value = state.level === "all" ? "" : state.level;
+        statusEl.hidden = true;
+        renderRows();
+      }
+
+      async function loadRows() {
+        try {
+          const response = await fetch("/api/table/body", { cache: "no-store" });
+          if (!response.ok) {
+            throw new Error(`load failed: ${response.status}`);
+          }
+          const payload = await response.json();
+          state.rows = Array.isArray(payload.rows) ? payload.rows.map(normalizeRow) : [];
+          state.tokenRequired = Boolean(payload.adminTokenRequired);
+          renderLevelFilter();
+          renderRows();
+          if (state.tokenRequired) {
+            setStatus("TABLE_ADMIN_TOKEN이 설정되어 있어 저장할 때 Admin Token이 필요합니다.");
+          }
+        } catch (error) {
+          rowsWrapEl.innerHTML = `<div class="empty">${escapeHtml(error.message)}<br />서버에서 /table/admin.html로 열어 주세요.</div>`;
+        }
+      }
+
+      searchInputEl.addEventListener("input", () => {
+        state.query = searchInputEl.value;
+        renderRows();
+      });
+
+      levelFilterEl.addEventListener("change", () => {
+        state.level = levelFilterEl.value;
+        renderRows();
+      });
+
+      newButtonEl.addEventListener("click", () => {
+        startCreate();
+      });
+
+      resetButtonEl.addEventListener("click", () => {
+        if (state.mode === "create") {
+          clearForm();
+          fields.level.value = state.level === "all" ? "" : state.level;
+          return;
+        }
+        const row = selectedRow();
+        if (row) fillForm(row);
+      });
+
+      editFormEl.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const row = selectedRow();
+        if (state.mode === "edit" && !row) return;
+
+        const token = tokenInputEl.value.trim();
+        localStorage.setItem("tableAdminToken", token);
+        const headers = { "Content-Type": "application/json" };
+        if (token) {
+          headers["X-Admin-Token"] = token;
+        }
+
+        const body = {
+          title: fields.title.value,
+          artist: fields.artist.value,
+          level: fields.level.value,
+          comment: fields.comment.value,
+          md5: fields.md5.value,
+          sha256: fields.sha256.value,
+          objecter: objecterInputEl.value,
+        };
+
+        try {
+          const url = state.mode === "create" ? "/api/table/body" : `/api/table/body/${row._index}`;
+          const method = state.mode === "create" ? "POST" : "PATCH";
+          const response = await fetch(url, {
+            method,
+            headers,
+            body: JSON.stringify(body),
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(payload.detail || `save failed: ${response.status}`);
+          }
+          const updated = normalizeRow(payload.row);
+          if (state.mode === "create") {
+            state.rows = [...state.rows, updated];
+            state.mode = "edit";
+            state.selectedIndex = updated._index;
+            formTitleEl.textContent = "Comment / 세부 정보";
+            submitButtonEl.textContent = "저장";
+            resetButtonEl.textContent = "되돌리기";
+          } else {
+            state.rows = state.rows.map((item) => (item._index === updated._index ? updated : item));
+          }
+          fillForm(updated);
+          renderLevelFilter();
+          renderRows();
+          const changedFields = Object.keys(payload.changed || {});
+          setStatus(
+            state.selectedIndex === updated._index && method === "POST"
+              ? `추가 완료: ${updated.title} (${(payload.written || []).length}개 body.json 갱신)`
+              : changedFields.length
+              ? `저장 완료: ${changedFields.join(", ")} (${(payload.written || []).length}개 body.json 갱신)`
+              : "변경된 값이 없습니다.",
+          );
+        } catch (error) {
+          setStatus(error.message || "저장 실패", true);
+        }
+      });
+
+      loadRows();
+    </script>
+  </body>
+</html>
