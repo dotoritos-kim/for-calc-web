@@ -55,6 +55,7 @@
       }
 
       .discord-link,
+      .admin-link,
       button {
         min-height: 36px;
         border: 1px solid #cbd2dc;
@@ -68,18 +69,30 @@
       }
 
       .discord-link:hover,
+      .admin-link:hover,
       button:hover {
         border-color: #7f8da0;
       }
 
-      .discord-link {
+      .discord-link,
+      .admin-link {
         display: inline-flex;
         align-items: center;
+        text-decoration: none;
+      }
+
+      .discord-link {
         min-height: 42px;
         padding: 10px 16px;
         font-size: 16px;
         font-weight: 700;
-        text-decoration: none;
+      }
+
+      .admin-link {
+        min-height: 42px;
+        padding: 10px 14px;
+        font-size: 14px;
+        font-weight: 700;
       }
 
       .summary {
@@ -205,6 +218,19 @@
         color: #667181;
       }
 
+      .obj-tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        border-radius: 999px;
+        background: #edf4ff;
+        color: #0a4dcc;
+        padding: 3px 8px;
+        font-family: "Cascadia Mono", Consolas, monospace;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
       .hash {
         max-width: 180px;
         color: #667181;
@@ -293,6 +319,7 @@
         </div>
         <div class="tools">
           <a class="discord-link" href="https://discord.gg/2vwNSa54X9" target="_blank" rel="noreferrer">10키 한국 디스코드</a>
+          <a class="admin-link" href="admin.html">관리자 편집</a>
         </div>
       </header>
 
@@ -320,7 +347,7 @@
       <section class="panel">
         <div class="panel-head">
           <h2 id="panelTitle" class="panel-title">Level -</h2>
-          <input id="searchInput" class="search" type="search" placeholder="title / artist / comment 검색" />
+          <input id="searchInput" class="search" type="search" placeholder="title / artist / comment / obj 검색" />
         </div>
         <div id="tableWrap"></div>
       </section>
@@ -329,7 +356,7 @@
     <script>
       const state = {
         rows: [],
-        selectedLevel: 18,
+        selectedLevel: "18",
         source: "-",
         query: "",
       };
@@ -352,6 +379,40 @@
           .replaceAll("'", "&#039;");
       }
 
+      function normalizeSearchText(value) {
+        return String(value ?? "")
+          .normalize("NFKC")
+          .toLowerCase()
+          .replace(/\bobjecter\s*[:：]?\s*/g, "obj:")
+          .replace(/\bobj\s*[:：]?\s*/g, "obj:")
+          .replace(/[\t\r\n/\\,\[\](){}]+/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function extractObjecters(value) {
+        const matches = String(value ?? "")
+          .normalize("NFKC")
+          .matchAll(/\bobj(?:ecter)?\s*[:：]?\s*([^\s,[\]()/]+)/gi);
+        const found = [];
+        for (const match of matches) {
+          const objecter = String(match[1] ?? "").replace(/[.;:]+$/g, "");
+          if (objecter && !found.includes(objecter)) {
+            found.push(objecter);
+          }
+        }
+        return found;
+      }
+
+      function buildSearchText(row) {
+        const objecterTerms = row.objecters
+          .flatMap((objecter) => [objecter, `obj:${objecter}`, `obj ${objecter}`, `objecter ${objecter}`])
+          .join(" ");
+        return normalizeSearchText(
+          `${row.title} ${row.artist} ${row.comment} ${row.md5} ${row.sha256} ${objecterTerms}`,
+        );
+      }
+
       function normalizeRows(rows) {
         if (!Array.isArray(rows)) {
           throw new Error("body.json root must be an array.");
@@ -359,14 +420,23 @@
 
         return rows
           .filter((row) => row && typeof row === "object")
-          .map((row) => ({
-            level: String(row.level ?? ""),
-            title: String(row.title ?? ""),
-            artist: String(row.artist ?? ""),
-            comment: String(row.comment ?? row.name_diff ?? ""),
-            md5: String(row.md5 ?? ""),
-            sha256: String(row.sha256 ?? ""),
-          }))
+          .map((row) => {
+            const normalized = {
+              level: String(row.level ?? ""),
+              title: String(row.title ?? ""),
+              artist: String(row.artist ?? ""),
+              comment: String(row.comment ?? row.name_diff ?? ""),
+              md5: String(row.md5 ?? ""),
+              sha256: String(row.sha256 ?? ""),
+              objecters: [],
+              searchText: "",
+            };
+            normalized.objecters = extractObjecters(
+              `${normalized.title} ${normalized.artist} ${normalized.comment}`,
+            );
+            normalized.searchText = buildSearchText(normalized);
+            return normalized;
+          })
           .sort((a, b) => {
             const levelDiff = Number(a.level) - Number(b.level);
             if (levelDiff) return levelDiff;
@@ -383,29 +453,41 @@
       }
 
       function filteredRows() {
-        const needle = state.query.trim().toLowerCase();
+        const terms = normalizeSearchText(state.query).split(" ").filter(Boolean);
         return state.rows.filter((row) => {
-          if (row.level !== String(state.selectedLevel)) return false;
-          if (!needle) return true;
-          return `${row.title} ${row.artist} ${row.comment} ${row.md5} ${row.sha256}`
-            .toLowerCase()
-            .includes(needle);
+          if (state.selectedLevel !== "all" && row.level !== state.selectedLevel) return false;
+          if (!terms.length) return true;
+          return terms.every((term) => row.searchText.includes(term));
         });
       }
 
       function renderLevels() {
         const counts = countByLevel();
         levelsEl.innerHTML = "";
+        const allButton = document.createElement("button");
+        allButton.type = "button";
+        allButton.className = `level-button${state.selectedLevel === "all" ? " active" : ""}`;
+        allButton.innerHTML = `
+          <span class="level">All</span>
+          <span class="count">${state.rows.length} charts</span>
+        `;
+        allButton.addEventListener("click", () => {
+          state.selectedLevel = "all";
+          location.hash = "level-all";
+          render();
+        });
+        levelsEl.appendChild(allButton);
         for (let level = 1; level <= 19; level += 1) {
+          const levelKey = String(level);
           const button = document.createElement("button");
           button.type = "button";
-          button.className = `level-button${level === state.selectedLevel ? " active" : ""}`;
+          button.className = `level-button${levelKey === state.selectedLevel ? " active" : ""}`;
           button.innerHTML = `
             <span class="level">Lv.${level}</span>
             <span class="count">${counts.get(String(level)) ?? 0} charts</span>
           `;
           button.addEventListener("click", () => {
-            state.selectedLevel = level;
+            state.selectedLevel = levelKey;
             location.hash = `level-${level}`;
             render();
           });
@@ -431,6 +513,7 @@
                 <th class="col-level">Level</th>
                 <th class="col-title">Title</th>
                 <th>Artist</th>
+                <th>Obj</th>
                 <th>Comment</th>
                 <th>MD5</th>
               </tr>
@@ -443,6 +526,11 @@
                       <td class="col-level" data-label="Level">Lv.${escapeHtml(row.level)}</td>
                       <td class="col-title" data-label="Title">${escapeHtml(row.title)}</td>
                       <td data-label="Artist">${escapeHtml(row.artist)}</td>
+                      <td data-label="Obj">${
+                        row.objecters.length
+                          ? row.objecters.map((objecter) => `<span class="obj-tag">obj:${escapeHtml(objecter)}</span>`).join(" ")
+                          : '<span class="muted">-</span>'
+                      }</td>
                       <td class="muted" data-label="Comment">${escapeHtml(row.comment)}</td>
                       <td class="hash" data-label="MD5">${escapeHtml(row.md5)}</td>
                     </tr>
@@ -457,10 +545,10 @@
       function render() {
         const rows = filteredRows();
         totalCountEl.textContent = String(state.rows.length);
-        selectedLevelEl.textContent = `Lv.${state.selectedLevel}`;
+        selectedLevelEl.textContent = state.selectedLevel === "all" ? "All" : `Lv.${state.selectedLevel}`;
         selectedCountEl.textContent = String(rows.length);
         loadSourceEl.textContent = state.source;
-        panelTitleEl.textContent = `Level ${state.selectedLevel}`;
+        panelTitleEl.textContent = state.selectedLevel === "all" ? "All Levels" : `Level ${state.selectedLevel}`;
         renderLevels();
         renderTable(rows);
       }
@@ -477,11 +565,15 @@
       }
 
       function applyHashLevel() {
+        if (location.hash === "#level-all") {
+          state.selectedLevel = "all";
+          return;
+        }
         const match = location.hash.match(/level-(\d+)/);
         if (!match) return;
         const level = Number(match[1]);
         if (Number.isInteger(level) && level >= 1 && level <= 19) {
-          state.selectedLevel = level;
+          state.selectedLevel = String(level);
         }
       }
 

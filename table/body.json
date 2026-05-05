@@ -5,7 +5,7 @@
     "title": "Canon",
     "artist": "Collection",
     "level": "1",
-    "comment": "[10K BG] Piano BMS Set"
+    "comment": "[10K BG] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "fc9d5a9b85ddaae76dddf594dcea082c",
@@ -13,7 +13,7 @@
     "title": "Berry Go!!",
     "artist": "Freezer feat. 妃苺",
     "level": "2",
-    "comment": "[10K BG]"
+    "comment": "[10K BG] obj:CircusGalop"
   },
   {
     "md5": "cfa0727a46a62992dc5d680b8ba2c2fc",
@@ -21,7 +21,7 @@
     "title": "Chopin Nocturne",
     "artist": "Collection",
     "level": "2",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "78b8828716780fbeaff98784764b62f8",
@@ -29,7 +29,7 @@
     "title": "Circus Galop",
     "artist": "Collection",
     "level": "2",
-    "comment": "[10K BG] Piano BMS Set"
+    "comment": "[10K BG] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "85ec3df36e5611a0b7db257a3beb1cf6",
@@ -37,7 +37,7 @@
     "title": "GAMEBOY",
     "artist": "Silentroom × 瞬",
     "level": "2",
-    "comment": "[10K EZ]"
+    "comment": "[10K EZ] obj:CircusGalop"
   },
   {
     "md5": "fe440f98c1ea7acc0d4a68bac373db1b",
@@ -45,7 +45,7 @@
     "title": "La Campanella",
     "artist": "Collection",
     "level": "2",
-    "comment": "[10K BG] Piano BMS Set"
+    "comment": "[10K BG] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "7dee47ac1932c9c60399fd45b58a64f4",
@@ -53,7 +53,7 @@
     "title": "Liebestraum",
     "artist": "Collection",
     "level": "2",
-    "comment": "[10K BG] Piano BMS Set"
+    "comment": "[10K BG] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "05c75637f3509ea4f36ec6f2f513b146",
@@ -61,7 +61,7 @@
     "title": "夢/或いは在りし日の",
     "artist": "Nego_tiator",
     "level": "2",
-    "comment": "[10K BG]"
+    "comment": "[10K BG] obj:CircusGalop"
   },
   {
     "md5": "2cbf178a0963bc9057c1b98242ae2539",
@@ -69,7 +69,7 @@
     "title": "Black Key",
     "artist": "Collection",
     "level": "3",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "d3ae283a793a9d25c6ca5bd4ba0c3691",
@@ -77,7 +77,7 @@
     "title": "Canon",
     "artist": "Collection",
     "level": "3",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "7dfc9e6d21d11c75e3478b84d138b4e5",
@@ -85,7 +85,7 @@
     "title": "Etude for the Sinners",
     "artist": "Ice (Trolled)",
     "level": "3",
-    "comment": "[10K EZ]"
+    "comment": "[10K EZ] obj:CircusGalop"
   },
   {
     "md5": "a311cc629fa6c60ace87cbc283d31e8a",
@@ -93,7 +93,7 @@
     "title": "Fantaisie Impromptu",
     "artist": "Collection",
     "level": "3",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "a3a2660fbbd60ecd0e1b83735a1bca11",
@@ -101,7 +101,7 @@
     "title": "Hungarian Dances",
     "artist": "Collection",
     "level": "3",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "14933a0c79769ccea4925648d60ec9a1",
@@ -109,7 +109,7 @@
     "title": "William Tell",
     "artist": "Collection",
     "level": "3",
-    "comment": "[10K BG] Piano BMS Set"
+    "comment": "[10K BG] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "a8137058e5dce2e4351523144a2353a0",
@@ -117,7 +117,7 @@
     "title": "Berry Go!!",
     "artist": "Freezer feat. 妃苺",
     "level": "4",
-    "comment": "[10K EZ]"
+    "comment": "[10K EZ] obj:CircusGalop"
   },
   {
     "md5": "81e1e824332b622db16a6ce02c8c5ae8",
@@ -125,7 +125,7 @@
     "title": "Chopin Nocturne",
     "artist": "Collection",
     "level": "4",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "0e39abf89b9021bbc1bada5629ab995a",
@@ -133,7 +133,7 @@
     "title": "Circus Galop",
     "artist": "Collection",
     "level": "4",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "211a95cade9142907ef6f799ea424729",
@@ -141,7 +141,7 @@
     "title": "FIONA - 10K EZ",
     "artist": "w_tre",
     "level": "4",
-    "comment": "[LV.4]"
+    "comment": "[LV.4] obj:CircusGalop"
   },
   {
     "md5": "669b13776b218a41f20ba8a071b4bdd6",
@@ -149,7 +149,7 @@
     "title": "Hungarian Rhapsody",
     "artist": "Collection",
     "level": "4",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "3d71e314040d802ede6bff4eccec29c5",
@@ -157,7 +157,7 @@
     "title": "La Campanella",
     "artist": "Collection",
     "level": "4",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "186ce6cf48475794a4c74a779095203f",
@@ -165,7 +165,7 @@
     "title": "Liebestraum",
     "artist": "Collection",
     "level": "4",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "8c01ebb087ef4e9c4010c89a711f6870",
@@ -173,7 +173,7 @@
     "title": "Moonlight 3rd movement",
     "artist": "Collection",
     "level": "4",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "fd8de5e994076ea6bfa391611c966e59",
@@ -181,7 +181,7 @@
     "title": "Pathetique (Medley ver.)",
     "artist": "Collection",
     "level": "4",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "885f73b88d085f214b5c91d3733de11b",
@@ -189,7 +189,7 @@
     "title": "Turkish March",
     "artist": "Collection",
     "level": "4",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "20850140830da3f04b007bf90eaa4475",
@@ -197,7 +197,7 @@
     "title": "夢/或いは在りし日の",
     "artist": "Nego_tiator",
     "level": "4",
-    "comment": "[10K EZ]"
+    "comment": "[10K EZ] obj:CircusGalop"
   },
   {
     "md5": "0d145c27731ed26a740ac1b4acf7b3be",
@@ -205,7 +205,7 @@
     "title": "Black Key",
     "artist": "Collection",
     "level": "5",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "c351461b1f7dd1b3e7b25e0470eb77db",
@@ -213,7 +213,7 @@
     "title": "Canon",
     "artist": "Collection",
     "level": "5",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "1275881412c0c8f52fdcfc7f0b79baf4",
@@ -221,7 +221,7 @@
     "title": "Fantaisie Impromptu",
     "artist": "Collection",
     "level": "5",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "fea7b85b0a266d42a036493b69d2c4b1",
@@ -229,7 +229,7 @@
     "title": "GAMEBOY",
     "artist": "Silentroom × 瞬",
     "level": "5",
-    "comment": "[10K NM]"
+    "comment": "[10K NM] obj:CircusGalop"
   },
   {
     "md5": "2f91e00bd4bc25756b70697e4c0d657f",
@@ -237,7 +237,7 @@
     "title": "Grandes Etudes No.6",
     "artist": "Collection",
     "level": "5",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "07e3a6a89616f81670e4b58a1c78fd88",
@@ -245,7 +245,7 @@
     "title": "Hungarian Dances",
     "artist": "Collection",
     "level": "5",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "3911af02569add3ba711af7c98124933",
@@ -253,7 +253,7 @@
     "title": "Overjoy☆OVERDOSE!!",
     "artist": "Luna Fozer",
     "level": "5",
-    "comment": "[10K EZ] LN"
+    "comment": "[10K EZ] LN obj:CircusGalop"
   },
   {
     "md5": "b80ee71a918f6a34642ca78bc93ecd5f",
@@ -261,7 +261,7 @@
     "title": "William Tell",
     "artist": "Collection",
     "level": "5",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "2e92a4a8bd89e257e8d9e5b5c389fd4b",
@@ -269,7 +269,7 @@
     "title": "Chopin Nocturne",
     "artist": "Collection",
     "level": "6",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "7cf0cf62878f4d5ac2b2cb19800b4c62",
@@ -277,7 +277,7 @@
     "title": "La Campanella",
     "artist": "Collection",
     "level": "6",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "7f1da17747707c68ed4d708efec27b5e",
@@ -285,7 +285,7 @@
     "title": "Liebestraum",
     "artist": "Collection",
     "level": "6",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "59855eb76755c84f04332c3860db549d",
@@ -293,7 +293,7 @@
     "title": "Moonlight 3rd movement",
     "artist": "Collection",
     "level": "6",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "461c98ed9a62dc92811fd27eb350e362",
@@ -301,7 +301,7 @@
     "title": "Pathetique (Medley ver.)",
     "artist": "Collection",
     "level": "6",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "297762d1ba9155481b4224664df29f8f",
@@ -309,7 +309,7 @@
     "title": "Rachmaninov Concerto No.3",
     "artist": "Collection",
     "level": "6",
-    "comment": "[10K EZ] Piano BMS Set"
+    "comment": "[10K EZ] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "38bf2fd6071d53377977d721f0b20a76",
@@ -317,7 +317,7 @@
     "title": "Turkish March",
     "artist": "Collection",
     "level": "6",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "7bba56a8f1ae5a14d9c8542e257725da",
@@ -325,7 +325,7 @@
     "title": "Berry Go!!",
     "artist": "Freezer feat. 妃苺",
     "level": "7",
-    "comment": "[10K NM]"
+    "comment": "[10K NM] obj:CircusGalop"
   },
   {
     "md5": "0f9a38bbbbb6f52c9292f901b28939d1",
@@ -333,7 +333,7 @@
     "title": "Black Key",
     "artist": "Collection",
     "level": "7",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "2ed6faef289ee4368ad7f9da88e006c3",
@@ -357,7 +357,7 @@
     "title": "Canon",
     "artist": "Collection",
     "level": "7",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "ab80bdb0e414ef59a19fb01e882723b8",
@@ -365,7 +365,7 @@
     "title": "Etude for the Sinners",
     "artist": "Ice (Trolled)",
     "level": "7",
-    "comment": "[10K NM]"
+    "comment": "[10K NM] obj:CircusGalop"
   },
   {
     "md5": "fe66fd001e070f0b815cf8ba87731004",
@@ -381,7 +381,7 @@
     "title": "Umikaze Moment",
     "artist": "わかどり + saaa",
     "level": "7",
-    "comment": "[10K Ocean]"
+    "comment": "[10K Ocean] obj:Jakads"
   },
   {
     "md5": "3bb773388a125991436ad7898f2c010a",
@@ -389,7 +389,7 @@
     "title": "William Tell",
     "artist": "Collection",
     "level": "7",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "1bef28f6e45db819e81d8d3dfa972d8e",
@@ -413,7 +413,7 @@
     "title": "Chopin Nocturne",
     "artist": "Collection",
     "level": "8",
-    "comment": "[10K Full] Piano BMS Set"
+    "comment": "[10K Full] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "bb5909a5c5ccb0c06056fc9f63a21fd0",
@@ -421,7 +421,7 @@
     "title": "GAMEBOY",
     "artist": "Silentroom × 瞬",
     "level": "8",
-    "comment": "[10K HD]"
+    "comment": "[10K HD] obj:CircusGalop"
   },
   {
     "md5": "456203172901b6bafdde098d11c418ca",
@@ -429,7 +429,7 @@
     "title": "Hungarian Dances",
     "artist": "Collection",
     "level": "8",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "ff783ea48b7f82de4df13eb4fb134a10",
@@ -437,7 +437,7 @@
     "title": "Hungarian Rhapsody",
     "artist": "Collection",
     "level": "8",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "d0a33bb0ab9fbe8dd8b2ee8863f757ce",
@@ -445,7 +445,7 @@
     "title": "La Campanella",
     "artist": "Collection",
     "level": "8",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "a96eb76230c9568abaa5b5810bc5995c",
@@ -453,7 +453,7 @@
     "title": "Liebestraum",
     "artist": "Collection",
     "level": "8",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "c3fcfd667476764cb8e9ae32bc55892d",
@@ -469,7 +469,7 @@
     "title": "Overjoy☆OVERDOSE!!",
     "artist": "Luna Fozer",
     "level": "8",
-    "comment": "[10K NM] LN"
+    "comment": "[10K NM] LN obj:CircusGalop"
   },
   {
     "md5": "0fa2f45cf4cb528277e9db58c9829b2e",
@@ -485,7 +485,7 @@
     "title": "夢/或いは在りし日の",
     "artist": "Nego_tiator",
     "level": "8",
-    "comment": "[10K NM]"
+    "comment": "[10K NM] obj:CircusGalop"
   },
   {
     "md5": "0e30b56216803154930199854383b39c",
@@ -525,7 +525,7 @@
     "title": "Canon",
     "artist": "Collection",
     "level": "9",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "03a143a02a76ccdf9de4f1e199a9ab1a",
@@ -533,7 +533,7 @@
     "title": "Circus Galop",
     "artist": "Collection",
     "level": "9",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "c419629b1458b927173bc323b86492a6",
@@ -541,7 +541,7 @@
     "title": "FIONA - 10K NM",
     "artist": "w_tre",
     "level": "9",
-    "comment": "[LV.8]"
+    "comment": "[LV.8] obj:CircusGalop"
   },
   {
     "md5": "a549fe253e39afb1c0d2e2768c57fcfb",
@@ -549,7 +549,7 @@
     "title": "Fantaisie Impromptu",
     "artist": "Collection",
     "level": "9",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "3698dae2d750cec20e4ea92f18dc35e5",
@@ -565,7 +565,7 @@
     "title": "Moonlight 3rd movement",
     "artist": "Collection",
     "level": "9",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "7f115f05c7adaec8624997b18d9d2099",
@@ -573,7 +573,7 @@
     "title": "Pathetique (Medley ver.)",
     "artist": "Collection",
     "level": "9",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "aad93b0fadb9db47dd6f34956e689fd8",
@@ -581,7 +581,7 @@
     "title": "Turkish March",
     "artist": "Collection",
     "level": "9",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "6ca63da60323b5705c6dfaba24085f2e",
@@ -603,9 +603,9 @@
     "md5": "298f4cabf5b49cf1fc34fba78f4ebcfd",
     "sha256": "8b3452ba0c5e23131f6c60ca3c1b16d71e924b3b58f19dab6f3a8ea0d9972c9e",
     "title": "サカサマの空に在ったのは",
-    "artist": "qfeileadh feat. レゾナンスもえこ / obj:u_e",
+    "artist": "qfeileadh feat. レゾナンスもえこ",
     "level": "9",
-    "comment": "[10K NM]"
+    "comment": "[10K NM] obj:u_e"
   },
   {
     "md5": "4ca5c65c43355736f2114610cda0a244",
@@ -621,7 +621,7 @@
     "title": "Grandes Etudes No.6",
     "artist": "Collection",
     "level": "10",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "171bf572fbba7571bfd28056466d6a94",
@@ -637,7 +637,7 @@
     "title": "Rachmaninov Concerto No.3",
     "artist": "Collection",
     "level": "10",
-    "comment": "[10K NM] Piano BMS Set"
+    "comment": "[10K NM] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "92e9f3ba664b36a107e3a88c7e30a436",
@@ -645,7 +645,7 @@
     "title": "Turkish March",
     "artist": "Collection",
     "level": "10",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "8b360b6a7cd8bc6347b5665d3a0f477c",
@@ -653,7 +653,7 @@
     "title": "William Tell",
     "artist": "Collection",
     "level": "10",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "7cd538ed2957ca80e893cf4bf360dadd",
@@ -685,7 +685,7 @@
     "title": "Berry Go!!",
     "artist": "Freezer feat. 妃苺",
     "level": "11",
-    "comment": "[10K HD]"
+    "comment": "[10K HD] obj:CircusGalop"
   },
   {
     "md5": "afbf20cf41db47b83d8f4ed51da7ae10",
@@ -693,7 +693,7 @@
     "title": "Black Key",
     "artist": "Collection",
     "level": "11",
-    "comment": "[10K SHD] Piano BMS Set"
+    "comment": "[10K SHD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "4a5517772d003cc3b517d5d8da4ddec3",
@@ -701,7 +701,7 @@
     "title": "Etude for the Sinners",
     "artist": "Ice (Trolled)",
     "level": "11",
-    "comment": "[10K HD]"
+    "comment": "[10K HD] obj:CircusGalop"
   },
   {
     "md5": "c91e88dffff19468a3a3537ac64eddc6",
@@ -709,7 +709,7 @@
     "title": "Liebestraum",
     "artist": "Collection",
     "level": "11",
-    "comment": "[10K Full] Piano BMS Set"
+    "comment": "[10K Full] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "d190bf53d532dfb3e4afdd4c4c96756b",
@@ -725,7 +725,7 @@
     "title": "Pathetique (Medley ver.)",
     "artist": "Collection",
     "level": "11",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "be94a3b68c6ce01d66b482ed47ab34d4",
@@ -741,7 +741,7 @@
     "title": "Umikaze Moment",
     "artist": "わかどり + saaa",
     "level": "11",
-    "comment": "[10K Wind]"
+    "comment": "[10K Wind] obj:Jakads"
   },
   {
     "md5": "53f468a354b8451da7560e57689030ed",
@@ -757,7 +757,7 @@
     "title": "夢/或いは在りし日の",
     "artist": "Nego_tiator",
     "level": "11",
-    "comment": "[10K HD]"
+    "comment": "[10K HD] obj:CircusGalop"
   },
   {
     "md5": "09936a213420b68423fe9d101a629962",
@@ -773,7 +773,7 @@
     "title": "Black Key",
     "artist": "Collection",
     "level": "12",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "1b53b7fa75e53c17c8b131ac112f18ee",
@@ -789,7 +789,7 @@
     "title": "FIONA - 10K HD",
     "artist": "w_tre",
     "level": "12",
-    "comment": "[LV.11]"
+    "comment": "[LV.11] obj:CircusGalop"
   },
   {
     "md5": "43247ec1a0150c0d69c12a8f584fe27d",
@@ -797,7 +797,7 @@
     "title": "Fantaisie Impromptu",
     "artist": "Collection",
     "level": "12",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "2e8be3002c46e10b84e553155efeb1af",
@@ -805,7 +805,7 @@
     "title": "GAMEBOY",
     "artist": "Silentroom × 瞬",
     "level": "12",
-    "comment": "[10K EX]"
+    "comment": "[10K EX] obj:CircusGalop"
   },
   {
     "md5": "9a2a86377167e384dbe2e8051568f3a7",
@@ -813,7 +813,7 @@
     "title": "Hungarian Dances",
     "artist": "Collection",
     "level": "12",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "c85d9b201c2497f9d60a89a55aa7cc35",
@@ -821,7 +821,7 @@
     "title": "Hungarian Rhapsody",
     "artist": "Collection",
     "level": "12",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "2d35c166510672fc0c809d7ad64617bb",
@@ -837,7 +837,7 @@
     "title": "La Campanella",
     "artist": "Collection",
     "level": "12",
-    "comment": "[10K SHD] Piano BMS Set"
+    "comment": "[10K SHD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "c9c7da06710d533da34f640730f9b63a",
@@ -845,7 +845,7 @@
     "title": "Moonlight 3rd movement",
     "artist": "Collection",
     "level": "12",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "337b3d578c6c233ede3e907643721be4",
@@ -861,7 +861,7 @@
     "title": "Overjoy☆OVERDOSE!!",
     "artist": "Luna Fozer",
     "level": "12",
-    "comment": "[10K HD] LN"
+    "comment": "[10K HD] LN obj:CircusGalop"
   },
   {
     "md5": "7644b6681ba315f9b2fe2b7651572ee3",
@@ -949,7 +949,7 @@
     "title": "Grandes Etudes No.6",
     "artist": "Collection",
     "level": "13",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "52c376f56efd68621681ef67ceebda39",
@@ -957,7 +957,7 @@
     "title": "Rachmaninov Concerto No.3",
     "artist": "Collection",
     "level": "13",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "edcdedced8096b13631027c4e5ec3f20",
@@ -1021,7 +1021,7 @@
     "title": "Circus Galop",
     "artist": "Collection",
     "level": "14",
-    "comment": "[10K HD] Piano BMS Set"
+    "comment": "[10K HD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "ca2ece2ad03060d07c049fc2dcc88762",
@@ -1029,7 +1029,7 @@
     "title": "Etude for the Sinners",
     "artist": "Ice (Trolled)",
     "level": "14",
-    "comment": "[10K SHD]"
+    "comment": "[10K SHD] obj:CircusGalop"
   },
   {
     "md5": "9703e9328b64caee17077b07fc14cc39",
@@ -1037,7 +1037,7 @@
     "title": "Hungarian Rhapsody",
     "artist": "Collection",
     "level": "14",
-    "comment": "[10K Full] Piano BMS Set"
+    "comment": "[10K Full] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "975c9a91d27b0dcbe241ee8fa5b67fd5",
@@ -1077,7 +1077,7 @@
     "title": "夢/或いは在りし日の",
     "artist": "Nego_tiator",
     "level": "14",
-    "comment": "[10K EX]"
+    "comment": "[10K EX] obj:CircusGalop"
   },
   {
     "md5": "845c7cbb40187795422801eb251959f0",
@@ -1141,7 +1141,7 @@
     "title": "Berry Go!!",
     "artist": "Freezer feat. 妃苺",
     "level": "15",
-    "comment": "[10K EX]"
+    "comment": "[10K EX] obj:CircusGalop"
   },
   {
     "md5": "bb2894509e546196672e81ce7982ef68",
@@ -1149,7 +1149,7 @@
     "title": "La Campanella",
     "artist": "Collection",
     "level": "15",
-    "comment": "[10K Full] Piano BMS Set"
+    "comment": "[10K Full] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "f4a244c231317fc80fed220c7d78dcb0",
@@ -1157,7 +1157,7 @@
     "title": "William Tell",
     "artist": "Collection",
     "level": "15",
-    "comment": "[10K SHD] Piano BMS Set"
+    "comment": "[10K SHD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "bab61ec20169050b8e71238be49e7261",
@@ -1181,7 +1181,7 @@
     "title": "妹様は彼女なのだっ！[10K SHD]",
     "artist": "otokaz",
     "level": "15",
-    "comment": "[LV.15]"
+    "comment": "[LV.15] obj:u_e"
   },
   {
     "md5": "f42a05b141053c1194bb9fc6a46e4e96",
@@ -1221,7 +1221,7 @@
     "title": "Etude for the Sinners",
     "artist": "Ice (Trolled)",
     "level": "16",
-    "comment": "[10K EX]"
+    "comment": "[10K EX] obj:CircusGalop"
   },
   {
     "md5": "4298368bc9d3c27599a588e9079e5a82",
@@ -1229,7 +1229,7 @@
     "title": "FIONA - 10K SHD",
     "artist": "w_tre",
     "level": "16",
-    "comment": "[LV.14]"
+    "comment": "[LV.14] obj:CircusGalop"
   },
   {
     "md5": "d8c9efb523ae036d78b8d23440fa118d",
@@ -1237,7 +1237,7 @@
     "title": "Grandes Etudes No.6",
     "artist": "Collection",
     "level": "16",
-    "comment": "[10K Full] Piano BMS Set"
+    "comment": "[10K Full] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "a96ad5a4c61ac8d62838883aaa0a04d0",
@@ -1245,7 +1245,7 @@
     "title": "Overjoy☆OVERDOSE!!",
     "artist": "Luna Fozer",
     "level": "16",
-    "comment": "[10K SHD] LN"
+    "comment": "[10K SHD] LN obj:CircusGalop"
   },
   {
     "md5": "eb43141ff7c3e0a3874c1693de39099c",
@@ -1261,7 +1261,7 @@
     "title": "Rachmaninov Concerto No.3",
     "artist": "Collection",
     "level": "16",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "34627a9dc2ed0283b4b77c5fc71def1a",
@@ -1341,7 +1341,7 @@
     "title": "Circus Galop",
     "artist": "Collection",
     "level": "17",
-    "comment": "[10K SHD] Piano BMS Set"
+    "comment": "[10K SHD] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "38c9c4937becdb5fe26f9a4a14b29efa",
@@ -1349,7 +1349,7 @@
     "title": "William Tell",
     "artist": "Collection",
     "level": "17",
-    "comment": "[10K EX] Piano BMS Set"
+    "comment": "[10K EX] Piano BMS Set obj:CircusGalop"
   },
   {
     "md5": "bb72e9b21cf88ca0e6f6e3e5da2555bf",
@@ -1365,7 +1365,7 @@
     "title": "FIONA - 10K HELL",
     "artist": "w_tre",
     "level": "18",
-    "comment": "[LV.18]"
+    "comment": "[LV.18] obj:CircusGalop"
   },
   {
     "md5": "f14fe8075009723944d64dba57e35d9b",
@@ -1373,7 +1373,7 @@
     "title": "Overjoy☆OVERDOSE!!",
     "artist": "Luna Fozer",
     "level": "18",
-    "comment": "[10K OVERJOY] LN"
+    "comment": "[10K OVERJOY] LN obj:CircusGalop"
   },
   {
     "md5": "c9dc8ba8415a3b049c573efe60cd739b",
@@ -1381,6 +1381,6 @@
     "title": "10K HELL CIRCUS",
     "artist": "Collection",
     "level": "19",
-    "comment": "[10K HELL CIRCUS] Piano BMS Set"
+    "comment": "[10K HELL CIRCUS] Piano BMS Set obj:CircusGalop"
   }
 ]
