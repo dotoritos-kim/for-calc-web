@@ -1144,6 +1144,14 @@
     "comment": "[10K EX] obj:CircusGalop"
   },
   {
+    "md5": "d2adef2f88d043f48c5a0a1096a63883",
+    "sha256": "8e4a7684f8df8c832a9037aff9d006afd8401b7acdc1ebd9ebfc040ff9d11d84",
+    "title": "CAT ROTATION",
+    "artist": "かたぎり",
+    "level": "15",
+    "comment": "[10K SPIИ] obj:Jakads"
+  },
+  {
     "md5": "bb2894509e546196672e81ce7982ef68",
     "sha256": "3c1704e0939f7d499d5cd64c875ccb9d9b80dd200fd76c03db5653c201052a0d",
     "title": "La Campanella",
@@ -1164,6 +1172,14 @@
     "sha256": "2fb98afd1abe4ae5b1271e8de70a1710754d46f3722e72f3f802f988475667f6",
     "title": "アルスノヴァ に響き渡る",
     "artist": "qfeileadh feat.奏音なのスゥ・りきら",
+    "level": "15",
+    "comment": "[10K SHD] obj:u_e"
+  },
+  {
+    "md5": "8cb02a260729186429f5a2cbe34d0008",
+    "sha256": "4ad7e2ac42a7ced0ac831d59477613b5e712d2d2f0c7761105cfafdb236d0524",
+    "title": "サカサマの空に在ったのは",
+    "artist": "qfeileadh feat. レゾナンスもえこ",
     "level": "15",
     "comment": "[10K SHD] obj:u_e"
   },
