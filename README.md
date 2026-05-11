@@ -26,6 +26,30 @@ python -m pip install -r requirements.txt
 python -m uvicorn app:app --host 127.0.0.1 --port 8000
 ```
 
+## Admin Token
+
+The table admin editor uses `TABLE_ADMIN_TOKEN`. If it is empty, admin edits are not locked.
+
+Generate a local token:
+
+```powershell
+.\generate_admin_token.bat
+```
+
+This writes `TABLE_ADMIN_TOKEN` to `.env`. Keep `.env` out of git and share the token through a private channel. Docker Compose reads the value automatically:
+
+```powershell
+docker compose up -d --build --force-recreate backend
+```
+
+For direct local backend runs, load the value before starting Uvicorn:
+
+```powershell
+$env:TABLE_ADMIN_TOKEN = (Get-Content .env | Where-Object { $_ -like 'TABLE_ADMIN_TOKEN=*' }).Split('=', 2)[1]
+cd backend
+python -m uvicorn app:app --host 127.0.0.1 --port 8000
+```
+
 ## Frontend Output
 
 Built files are in:
