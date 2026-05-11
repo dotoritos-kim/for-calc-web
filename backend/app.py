@@ -37,6 +37,7 @@ TABLE_DIR = REPO_ROOT / "10key-table"
 TABLE_HTML = PACKAGE_ROOT / "table" / "table.html"
 LEVEL_VIEWER_HTML = PACKAGE_ROOT / "table" / "level-viewer.html"
 ADMIN_HTML = PACKAGE_ROOT / "table" / "admin.html"
+DUAL_TABLE_DIR = PACKAGE_ROOT / "dual-difficulty-table-upload"
 TABLE_ADMIN_TOKEN = os.getenv("TABLE_ADMIN_TOKEN", "").strip()
 TABLE_ROW_FIELDS = ("md5", "sha256", "title", "artist", "level", "comment")
 EDITABLE_TABLE_FIELDS = ("title", "artist", "level", "comment", "md5", "sha256")
@@ -703,6 +704,20 @@ def serve_table(filename: str) -> FileResponse:
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="Not found")
     return FileResponse(file_path, media_type="application/json")
+
+
+@app.get("/dual-difficulty-table-upload/{filename:path}")
+def serve_dual_difficulty_table(filename: str) -> FileResponse:
+    if not DUAL_TABLE_DIR.exists():
+        raise HTTPException(status_code=404, detail="Not found")
+    requested_path = (DUAL_TABLE_DIR / filename).resolve()
+    root_path = DUAL_TABLE_DIR.resolve()
+    if requested_path != root_path and root_path not in requested_path.parents:
+        raise HTTPException(status_code=404, detail="Not found")
+    if not requested_path.is_file():
+        raise HTTPException(status_code=404, detail="Not found")
+    media_type = "application/json" if requested_path.suffix == ".json" else "text/html"
+    return FileResponse(requested_path, media_type=media_type)
 
 
 _STATIC_DIR = Path("/app/static")
