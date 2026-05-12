@@ -253,6 +253,11 @@
         font-weight: 800;
       }
 
+      .col-gauge {
+        width: 112px;
+        font-weight: 800;
+      }
+
       .col-title {
         min-width: 220px;
         font-weight: 700;
@@ -277,6 +282,11 @@
       .metric.empty {
         color: #8a94a3;
         background: #f8f9fb;
+      }
+
+      .metric.gauge {
+        color: #695000;
+        background: #fff4c7;
       }
 
       .comment-stack {
@@ -395,7 +405,7 @@
       <header>
         <div>
           <h1>10Key Revive Pack Level Viewer</h1>
-          <p class="sub">Revive Lv와 Circus Rating 기준으로 현재 테이블 항목을 확인합니다.</p>
+          <p class="sub">Revive Lv, Circus Rating, 게이지 TOTAL 기준으로 현재 테이블 항목을 확인합니다.</p>
         </div>
         <div class="tools">
           <a class="discord-link" href="https://discord.gg/2vwNSa54X9" target="_blank" rel="noreferrer">10키 한국 디스코드</a>
@@ -520,6 +530,21 @@
         return found;
       }
 
+      function formatGaugeTotal(value) {
+        const raw = String(value ?? "").trim();
+        if (!raw) return "";
+        const number = Number(raw);
+        if (!Number.isFinite(number)) return raw;
+        return number.toFixed(2).replace(/\.?0+$/, "");
+      }
+
+      function extractGaugeTotal(value) {
+        const match = String(value ?? "")
+          .normalize("NFKC")
+          .match(/(?:#?\b(?:TOTAL|GaugeTotal|gauge_total)\b|게이지\s*회복량)\s*[:：]?\s*([0-9]+(?:\.[0-9]+)?)/i);
+        return match ? formatGaugeTotal(match[1]) : "";
+      }
+
       function mergeUnique(values) {
         const merged = [];
         for (const value of values) {
@@ -538,12 +563,15 @@
         return rows
           .filter((row) => row && typeof row === "object")
           .map((row) => {
+            const comment = String(row.comment ?? row.name_diff ?? "");
+            const gaugeTotal = formatGaugeTotal(row.gauge_total ?? row.gaugeTotal ?? row.TOTAL ?? "");
             const normalized = {
               tableType,
               level: String(row.level ?? ""),
               title: String(row.title ?? ""),
               artist: String(row.artist ?? ""),
-              comment: String(row.comment ?? row.name_diff ?? ""),
+              comment,
+              gaugeTotal: gaugeTotal || extractGaugeTotal(comment),
               md5: String(row.md5 ?? ""),
               sha256: String(row.sha256 ?? ""),
               objecters: [],
@@ -585,6 +613,8 @@
                 primary?.artist,
                 entry.revive?.level,
                 entry.circus?.level,
+                entry.revive?.gaugeTotal,
+                entry.circus?.gaugeTotal,
                 entry.revive?.comment,
                 entry.circus?.comment,
                 entry.revive?.md5,
@@ -748,6 +778,17 @@
         return `<span class="metric">${escapeHtml(text)}</span>`;
       }
 
+      function gaugeTotalForEntry(entry) {
+        return entry.revive?.gaugeTotal || entry.circus?.gaugeTotal || "";
+      }
+
+      function gaugeCell(entry) {
+        const total = gaugeTotalForEntry(entry);
+        return total
+          ? `<span class="metric gauge">TOTAL ${escapeHtml(total)}</span>`
+          : '<span class="metric empty">-</span>';
+      }
+
       function commentCell(entry) {
         if (state.displayMode !== "both") {
           const row = entry[state.displayMode] || entry.primary;
@@ -786,6 +827,7 @@
             <thead>
               <tr>
                 ${metricHeaders}
+                <th class="col-gauge">TOTAL</th>
                 <th class="col-title">Title</th>
                 <th>Artist</th>
                 <th>Obj</th>
@@ -807,6 +849,7 @@
                   return `
                     <tr>
                       ${metricCells}
+                      <td class="col-gauge" data-label="TOTAL">${gaugeCell(entry)}</td>
                       <td class="col-title" data-label="Title">${escapeHtml(primary?.title ?? "")}</td>
                       <td data-label="Artist">${escapeHtml(primary?.artist ?? "")}</td>
                       <td data-label="Obj">${

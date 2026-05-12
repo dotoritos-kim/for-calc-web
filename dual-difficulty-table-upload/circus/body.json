@@ -5,7 +5,8 @@
     "title": "Canon - 10K BG",
     "artist": "Collection",
     "level": "1.00",
-    "comment": "[LV.1] CR:1.00 ReviveLv:1 10K BMSLv:1"
+    "comment": "[LV.1] CR:1.00 ReviveLv:1 10K BMSLv:1",
+    "gauge_total": "10000"
   },
   {
     "md5": "78b8828716780fbeaff98784764b62f8",
@@ -13,7 +14,8 @@
     "title": "Circus Galop - 10K BG",
     "artist": "Collection",
     "level": "1.11",
-    "comment": "[LV.2] CR:1.11 ReviveLv:2 10K BMSLv:2"
+    "comment": "[LV.2] CR:1.11 ReviveLv:2 10K BMSLv:2",
+    "gauge_total": "10100"
   },
   {
     "md5": "fe440f98c1ea7acc0d4a68bac373db1b",
@@ -21,7 +23,8 @@
     "title": "La Campanella - 10K BG",
     "artist": "Collection",
     "level": "1.34",
-    "comment": "[LV.2] CR:1.34 ReviveLv:2 10K BMSLv:2"
+    "comment": "[LV.2] CR:1.34 ReviveLv:2 10K BMSLv:2",
+    "gauge_total": "13200"
   },
   {
     "md5": "7dee47ac1932c9c60399fd45b58a64f4",
@@ -29,7 +32,8 @@
     "title": "Liebestraum - 10K BG",
     "artist": "Collection",
     "level": "1.40",
-    "comment": "[LV.2] CR:1.40 ReviveLv:2 10K BMSLv:2"
+    "comment": "[LV.2] CR:1.40 ReviveLv:2 10K BMSLv:2",
+    "gauge_total": "21100"
   },
   {
     "md5": "fc9d5a9b85ddaae76dddf594dcea082c",
@@ -37,7 +41,8 @@
     "title": "Berry Go!! - 10K BG",
     "artist": "Freezer feat. 妃苺",
     "level": "1.41",
-    "comment": "[LV.2] CR:1.41 ReviveLv:2 10K BMSLv:2"
+    "comment": "[LV.2] CR:1.41 ReviveLv:2 10K BMSLv:2",
+    "gauge_total": "20700"
   },
   {
     "md5": "85ec3df36e5611a0b7db257a3beb1cf6",
@@ -45,7 +50,8 @@
     "title": "GAMEBOY - 10K EZ",
     "artist": "Silentroom × 駿",
     "level": "1.42",
-    "comment": "[LV.2] CR:1.42 ReviveLv:2 10K BMSLv:2"
+    "comment": "[LV.2] CR:1.42 ReviveLv:2 10K BMSLv:2",
+    "gauge_total": "25400"
   },
   {
     "md5": "d3ae283a793a9d25c6ca5bd4ba0c3691",
@@ -53,7 +59,8 @@
     "title": "Canon - 10K EZ",
     "artist": "Collection",
     "level": "1.44",
-    "comment": "[LV.3] CR:1.44 ReviveLv:2 10K BMSLv:3"
+    "comment": "[LV.3] CR:1.44 ReviveLv:2 10K BMSLv:3",
+    "gauge_total": "205"
   },
   {
     "md5": "05c75637f3509ea4f36ec6f2f513b146",
@@ -61,7 +68,8 @@
     "title": "夢/あるいは在りし日の - 10K BG",
     "artist": "BMS: Nego_tiator /Movie: Fiz",
     "level": "1.45",
-    "comment": "[LV.2] CR:1.45 ReviveLv:2 10K BMSLv:2"
+    "comment": "[LV.2] CR:1.45 ReviveLv:2 10K BMSLv:2",
+    "gauge_total": "19900"
   },
   {
     "md5": "cfa0727a46a62992dc5d680b8ba2c2fc",
@@ -69,7 +77,8 @@
     "title": "Chopin Nocturne - 10K EZ",
     "artist": "Collection",
     "level": "1.49",
-    "comment": "[LV.2] CR:1.49 ReviveLv:2 10K BMSLv:2"
+    "comment": "[LV.2] CR:1.49 ReviveLv:2 10K BMSLv:2",
+    "gauge_total": "16400"
   },
   {
     "md5": "2cbf178a0963bc9057c1b98242ae2539",
@@ -77,7 +86,8 @@
     "title": "Black Key - 10K EZ",
     "artist": "Collection",
     "level": "1.56",
-    "comment": "[LV.3] CR:1.56 ReviveLv:3 10K BMSLv:3"
+    "comment": "[LV.3] CR:1.56 ReviveLv:3 10K BMSLv:3",
+    "gauge_total": "19500"
   },
   {
     "md5": "a311cc629fa6c60ace87cbc283d31e8a",
@@ -85,7 +95,8 @@
     "title": "Fantaisie Impromptu - 10K EZ",
     "artist": "Collection",
     "level": "1.67",
-    "comment": "[LV.3] CR:1.67 ReviveLv:3 10K BMSLv:3"
+    "comment": "[LV.3] CR:1.67 ReviveLv:3 10K BMSLv:3",
+    "gauge_total": "25500"
   },
   {
     "md5": "a3a2660fbbd60ecd0e1b83735a1bca11",
@@ -93,7 +104,8 @@
     "title": "Hungarian Dances - 10K EZ",
     "artist": "Collection",
     "level": "1.78",
-    "comment": "[LV.3] CR:1.78 ReviveLv:3 10K BMSLv:3"
+    "comment": "[LV.3] CR:1.78 ReviveLv:3 10K BMSLv:3",
+    "gauge_total": "27800"
   },
   {
     "md5": "186ce6cf48475794a4c74a779095203f",
@@ -101,7 +113,8 @@
     "title": "Liebestraum - 10K EZ",
     "artist": "Collection",
     "level": "1.79",
-    "comment": "[LV.4] CR:1.79 ReviveLv:3 10K BMSLv:4"
+    "comment": "[LV.4] CR:1.79 ReviveLv:3 10K BMSLv:4",
+    "gauge_total": "363"
   },
   {
     "md5": "7dfc9e6d21d11c75e3478b84d138b4e5",
@@ -109,7 +122,8 @@
     "title": "Etude for the Sinners - 10K EZ",
     "artist": "Ice (Trolled)",
     "level": "1.87",
-    "comment": "[LV.3] CR:1.87 ReviveLv:3 10K BMSLv:3"
+    "comment": "[LV.3] CR:1.87 ReviveLv:3 10K BMSLv:3",
+    "gauge_total": "34700"
   },
   {
     "md5": "3d71e314040d802ede6bff4eccec29c5",
@@ -117,7 +131,8 @@
     "title": "La Campanella - 10K EZ",
     "artist": "Collection",
     "level": "1.88",
-    "comment": "[LV.4] CR:1.88 ReviveLv:3 10K BMSLv:4"
+    "comment": "[LV.4] CR:1.88 ReviveLv:3 10K BMSLv:4",
+    "gauge_total": "259"
   },
   {
     "md5": "81e1e824332b622db16a6ce02c8c5ae8",
@@ -125,7 +140,8 @@
     "title": "Chopin Nocturne - 10K NM",
     "artist": "Collection",
     "level": "1.97",
-    "comment": "[LV.4] CR:1.97 ReviveLv:3 10K BMSLv:4"
+    "comment": "[LV.4] CR:1.97 ReviveLv:3 10K BMSLv:4",
+    "gauge_total": "356"
   },
   {
     "md5": "14933a0c79769ccea4925648d60ec9a1",
@@ -133,7 +149,8 @@
     "title": "William Tell - 10K BG",
     "artist": "Collection",
     "level": "1.98",
-    "comment": "[LV.3] CR:1.98 ReviveLv:3 10K BMSLv:3"
+    "comment": "[LV.3] CR:1.98 ReviveLv:3 10K BMSLv:3",
+    "gauge_total": "39800"
   },
   {
     "md5": "3911af02569add3ba711af7c98124933",
@@ -141,7 +158,8 @@
     "title": "Overjoy ★ OVERDOSE!! - 10K ◆ EZ",
     "artist": "Luna Fozer",
     "level": "2.01",
-    "comment": "[LV.5] CR:2.01 ReviveLv:4 10K BMSLv:5"
+    "comment": "[LV.5] CR:2.01 ReviveLv:4 10K BMSLv:5",
+    "gauge_total": "408"
   },
   {
     "md5": "211a95cade9142907ef6f799ea424729",
@@ -149,7 +167,8 @@
     "title": "FIONA - 10K EZ",
     "artist": "w_tre",
     "level": "2.03",
-    "comment": "[LV.4] CR:2.03 ReviveLv:4 10K BMSLv:4"
+    "comment": "[LV.4] CR:2.03 ReviveLv:4 10K BMSLv:4",
+    "gauge_total": "31300"
   },
   {
     "md5": "8c01ebb087ef4e9c4010c89a711f6870",
@@ -157,7 +176,8 @@
     "title": "Moonlight 3rd movement - 10K EZ",
     "artist": "Collection",
     "level": "2.16",
-    "comment": "[LV.4] CR:2.16 ReviveLv:4 10K BMSLv:4"
+    "comment": "[LV.4] CR:2.16 ReviveLv:4 10K BMSLv:4",
+    "gauge_total": "50500"
   },
   {
     "md5": "885f73b88d085f214b5c91d3733de11b",
@@ -165,7 +185,8 @@
     "title": "Turkish March - 10K EZ",
     "artist": "Collection",
     "level": "2.19",
-    "comment": "[LV.4] CR:2.19 ReviveLv:4 10K BMSLv:4"
+    "comment": "[LV.4] CR:2.19 ReviveLv:4 10K BMSLv:4",
+    "gauge_total": "43700"
   },
   {
     "md5": "a8137058e5dce2e4351523144a2353a0",
@@ -173,7 +194,8 @@
     "title": "Berry Go!! - 10K EZ",
     "artist": "Freezer feat. 妃苺",
     "level": "2.23",
-    "comment": "[LV.4] CR:2.23 ReviveLv:4 10K BMSLv:4"
+    "comment": "[LV.4] CR:2.23 ReviveLv:4 10K BMSLv:4",
+    "gauge_total": "435"
   },
   {
     "md5": "20850140830da3f04b007bf90eaa4475",
@@ -181,7 +203,8 @@
     "title": "夢/あるいは在りし日の - 10K EZ",
     "artist": "BMS: Nego_tiator /Movie: Fiz",
     "level": "2.29",
-    "comment": "[LV.4] CR:2.29 ReviveLv:4 10K BMSLv:4"
+    "comment": "[LV.4] CR:2.29 ReviveLv:4 10K BMSLv:4",
+    "gauge_total": "437"
   },
   {
     "md5": "fd8de5e994076ea6bfa391611c966e59",
@@ -189,7 +212,8 @@
     "title": "Pathetique (Medley ver.) - 10K EZ",
     "artist": "Collection",
     "level": "2.34",
-    "comment": "[LV.4] CR:2.34 ReviveLv:4 10K BMSLv:4"
+    "comment": "[LV.4] CR:2.34 ReviveLv:4 10K BMSLv:4",
+    "gauge_total": "70600"
   },
   {
     "md5": "0d145c27731ed26a740ac1b4acf7b3be",
@@ -197,7 +221,8 @@
     "title": "Black Key - 10K NM",
     "artist": "Collection",
     "level": "2.35",
-    "comment": "[LV.5] CR:2.35 ReviveLv:4 10K BMSLv:5"
+    "comment": "[LV.5] CR:2.35 ReviveLv:4 10K BMSLv:5",
+    "gauge_total": "465"
   },
   {
     "md5": "c351461b1f7dd1b3e7b25e0470eb77db",
@@ -205,7 +230,8 @@
     "title": "Canon - 10K NM",
     "artist": "Collection",
     "level": "2.37",
-    "comment": "[LV.5] CR:2.37 ReviveLv:4 10K BMSLv:5"
+    "comment": "[LV.5] CR:2.37 ReviveLv:4 10K BMSLv:5",
+    "gauge_total": "217.5"
   },
   {
     "md5": "1275881412c0c8f52fdcfc7f0b79baf4",
@@ -213,7 +239,8 @@
     "title": "Fantaisie Impromptu - 10K NM",
     "artist": "Collection",
     "level": "2.37",
-    "comment": "[LV.5] CR:2.37 ReviveLv:4 10K BMSLv:5"
+    "comment": "[LV.5] CR:2.37 ReviveLv:4 10K BMSLv:5",
+    "gauge_total": "541"
   },
   {
     "md5": "0e39abf89b9021bbc1bada5629ab995a",
@@ -221,7 +248,8 @@
     "title": "Circus Galop - 10K EZ",
     "artist": "Collection",
     "level": "2.51",
-    "comment": "[LV.4] CR:2.51 ReviveLv:5 10K BMSLv:4"
+    "comment": "[LV.4] CR:2.51 ReviveLv:5 10K BMSLv:4",
+    "gauge_total": "364"
   },
   {
     "md5": "669b13776b218a41f20ba8a071b4bdd6",
@@ -229,7 +257,8 @@
     "title": "Hungarian Rhapsody - 10K EZ",
     "artist": "Collection",
     "level": "2.60",
-    "comment": "[LV.4] CR:2.60 ReviveLv:5 10K BMSLv:4"
+    "comment": "[LV.4] CR:2.60 ReviveLv:5 10K BMSLv:4",
+    "gauge_total": "68400"
   },
   {
     "md5": "fea7b85b0a266d42a036493b69d2c4b1",
@@ -237,7 +266,8 @@
     "title": "GAMEBOY - 10K NM",
     "artist": "Silentroom × 駿",
     "level": "2.68",
-    "comment": "[LV.5] CR:2.68 ReviveLv:5 10K BMSLv:5"
+    "comment": "[LV.5] CR:2.68 ReviveLv:5 10K BMSLv:5",
+    "gauge_total": "686"
   },
   {
     "md5": "b80ee71a918f6a34642ca78bc93ecd5f",
@@ -245,7 +275,8 @@
     "title": "William Tell - 10K EZ",
     "artist": "Collection",
     "level": "2.79",
-    "comment": "[LV.5] CR:2.79 ReviveLv:5 10K BMSLv:5"
+    "comment": "[LV.5] CR:2.79 ReviveLv:5 10K BMSLv:5",
+    "gauge_total": "730"
   },
   {
     "md5": "07e3a6a89616f81670e4b58a1c78fd88",
@@ -253,7 +284,8 @@
     "title": "Hungarian Dances - 10K NM",
     "artist": "Collection",
     "level": "2.95",
-    "comment": "[LV.5] CR:2.95 ReviveLv:6 10K BMSLv:5"
+    "comment": "[LV.5] CR:2.95 ReviveLv:6 10K BMSLv:5",
+    "gauge_total": "600"
   },
   {
     "md5": "0e30b56216803154930199854383b39c",
@@ -261,7 +293,8 @@
     "title": "追憶の森 -Voices of the Earth-",
     "artist": "AKITO",
     "level": "2.96",
-    "comment": "[10K HD] CR:2.96 ReviveLv:6 10K BMSLv:9 obj:u_e"
+    "comment": "[10K HD] CR:2.96 ReviveLv:6 10K BMSLv:9 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "2e92a4a8bd89e257e8d9e5b5c389fd4b",
@@ -269,7 +302,8 @@
     "title": "Chopin Nocturne - 10K HD",
     "artist": "Collection",
     "level": "3.01",
-    "comment": "[LV.6] CR:3.01 ReviveLv:6 10K BMSLv:6"
+    "comment": "[LV.6] CR:3.01 ReviveLv:6 10K BMSLv:6",
+    "gauge_total": "270"
   },
   {
     "md5": "7f1da17747707c68ed4d708efec27b5e",
@@ -277,7 +311,8 @@
     "title": "Liebestraum - 10K NM",
     "artist": "Collection",
     "level": "3.03",
-    "comment": "[LV.6] CR:3.03 ReviveLv:6 10K BMSLv:6"
+    "comment": "[LV.6] CR:3.03 ReviveLv:6 10K BMSLv:6",
+    "gauge_total": "381"
   },
   {
     "md5": "7cf0cf62878f4d5ac2b2cb19800b4c62",
@@ -285,7 +320,8 @@
     "title": "La Campanella - 10K NM",
     "artist": "Collection",
     "level": "3.09",
-    "comment": "[LV.6] CR:3.09 ReviveLv:6 10K BMSLv:6"
+    "comment": "[LV.6] CR:3.09 ReviveLv:6 10K BMSLv:6",
+    "gauge_total": "287"
   },
   {
     "md5": "0f38f06a9062ad8bf47cb0ac0549f0bc",
@@ -293,7 +329,8 @@
     "title": "Chopin Nocturne - 10K Full",
     "artist": "Collection",
     "level": "3.31",
-    "comment": "[LV.8] CR:3.31 ReviveLv:7 10K BMSLv:8"
+    "comment": "[LV.8] CR:3.31 ReviveLv:7 10K BMSLv:8",
+    "gauge_total": "163.25"
   },
   {
     "md5": "1bef28f6e45db819e81d8d3dfa972d8e",
@@ -301,7 +338,8 @@
     "title": "Y/N",
     "artist": "tigerlily / murotani",
     "level": "3.33",
-    "comment": "[10K NM] CR:3.33 ReviveLv:7 10K BMSLv:7 obj:u_e"
+    "comment": "[10K NM] CR:3.33 ReviveLv:7 10K BMSLv:7 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "c68d32f694264e0937acbcd0c99d74e6",
@@ -309,7 +347,8 @@
     "title": "Can't it be true",
     "artist": "Zris feat. Kri",
     "level": "3.39",
-    "comment": "[10K NM] CR:3.39 ReviveLv:7 10K BMSLv:7 obj:u_e"
+    "comment": "[10K NM] CR:3.39 ReviveLv:7 10K BMSLv:7 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "dea277f0bbb6e4de5fe74a6a210be7e8",
@@ -317,7 +356,8 @@
     "title": "Overjoy ★ OVERDOSE!! - 10K ◆ NM",
     "artist": "Luna Fozer",
     "level": "3.40",
-    "comment": "[LV.8] CR:3.40 ReviveLv:7 10K BMSLv:8"
+    "comment": "[LV.8] CR:3.40 ReviveLv:7 10K BMSLv:8",
+    "gauge_total": "780"
   },
   {
     "md5": "2f91e00bd4bc25756b70697e4c0d657f",
@@ -325,7 +365,8 @@
     "title": "Grandes Etudes No.6 - 10K EZ",
     "artist": "Collection",
     "level": "3.41",
-    "comment": "[LV.5] CR:3.41 ReviveLv:7 10K BMSLv:5"
+    "comment": "[LV.5] CR:3.41 ReviveLv:7 10K BMSLv:5",
+    "gauge_total": "687"
   },
   {
     "md5": "6e9d998865f9e620654c194a8c8326cf",
@@ -333,7 +374,8 @@
     "title": "Umikaze Moment",
     "artist": "わかどり + saaa",
     "level": "3.47",
-    "comment": "[10K Ocean] CR:3.47 ReviveLv:7 10K BMSLv:7 obj:Jakads"
+    "comment": "[10K Ocean] CR:3.47 ReviveLv:7 10K BMSLv:7 obj:Jakads",
+    "gauge_total": "460"
   },
   {
     "md5": "52aed4091157fca440188f9b9700fccf",
@@ -341,7 +383,8 @@
     "title": "Canon - 10K HD",
     "artist": "Collection",
     "level": "3.49",
-    "comment": "[LV.7] CR:3.49 ReviveLv:7 10K BMSLv:7"
+    "comment": "[LV.7] CR:3.49 ReviveLv:7 10K BMSLv:7",
+    "gauge_total": "184.75"
   },
   {
     "md5": "59855eb76755c84f04332c3860db549d",
@@ -349,7 +392,8 @@
     "title": "Moonlight 3rd movement - 10K NM",
     "artist": "Collection",
     "level": "3.49",
-    "comment": "[LV.6] CR:3.49 ReviveLv:7 10K BMSLv:6"
+    "comment": "[LV.6] CR:3.49 ReviveLv:7 10K BMSLv:6",
+    "gauge_total": "1096"
   },
   {
     "md5": "297762d1ba9155481b4224664df29f8f",
@@ -357,7 +401,8 @@
     "title": "Rachmaninov Concerto No.3 - 10K EZ",
     "artist": "Collection",
     "level": "3.49",
-    "comment": "[LV.6] CR:3.49 ReviveLv:7 10K BMSLv:6"
+    "comment": "[LV.6] CR:3.49 ReviveLv:7 10K BMSLv:6",
+    "gauge_total": "746"
   },
   {
     "md5": "ab80bdb0e414ef59a19fb01e882723b8",
@@ -365,7 +410,8 @@
     "title": "Etude for the Sinners - 10K NM",
     "artist": "Ice (Trolled)",
     "level": "3.63",
-    "comment": "[LV.7] CR:3.63 ReviveLv:7 10K BMSLv:7"
+    "comment": "[LV.7] CR:3.63 ReviveLv:7 10K BMSLv:7",
+    "gauge_total": "818"
   },
   {
     "md5": "fe66fd001e070f0b815cf8ba87731004",
@@ -373,7 +419,8 @@
     "title": "Regain [10K NM]",
     "artist": "ProjectG",
     "level": "3.66",
-    "comment": "[LV.7] CR:3.66 ReviveLv:8 10K BMSLv:7 obj:u_e"
+    "comment": "[LV.7] CR:3.66 ReviveLv:8 10K BMSLv:7 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "461c98ed9a62dc92811fd27eb350e362",
@@ -381,7 +428,8 @@
     "title": "Pathetique (Medley ver.) - 10K NM",
     "artist": "Collection",
     "level": "3.73",
-    "comment": "[LV.6] CR:3.73 ReviveLv:8 10K BMSLv:6"
+    "comment": "[LV.6] CR:3.73 ReviveLv:8 10K BMSLv:6",
+    "gauge_total": "1379"
   },
   {
     "md5": "38bf2fd6071d53377977d721f0b20a76",
@@ -389,7 +437,8 @@
     "title": "Turkish March - 10K NM",
     "artist": "Collection",
     "level": "3.74",
-    "comment": "[LV.6] CR:3.74 ReviveLv:8 10K BMSLv:6"
+    "comment": "[LV.6] CR:3.74 ReviveLv:8 10K BMSLv:6",
+    "gauge_total": "889"
   },
   {
     "md5": "3bb773388a125991436ad7898f2c010a",
@@ -397,7 +446,8 @@
     "title": "William Tell - 10K NM",
     "artist": "Collection",
     "level": "3.76",
-    "comment": "[LV.7] CR:3.76 ReviveLv:8 10K BMSLv:7"
+    "comment": "[LV.7] CR:3.76 ReviveLv:8 10K BMSLv:7",
+    "gauge_total": "653.5"
   },
   {
     "md5": "2ed6faef289ee4368ad7f9da88e006c3",
@@ -405,7 +455,8 @@
     "title": "Bliss [10K NM]",
     "artist": "litmus*",
     "level": "3.79",
-    "comment": "[LV.7] CR:3.79 ReviveLv:8 10K BMSLv:7 obj:u_e"
+    "comment": "[LV.7] CR:3.79 ReviveLv:8 10K BMSLv:7 obj:u_e",
+    "gauge_total": "370"
   },
   {
     "md5": "7bba56a8f1ae5a14d9c8542e257725da",
@@ -413,7 +464,8 @@
     "title": "Berry Go!! - 10K NM",
     "artist": "Freezer feat. 妃苺",
     "level": "3.89",
-    "comment": "[LV.7] CR:3.89 ReviveLv:8 10K BMSLv:7"
+    "comment": "[LV.7] CR:3.89 ReviveLv:8 10K BMSLv:7",
+    "gauge_total": "495"
   },
   {
     "md5": "a96eb76230c9568abaa5b5810bc5995c",
@@ -421,7 +473,8 @@
     "title": "Liebestraum - 10K HD",
     "artist": "Collection",
     "level": "3.89",
-    "comment": "[LV.8] CR:3.89 ReviveLv:8 10K BMSLv:8"
+    "comment": "[LV.8] CR:3.89 ReviveLv:8 10K BMSLv:8",
+    "gauge_total": "280"
   },
   {
     "md5": "0f9a38bbbbb6f52c9292f901b28939d1",
@@ -429,7 +482,8 @@
     "title": "Black Key - 10K HD",
     "artist": "Collection",
     "level": "3.94",
-    "comment": "[LV.7] CR:3.94 ReviveLv:8 10K BMSLv:7"
+    "comment": "[LV.7] CR:3.94 ReviveLv:8 10K BMSLv:7",
+    "gauge_total": "382"
   },
   {
     "md5": "838ec4f248bb31eb9836b9fddbb3576f",
@@ -437,7 +491,8 @@
     "title": "夢/あるいは在りし日の - 10K NM",
     "artist": "BMS: Nego_tiator /Movie: Fiz",
     "level": "3.94",
-    "comment": "[LV.8] CR:3.94 ReviveLv:8 10K BMSLv:8"
+    "comment": "[LV.8] CR:3.94 ReviveLv:8 10K BMSLv:8",
+    "gauge_total": "516"
   },
   {
     "md5": "7a3b6acc24f80b3df2fbad194b571154",
@@ -445,7 +500,8 @@
     "title": "アジサイ",
     "artist": "litmus* feat. 薛南",
     "level": "3.96",
-    "comment": "[10K NM] CR:3.96 ReviveLv:8 10K BMSLv:7 obj:u_e"
+    "comment": "[10K NM] CR:3.96 ReviveLv:8 10K BMSLv:7 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "c419629b1458b927173bc323b86492a6",
@@ -453,7 +509,8 @@
     "title": "FIONA - 10K NM",
     "artist": "w_tre",
     "level": "4.09",
-    "comment": "[LV.8] CR:4.09 ReviveLv:9 10K BMSLv:8"
+    "comment": "[LV.8] CR:4.09 ReviveLv:9 10K BMSLv:8",
+    "gauge_total": "873"
   },
   {
     "md5": "63600be4da2ae6e99a39ccba37a42081",
@@ -461,7 +518,8 @@
     "title": "Can't it be true",
     "artist": "Zris feat. Kri",
     "level": "4.25",
-    "comment": "[10K HARD] CR:4.25 ReviveLv:9 10K BMSLv:9 obj:u_e"
+    "comment": "[10K HARD] CR:4.25 ReviveLv:9 10K BMSLv:9 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "7cd538ed2957ca80e893cf4bf360dadd",
@@ -469,7 +527,8 @@
     "title": "Y/N",
     "artist": "tigerlily / murotani",
     "level": "4.27",
-    "comment": "[10K HD] CR:4.27 ReviveLv:9 10K BMSLv:10 obj:u_e"
+    "comment": "[10K HD] CR:4.27 ReviveLv:9 10K BMSLv:10 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "ff783ea48b7f82de4df13eb4fb134a10",
@@ -477,7 +536,8 @@
     "title": "Hungarian Rhapsody - 10K NM",
     "artist": "Collection",
     "level": "4.29",
-    "comment": "[LV.8] CR:4.29 ReviveLv:9 10K BMSLv:8"
+    "comment": "[LV.8] CR:4.29 ReviveLv:9 10K BMSLv:8",
+    "gauge_total": "1485"
   },
   {
     "md5": "6ca63da60323b5705c6dfaba24085f2e",
@@ -485,7 +545,8 @@
     "title": "subconsciousness [10 HARD]",
     "artist": "guna with チーム・キュッキュ",
     "level": "4.30",
-    "comment": "[LV.9] CR:4.30 ReviveLv:9 10K BMSLv:9 obj:u_e"
+    "comment": "[LV.9] CR:4.30 ReviveLv:9 10K BMSLv:9 obj:u_e",
+    "gauge_total": "242.4"
   },
   {
     "md5": "bb5909a5c5ccb0c06056fc9f63a21fd0",
@@ -493,7 +554,8 @@
     "title": "GAMEBOY - 10K HD",
     "artist": "Silentroom × 駿",
     "level": "4.31",
-    "comment": "[LV.8] CR:4.31 ReviveLv:9 10K BMSLv:8"
+    "comment": "[LV.8] CR:4.31 ReviveLv:9 10K BMSLv:8",
+    "gauge_total": "643"
   },
   {
     "md5": "12028e7725dee096e224fec7bbbd1cf8",
@@ -501,7 +563,8 @@
     "title": "蜷帙ｮ濶ｲ縺ｫ譟薙∪繧 [10K HD]",
     "artist": "sound piercer (mov : EMSH)",
     "level": "4.38",
-    "comment": "[LV.9] CR:4.38 ReviveLv:9 10K BMSLv:9 obj:u_e"
+    "comment": "[LV.9] CR:4.38 ReviveLv:9 10K BMSLv:9 obj:u_e",
+    "gauge_total": "341"
   },
   {
     "md5": "0fa2f45cf4cb528277e9db58c9829b2e",
@@ -509,7 +572,8 @@
     "title": "alicemourn",
     "artist": "黒皇帝",
     "level": "4.41",
-    "comment": "[10K NM] CR:4.41 ReviveLv:9 10K BMSLv:8 obj:u_e"
+    "comment": "[10K NM] CR:4.41 ReviveLv:9 10K BMSLv:8 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "d0a33bb0ab9fbe8dd8b2ee8863f757ce",
@@ -517,7 +581,8 @@
     "title": "La Campanella - 10K HD",
     "artist": "Collection",
     "level": "4.43",
-    "comment": "[LV.8] CR:4.43 ReviveLv:9 10K BMSLv:8"
+    "comment": "[LV.8] CR:4.43 ReviveLv:9 10K BMSLv:8",
+    "gauge_total": "228.5"
   },
   {
     "md5": "1e1c3d7a90b6f38eafeb557e2b0d8f80",
@@ -525,7 +590,8 @@
     "title": "風仁雷仁(10K NM)",
     "artist": "カラフル・サウンズ・ポート",
     "level": "4.44",
-    "comment": "[LV.8] CR:4.44 ReviveLv:9 10K BMSLv:8 obj:u_e"
+    "comment": "[LV.8] CR:4.44 ReviveLv:9 10K BMSLv:8 obj:u_e",
+    "gauge_total": "280"
   },
   {
     "md5": "8d53bb26e2fa9d3954d072bf2dd1d0d6",
@@ -533,7 +599,8 @@
     "title": "Canon - 10K EX",
     "artist": "Collection",
     "level": "4.50",
-    "comment": "[LV.9] CR:4.50 ReviveLv:9 10K BMSLv:9"
+    "comment": "[LV.9] CR:4.50 ReviveLv:9 10K BMSLv:9",
+    "gauge_total": "112.25"
   },
   {
     "md5": "456203172901b6bafdde098d11c418ca",
@@ -541,7 +608,8 @@
     "title": "Hungarian Dances - 10K HD",
     "artist": "Collection",
     "level": "4.59",
-    "comment": "[LV.8] CR:4.59 ReviveLv:10 10K BMSLv:8"
+    "comment": "[LV.8] CR:4.59 ReviveLv:10 10K BMSLv:8",
+    "gauge_total": "675"
   },
   {
     "md5": "384d7b218821228a9cafc1a1bfd96019",
@@ -549,7 +617,8 @@
     "title": "2anyFirst [10-NM]",
     "artist": "Sobrem",
     "level": "4.63",
-    "comment": "[LV.9] CR:4.63 ReviveLv:10 10K BMSLv:9 obj:u_e"
+    "comment": "[LV.9] CR:4.63 ReviveLv:10 10K BMSLv:9 obj:u_e",
+    "gauge_total": "311"
   },
   {
     "md5": "c3fcfd667476764cb8e9ae32bc55892d",
@@ -557,7 +626,8 @@
     "title": "Life is PIANO",
     "artist": "Junk",
     "level": "4.66",
-    "comment": "10K nm CR:4.66 ReviveLv:10 10K BMSLv:8 obj:u_e"
+    "comment": "10K nm CR:4.66 ReviveLv:10 10K BMSLv:8 obj:u_e",
+    "gauge_total": "350"
   },
   {
     "md5": "36c54145934388f72130ad0ec8c68068",
@@ -565,7 +635,8 @@
     "title": "物怪舞踏 [10K NM]",
     "artist": "篠螺悠那",
     "level": "4.81",
-    "comment": "[LV.10] CR:4.81 ReviveLv:10 10K BMSLv:10 obj:u_e"
+    "comment": "[LV.10] CR:4.81 ReviveLv:10 10K BMSLv:10 obj:u_e",
+    "gauge_total": "350"
   },
   {
     "md5": "aad93b0fadb9db47dd6f34956e689fd8",
@@ -573,7 +644,8 @@
     "title": "Turkish March - 10K HD",
     "artist": "Collection",
     "level": "4.88",
-    "comment": "[LV.8] CR:4.88 ReviveLv:10 10K BMSLv:8"
+    "comment": "[LV.8] CR:4.88 ReviveLv:10 10K BMSLv:8",
+    "gauge_total": "636"
   },
   {
     "md5": "c91e88dffff19468a3a3537ac64eddc6",
@@ -581,7 +653,8 @@
     "title": "Liebestraum - 10K Full",
     "artist": "Collection",
     "level": "4.93",
-    "comment": "[LV.11] CR:4.93 ReviveLv:10 10K BMSLv:11"
+    "comment": "[LV.11] CR:4.93 ReviveLv:10 10K BMSLv:11",
+    "gauge_total": "18.86"
   },
   {
     "md5": "a0d1cb10bfaf3fcfa708793f1b7cd14b",
@@ -589,7 +662,8 @@
     "title": "Umikaze Moment",
     "artist": "わかどり + saaa",
     "level": "4.98",
-    "comment": "[10K Wind] CR:4.98 ReviveLv:10 10K BMSLv:10 obj:Jakads"
+    "comment": "[10K Wind] CR:4.98 ReviveLv:10 10K BMSLv:10 obj:Jakads",
+    "gauge_total": "400"
   },
   {
     "md5": "298f4cabf5b49cf1fc34fba78f4ebcfd",
@@ -597,7 +671,8 @@
     "title": "サカサマの空に在ったのは",
     "artist": "qfeileadh feat. レゾナンスもえこ",
     "level": "4.98",
-    "comment": "[10K NM] CR:4.98 ReviveLv:10 10K BMSLv:10 obj:u_e"
+    "comment": "[10K NM] CR:4.98 ReviveLv:10 10K BMSLv:10 obj:u_e",
+    "gauge_total": "1508"
   },
   {
     "md5": "7f115f05c7adaec8624997b18d9d2099",
@@ -605,7 +680,8 @@
     "title": "Pathetique (Medley ver.) - 10K HD",
     "artist": "Collection",
     "level": "5.09",
-    "comment": "[LV.9] CR:5.09 ReviveLv:11 10K BMSLv:9"
+    "comment": "[LV.9] CR:5.09 ReviveLv:11 10K BMSLv:9",
+    "gauge_total": "1059.5"
   },
   {
     "md5": "4ca5c65c43355736f2114610cda0a244",
@@ -613,7 +689,8 @@
     "title": "Castorpollux [10K HD]",
     "artist": "sound piercer",
     "level": "5.10",
-    "comment": "[LV.10] CR:5.10 ReviveLv:11 10K BMSLv:10 obj:u_e"
+    "comment": "[LV.10] CR:5.10 ReviveLv:11 10K BMSLv:10 obj:u_e",
+    "gauge_total": "277"
   },
   {
     "md5": "be94a3b68c6ce01d66b482ed47ab34d4",
@@ -621,7 +698,8 @@
     "title": "Regain [10K HD]",
     "artist": "ProjectG",
     "level": "5.10",
-    "comment": "[LV.11] CR:5.10 ReviveLv:11 10K BMSLv:11 obj:u_e"
+    "comment": "[LV.11] CR:5.10 ReviveLv:11 10K BMSLv:11 obj:u_e",
+    "gauge_total": "268"
   },
   {
     "md5": "d190bf53d532dfb3e4afdd4c4c96756b",
@@ -629,7 +707,8 @@
     "title": "New York Back Raise",
     "artist": "saaa + kei_iwata + stuv + わかどり",
     "level": "5.15",
-    "comment": "[10K NM] CR:5.15 ReviveLv:11 10K BMSLv:11 obj:u_e"
+    "comment": "[10K NM] CR:5.15 ReviveLv:11 10K BMSLv:11 obj:u_e",
+    "gauge_total": "425"
   },
   {
     "md5": "53f468a354b8451da7560e57689030ed",
@@ -637,7 +716,8 @@
     "title": "プナイプナイたいそう",
     "artist": "立秋 feat.ちょこ",
     "level": "5.15",
-    "comment": "[10K HD] CR:5.15 ReviveLv:11 10K BMSLv:11 obj:u_e"
+    "comment": "[10K HD] CR:5.15 ReviveLv:11 10K BMSLv:11 obj:u_e",
+    "gauge_total": "300"
   },
   {
     "md5": "3698dae2d750cec20e4ea92f18dc35e5",
@@ -645,7 +725,8 @@
     "title": "Kreuz[10K NM]",
     "artist": "sky_delta",
     "level": "5.19",
-    "comment": "[LV.8] CR:5.19 ReviveLv:11 10K BMSLv:8 obj:u_e"
+    "comment": "[LV.8] CR:5.19 ReviveLv:11 10K BMSLv:8 obj:u_e",
+    "gauge_total": "305"
   },
   {
     "md5": "8f334e692a16aa2e540cf25f3d159b70",
@@ -653,7 +734,8 @@
     "title": "物怪舞踏 [10K HD]",
     "artist": "篠螺悠那",
     "level": "5.20",
-    "comment": "[LV.12] CR:5.20 ReviveLv:11 10K BMSLv:12 obj:u_e"
+    "comment": "[LV.12] CR:5.20 ReviveLv:11 10K BMSLv:12 obj:u_e",
+    "gauge_total": "327"
   },
   {
     "md5": "a549fe253e39afb1c0d2e2768c57fcfb",
@@ -661,7 +743,8 @@
     "title": "Fantaisie Impromptu - 10K HD",
     "artist": "Collection",
     "level": "5.23",
-    "comment": "[LV.9] CR:5.23 ReviveLv:11 10K BMSLv:9"
+    "comment": "[LV.9] CR:5.23 ReviveLv:11 10K BMSLv:9",
+    "gauge_total": "741"
   },
   {
     "md5": "03a143a02a76ccdf9de4f1e199a9ab1a",
@@ -669,7 +752,8 @@
     "title": "Circus Galop - 10K NM",
     "artist": "Collection",
     "level": "5.27",
-    "comment": "[LV.8] CR:5.27 ReviveLv:11 10K BMSLv:8"
+    "comment": "[LV.8] CR:5.27 ReviveLv:11 10K BMSLv:8",
+    "gauge_total": "658"
   },
   {
     "md5": "d243974f116a34c5098db0e2721285dc",
@@ -677,7 +761,8 @@
     "title": "Moonlight 3rd movement - 10K HD",
     "artist": "Collection",
     "level": "5.27",
-    "comment": "[LV.9] CR:5.27 ReviveLv:11 10K BMSLv:9"
+    "comment": "[LV.9] CR:5.27 ReviveLv:11 10K BMSLv:9",
+    "gauge_total": "961.5"
   },
   {
     "md5": "171bf572fbba7571bfd28056466d6a94",
@@ -685,7 +770,8 @@
     "title": "Me & U [10K NM]",
     "artist": "siqlo",
     "level": "5.37",
-    "comment": "[LV.10] CR:5.37 ReviveLv:11 10K BMSLv:10 obj:u_e"
+    "comment": "[LV.10] CR:5.37 ReviveLv:11 10K BMSLv:10 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "92e9f3ba664b36a107e3a88c7e30a436",
@@ -693,7 +779,8 @@
     "title": "Turkish March - 10K EX",
     "artist": "Collection",
     "level": "5.53",
-    "comment": "[LV.10] CR:5.53 ReviveLv:12 10K BMSLv:10"
+    "comment": "[LV.10] CR:5.53 ReviveLv:12 10K BMSLv:10",
+    "gauge_total": "209.5"
   },
   {
     "md5": "d0772350d90a69f6833fd1d252200724",
@@ -701,7 +788,8 @@
     "title": "Grandes Etudes No.6 - 10K NM",
     "artist": "Collection",
     "level": "5.55",
-    "comment": "[LV.9] CR:5.55 ReviveLv:12 10K BMSLv:9"
+    "comment": "[LV.9] CR:5.55 ReviveLv:12 10K BMSLv:9",
+    "gauge_total": "875"
   },
   {
     "md5": "cf971ffb2a8a2b71262a7381af930d8a",
@@ -709,7 +797,8 @@
     "title": "譁ｰ 貍｢豎滓ｰｴ謇謎ｻ､ (The New Han River Anthem)",
     "artist": "Sound piercer feat.ﾎ｣X",
     "level": "5.56",
-    "comment": "[10K NM] CR:5.56 ReviveLv:12 10K BMSLv:10 obj:u_e"
+    "comment": "[10K NM] CR:5.56 ReviveLv:12 10K BMSLv:10 obj:u_e",
+    "gauge_total": "320"
   },
   {
     "md5": "4811027f87e35db6bc6acf86aa54232c",
@@ -717,7 +806,8 @@
     "title": "Pathetique (Medley ver.) - 10K EX",
     "artist": "Collection",
     "level": "5.59",
-    "comment": "[LV.11] CR:5.59 ReviveLv:12 10K BMSLv:11"
+    "comment": "[LV.11] CR:5.59 ReviveLv:12 10K BMSLv:11",
+    "gauge_total": "319.12"
   },
   {
     "md5": "24091f5a432247e6bb00bcbbf2784662",
@@ -725,7 +815,8 @@
     "title": "サカサマの空に在ったのは",
     "artist": "qfeileadh feat. レゾナンスもえこ",
     "level": "5.60",
-    "comment": "[10K HD] CR:5.60 ReviveLv:12 10K BMSLv:12 obj:C4 obj:u_e"
+    "comment": "[10K HD] CR:5.60 ReviveLv:12 10K BMSLv:12 obj:C4 obj:u_e",
+    "gauge_total": "315"
   },
   {
     "md5": "8b360b6a7cd8bc6347b5665d3a0f477c",
@@ -733,7 +824,8 @@
     "title": "William Tell - 10K HD",
     "artist": "Collection",
     "level": "5.72",
-    "comment": "[LV.10] CR:5.72 ReviveLv:12 10K BMSLv:10"
+    "comment": "[LV.10] CR:5.72 ReviveLv:12 10K BMSLv:10",
+    "gauge_total": "1110.5"
   },
   {
     "md5": "9b562af46a0f3a406407c2238a89a7a7",
@@ -741,7 +833,8 @@
     "title": "Rachmaninov Concerto No.3 - 10K NM",
     "artist": "Collection",
     "level": "5.79",
-    "comment": "[LV.10] CR:5.79 ReviveLv:12 10K BMSLv:10"
+    "comment": "[LV.10] CR:5.79 ReviveLv:12 10K BMSLv:10",
+    "gauge_total": "782.5"
   },
   {
     "md5": "9a31f6e47e9d988f0875cef680d6d628",
@@ -749,7 +842,8 @@
     "title": "subconsciousness [10K SHD]",
     "artist": "guna with チーム・キュッキュ",
     "level": "5.86",
-    "comment": "[LV.12] CR:5.86 ReviveLv:12 10K BMSLv:12 obj:u_e"
+    "comment": "[LV.12] CR:5.86 ReviveLv:12 10K BMSLv:12 obj:u_e",
+    "gauge_total": "342"
   },
   {
     "md5": "f6a616b42a9b3bc876d59558ede768c8",
@@ -757,7 +851,8 @@
     "title": "2anyFirst [10K BOSS]",
     "artist": "Sobrem",
     "level": "5.98",
-    "comment": "[LV.13] CR:5.98 ReviveLv:12 10K BMSLv:13 obj:u_e"
+    "comment": "[LV.13] CR:5.98 ReviveLv:12 10K BMSLv:13 obj:u_e",
+    "gauge_total": "311"
   },
   {
     "md5": "e8f95763a68230fe521de74d070c4421",
@@ -765,7 +860,8 @@
     "title": "FIONA - 10K HD",
     "artist": "w_tre",
     "level": "6.00",
-    "comment": "[LV.11] CR:6.00 ReviveLv:12 10K BMSLv:11"
+    "comment": "[LV.11] CR:6.00 ReviveLv:12 10K BMSLv:11",
+    "gauge_total": "816.5"
   },
   {
     "md5": "337b3d578c6c233ede3e907643721be4",
@@ -773,7 +869,8 @@
     "title": "New York Back Raise",
     "artist": "saaa + kei_iwata + stuv + わかどり",
     "level": "6.00",
-    "comment": "[10K BOSS] CR:6.00 ReviveLv:12 10K BMSLv:12 obj:u_e"
+    "comment": "[10K BOSS] CR:6.00 ReviveLv:12 10K BMSLv:12 obj:u_e",
+    "gauge_total": "425"
   },
   {
     "md5": "10dc4f2ddf955d10f9bfaa63b8ac1b15",
@@ -781,7 +878,8 @@
     "title": "夢/あるいは在りし日の - 10K HD",
     "artist": "BMS: Nego_tiator /Movie: Fiz",
     "level": "6.04",
-    "comment": "[LV.11] CR:6.04 ReviveLv:12 10K BMSLv:11"
+    "comment": "[LV.11] CR:6.04 ReviveLv:12 10K BMSLv:11",
+    "gauge_total": "408.25"
   },
   {
     "md5": "1b53b7fa75e53c17c8b131ac112f18ee",
@@ -789,7 +887,8 @@
     "title": "Bliss [10K]",
     "artist": "litmus*",
     "level": "6.08",
-    "comment": "[LV.12] CR:6.08 ReviveLv:13 10K BMSLv:12 obj:u_e"
+    "comment": "[LV.12] CR:6.08 ReviveLv:13 10K BMSLv:12 obj:u_e",
+    "gauge_total": "370"
   },
   {
     "md5": "e3a075be519e34c65e9fbf82a2e0a007",
@@ -797,7 +896,8 @@
     "title": "Overjoy ★ OVERDOSE!! - 10K ◆ HD",
     "artist": "Luna Fozer",
     "level": "6.10",
-    "comment": "[LV.12] CR:6.10 ReviveLv:13 10K BMSLv:12"
+    "comment": "[LV.12] CR:6.10 ReviveLv:13 10K BMSLv:12",
+    "gauge_total": "1580"
   },
   {
     "md5": "1f794fcf0ac09897a8efc9b6be48aa4c",
@@ -805,7 +905,8 @@
     "title": "Berry Go!! - 10K HD",
     "artist": "Freezer feat. 妃苺",
     "level": "6.13",
-    "comment": "[LV.11] CR:6.13 ReviveLv:13 10K BMSLv:11"
+    "comment": "[LV.11] CR:6.13 ReviveLv:13 10K BMSLv:11",
+    "gauge_total": "435.75"
   },
   {
     "md5": "4a5517772d003cc3b517d5d8da4ddec3",
@@ -813,7 +914,8 @@
     "title": "Etude for the Sinners - 10K HD",
     "artist": "Ice (Trolled)",
     "level": "6.14",
-    "comment": "[LV.10] CR:6.14 ReviveLv:13 10K BMSLv:10"
+    "comment": "[LV.10] CR:6.14 ReviveLv:13 10K BMSLv:10",
+    "gauge_total": "822"
   },
   {
     "md5": "2e8be3002c46e10b84e553155efeb1af",
@@ -821,7 +923,8 @@
     "title": "GAMEBOY - 10K EX",
     "artist": "Silentroom × 駿",
     "level": "6.15",
-    "comment": "[LV.12] CR:6.15 ReviveLv:13 10K BMSLv:12"
+    "comment": "[LV.12] CR:6.15 ReviveLv:13 10K BMSLv:12",
+    "gauge_total": "228"
   },
   {
     "md5": "44c7b68ad4cb0db7508f5a5b6e133a97",
@@ -829,7 +932,8 @@
     "title": "Castorpollux [10K SHD]",
     "artist": "sound piercer",
     "level": "6.18",
-    "comment": "[LV.13] CR:6.18 ReviveLv:13 10K BMSLv:13 obj:u_e"
+    "comment": "[LV.13] CR:6.18 ReviveLv:13 10K BMSLv:13 obj:u_e",
+    "gauge_total": "331"
   },
   {
     "md5": "7644b6681ba315f9b2fe2b7651572ee3",
@@ -837,7 +941,8 @@
     "title": "R.I.P.",
     "artist": "eicateve",
     "level": "6.19",
-    "comment": "[10K PEACE) CR:6.19 ReviveLv:13 10K BMSLv:12 obj:u_e"
+    "comment": "[10K PEACE) CR:6.19 ReviveLv:13 10K BMSLv:12 obj:u_e",
+    "gauge_total": "425"
   },
   {
     "md5": "afbf20cf41db47b83d8f4ed51da7ae10",
@@ -845,7 +950,8 @@
     "title": "Black Key - 10K SHD",
     "artist": "Collection",
     "level": "6.31",
-    "comment": "[LV.11] CR:6.31 ReviveLv:13 10K BMSLv:11"
+    "comment": "[LV.11] CR:6.31 ReviveLv:13 10K BMSLv:11",
+    "gauge_total": "361.5"
   },
   {
     "md5": "9a2a86377167e384dbe2e8051568f3a7",
@@ -853,7 +959,8 @@
     "title": "Hungarian Dances - 10K EX",
     "artist": "Collection",
     "level": "6.31",
-    "comment": "[LV.12] CR:6.31 ReviveLv:13 10K BMSLv:12"
+    "comment": "[LV.12] CR:6.31 ReviveLv:13 10K BMSLv:12",
+    "gauge_total": "259.5"
   },
   {
     "md5": "09936a213420b68423fe9d101a629962",
@@ -861,7 +968,8 @@
     "title": "鬚ｨ莉髮ｷ莉(10K)",
     "artist": "繧ｫ繝ｩ繝輔Ν繝ｻ繧ｵ繧ｦ繝ｳ繧ｺ繝ｻ繝昴ｼ繝",
     "level": "6.31",
-    "comment": "[LV.11] CR:6.31 ReviveLv:13 10K BMSLv:11 obj:u_e"
+    "comment": "[LV.11] CR:6.31 ReviveLv:13 10K BMSLv:11 obj:u_e",
+    "gauge_total": "280"
   },
   {
     "md5": "beaef2998f00802024b0bb7cc7ca315d",
@@ -869,7 +977,8 @@
     "title": "道しるべ",
     "artist": "pastel white / ケモノ☆ラバーズ",
     "level": "6.39",
-    "comment": "[10K HD] CR:6.39 ReviveLv:13 10K BMSLv:13 obj:u_e"
+    "comment": "[10K HD] CR:6.39 ReviveLv:13 10K BMSLv:13 obj:u_e",
+    "gauge_total": "299"
   },
   {
     "md5": "c9c7da06710d533da34f640730f9b63a",
@@ -877,7 +986,8 @@
     "title": "Moonlight 3rd movement - 10K EX",
     "artist": "Collection",
     "level": "6.47",
-    "comment": "[LV.12] CR:6.47 ReviveLv:13 10K BMSLv:12"
+    "comment": "[LV.12] CR:6.47 ReviveLv:13 10K BMSLv:12",
+    "gauge_total": "316.5"
   },
   {
     "md5": "c0d39bf8124244f009b67b2d3af2e07a",
@@ -885,7 +995,8 @@
     "title": "Bliss [10K BOSS]",
     "artist": "litmus*",
     "level": "6.50",
-    "comment": "[LV.14] CR:6.50 ReviveLv:13 10K BMSLv:14 obj:u_e"
+    "comment": "[LV.14] CR:6.50 ReviveLv:13 10K BMSLv:14 obj:u_e",
+    "gauge_total": "347"
   },
   {
     "md5": "622adc04591776fbdf5b57817f3231cc",
@@ -893,7 +1004,8 @@
     "title": "Y/N",
     "artist": "tigerlily / murotani",
     "level": "6.51",
-    "comment": "[10K] CR:6.51 ReviveLv:13 10K BMSLv:12 obj:u_e"
+    "comment": "[10K] CR:6.51 ReviveLv:13 10K BMSLv:12 obj:u_e",
+    "gauge_total": "375"
   },
   {
     "md5": "2bddd78eb595326a4df7ea2c4543bc71",
@@ -901,7 +1013,8 @@
     "title": "明日をけっとばせ！",
     "artist": "qfeileadh feat.kei_iwata",
     "level": "6.53",
-    "comment": "[10K HARD] CR:6.53 ReviveLv:13 10K BMSLv:12 obj:u_e"
+    "comment": "[10K HARD] CR:6.53 ReviveLv:13 10K BMSLv:12 obj:u_e",
+    "gauge_total": "393.5"
   },
   {
     "md5": "74a48b92791d96092cea38c76fcf244f",
@@ -909,7 +1022,8 @@
     "title": "アジサイ",
     "artist": "litmus* feat. 薛南",
     "level": "6.58",
-    "comment": "[10K HD] CR:6.58 ReviveLv:13 10K BMSLv:12 obj:u_e"
+    "comment": "[10K HD] CR:6.58 ReviveLv:13 10K BMSLv:12 obj:u_e",
+    "gauge_total": "360"
   },
   {
     "md5": "0d2a2cd8b5f98dbec12760146d6dc929",
@@ -917,7 +1031,8 @@
     "title": "Black Key - 10K EX",
     "artist": "Collection",
     "level": "6.75",
-    "comment": "[LV.12] CR:6.75 ReviveLv:14 10K BMSLv:12"
+    "comment": "[LV.12] CR:6.75 ReviveLv:14 10K BMSLv:12",
+    "gauge_total": "203.38"
   },
   {
     "md5": "2d35c166510672fc0c809d7ad64617bb",
@@ -925,7 +1040,8 @@
     "title": "Kreuz[10K]",
     "artist": "sky_delta",
     "level": "6.75",
-    "comment": "[LV.12] CR:6.75 ReviveLv:14 10K BMSLv:12 obj:u_e"
+    "comment": "[LV.12] CR:6.75 ReviveLv:14 10K BMSLv:12 obj:u_e",
+    "gauge_total": "305"
   },
   {
     "md5": "043c045c9f46bcd3e55e97f742991b40",
@@ -933,7 +1049,8 @@
     "title": "La Campanella - 10K SHD",
     "artist": "Collection",
     "level": "6.79",
-    "comment": "[LV.11] CR:6.79 ReviveLv:14 10K BMSLv:11"
+    "comment": "[LV.11] CR:6.79 ReviveLv:14 10K BMSLv:11",
+    "gauge_total": "467.5"
   },
   {
     "md5": "e3f9e13d59cea0880eb8c5c367232fee",
@@ -941,7 +1058,8 @@
     "title": "繝ｩ繧ｱ繧ｷ繧ｹ縺ｨ豌ｸ驕縺ｮ逾育･ｷ閠 [10K Boss]",
     "artist": "縺励ｼ縺代ｼ",
     "level": "6.86",
-    "comment": "[LV.13] CR:6.86 ReviveLv:14 10K BMSLv:13 obj:u_e"
+    "comment": "[LV.13] CR:6.86 ReviveLv:14 10K BMSLv:13 obj:u_e",
+    "gauge_total": "425"
   },
   {
     "md5": "5a32818d4a93edfa65d0682c4e828737",
@@ -949,7 +1067,8 @@
     "title": "花たちに希望を [10K]",
     "artist": "Sound piercer feat.DAZBEE",
     "level": "6.88",
-    "comment": "[LV.13] CR:6.88 ReviveLv:14 10K BMSLv:13 obj:u_e"
+    "comment": "[LV.13] CR:6.88 ReviveLv:14 10K BMSLv:13 obj:u_e",
+    "gauge_total": "573"
   },
   {
     "md5": "a6519a2eed753431cfee31f40bcbe867",
@@ -957,7 +1076,8 @@
     "title": "滝行Lv28 [10K SHD]",
     "artist": "sentire",
     "level": "6.95",
-    "comment": "[LV.14] CR:6.95 ReviveLv:14 10K BMSLv:14 obj:u_e"
+    "comment": "[LV.14] CR:6.95 ReviveLv:14 10K BMSLv:14 obj:u_e",
+    "gauge_total": "413"
   },
   {
     "md5": "43247ec1a0150c0d69c12a8f584fe27d",
@@ -965,7 +1085,8 @@
     "title": "Fantaisie Impromptu - 10K EX",
     "artist": "Collection",
     "level": "6.98",
-    "comment": "[LV.12] CR:6.98 ReviveLv:14 10K BMSLv:12"
+    "comment": "[LV.12] CR:6.98 ReviveLv:14 10K BMSLv:12",
+    "gauge_total": "224.38"
   },
   {
     "md5": "c85d9b201c2497f9d60a89a55aa7cc35",
@@ -973,7 +1094,8 @@
     "title": "Hungarian Rhapsody - 10K HD",
     "artist": "Collection",
     "level": "6.99",
-    "comment": "[LV.11] CR:6.99 ReviveLv:14 10K BMSLv:11"
+    "comment": "[LV.11] CR:6.99 ReviveLv:14 10K BMSLv:11",
+    "gauge_total": "1369.5"
   },
   {
     "md5": "4b76b60f804c3cada334a792e758d7e2",
@@ -981,7 +1103,8 @@
     "title": "Destr0yer[10K]",
     "artist": "削除 feat. Nikki Simmons",
     "level": "7.00",
-    "comment": "[LV.13] CR:7.00 ReviveLv:14 10K BMSLv:13 obj:u_e"
+    "comment": "[LV.13] CR:7.00 ReviveLv:14 10K BMSLv:13 obj:u_e",
+    "gauge_total": "465"
   },
   {
     "md5": "ec041a4835ee5c25bb09dc9657ca9186",
@@ -989,7 +1112,8 @@
     "title": "鬚ｨ莉髮ｷ莉(10K LN)",
     "artist": "繧ｫ繝ｩ繝輔Ν繝ｻ繧ｵ繧ｦ繝ｳ繧ｺ繝ｻ繝昴ｼ繝",
     "level": "7.00",
-    "comment": "[LV.15] CR:7.00 ReviveLv:14 10K BMSLv:15 obj:u_e"
+    "comment": "[LV.15] CR:7.00 ReviveLv:14 10K BMSLv:15 obj:u_e",
+    "gauge_total": "420"
   },
   {
     "md5": "a5fb925a178b58fef06aa099e1a4f88d",
@@ -997,7 +1121,8 @@
     "title": "アジサイ",
     "artist": "litmus* feat. 薛南",
     "level": "7.11",
-    "comment": "[10K BOSS] CR:7.11 ReviveLv:14 10K BMSLv:14 obj:u_e"
+    "comment": "[10K BOSS] CR:7.11 ReviveLv:14 10K BMSLv:14 obj:u_e",
+    "gauge_total": "360"
   },
   {
     "md5": "0e1e1d4d13f6ee42604b7fae02c764d1",
@@ -1005,7 +1130,8 @@
     "title": "ヒュブリスの頂に聳えるのは",
     "artist": "qfeileadh feat.のあ",
     "level": "7.11",
-    "comment": "[10K BOSS] CR:7.11 ReviveLv:14 10K BMSLv:13 obj:u_e"
+    "comment": "[10K BOSS] CR:7.11 ReviveLv:14 10K BMSLv:13 obj:u_e",
+    "gauge_total": "475"
   },
   {
     "md5": "edcdedced8096b13631027c4e5ec3f20",
@@ -1013,7 +1139,8 @@
     "title": "スピカ",
     "artist": "qfeileadh",
     "level": "7.16",
-    "comment": "[10K LN] CR:7.16 ReviveLv:14 10K BMSLv:13 obj:u_e"
+    "comment": "[10K LN] CR:7.16 ReviveLv:14 10K BMSLv:13 obj:u_e",
+    "gauge_total": "390"
   },
   {
     "md5": "db4b8d85b71723d0b2c264394025ef5c",
@@ -1021,7 +1148,8 @@
     "title": "物怪舞踏 [10K BOSS]",
     "artist": "篠螺悠那",
     "level": "7.16",
-    "comment": "[LV.15] CR:7.16 ReviveLv:14 10K BMSLv:15 obj:u_e"
+    "comment": "[LV.15] CR:7.16 ReviveLv:14 10K BMSLv:15 obj:u_e",
+    "gauge_total": "525"
   },
   {
     "md5": "845c7cbb40187795422801eb251959f0",
@@ -1029,7 +1157,8 @@
     "title": "明日をけっとばせ！",
     "artist": "qfeileadh feat.kei_iwata",
     "level": "7.23",
-    "comment": "[10K] CR:7.23 ReviveLv:14 10K BMSLv:14 obj:u_e"
+    "comment": "[10K] CR:7.23 ReviveLv:14 10K BMSLv:14 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "5294813601095c7aca698b137a97d16d",
@@ -1037,7 +1166,8 @@
     "title": "未来のコピヌ [10K SHD]",
     "artist": "yoayua (yoa + yuayua)",
     "level": "7.29",
-    "comment": "[LV.14] CR:7.29 ReviveLv:14 10K BMSLv:14 obj:u_e"
+    "comment": "[LV.14] CR:7.29 ReviveLv:14 10K BMSLv:14 obj:u_e",
+    "gauge_total": "398"
   },
   {
     "md5": "43899a74507de10cd0e35811261d98c2",
@@ -1045,7 +1175,8 @@
     "title": "ニニ",
     "artist": "テヅカ ~ Qayo",
     "level": "7.33",
-    "comment": "[10K SHD] CR:7.33 ReviveLv:14 10K BMSLv:13 obj:u_e"
+    "comment": "[10K SHD] CR:7.33 ReviveLv:14 10K BMSLv:13 obj:u_e",
+    "gauge_total": "324"
   },
   {
     "md5": "52c376f56efd68621681ef67ceebda39",
@@ -1053,7 +1184,8 @@
     "title": "Rachmaninov Concerto No.3 - 10K HD",
     "artist": "Collection",
     "level": "7.35",
-    "comment": "[LV.12] CR:7.35 ReviveLv:15 10K BMSLv:12"
+    "comment": "[LV.12] CR:7.35 ReviveLv:15 10K BMSLv:12",
+    "gauge_total": "566.5"
   },
   {
     "md5": "b5fa70489216bffa2d82a6ba915b706a",
@@ -1061,7 +1193,8 @@
     "title": "驕薙＠繧九∋",
     "artist": "pastel white / 繧ｱ繝｢繝寂繝ｩ繝舌ｼ繧ｺ",
     "level": "7.35",
-    "comment": "[LV.14] CR:7.35 ReviveLv:15 10K BMSLv:14 obj:u_e"
+    "comment": "[LV.14] CR:7.35 ReviveLv:15 10K BMSLv:14 obj:u_e",
+    "gauge_total": "375"
   },
   {
     "md5": "3ece19d3c1074aa843682d876ec113b6",
@@ -1069,7 +1202,8 @@
     "title": "Silly Lights",
     "artist": "qfeileadh feat.柳瀬マサキ",
     "level": "7.38",
-    "comment": "[10K SHD] CR:7.38 ReviveLv:15 10K BMSLv:14 obj:u_e"
+    "comment": "[10K SHD] CR:7.38 ReviveLv:15 10K BMSLv:14 obj:u_e",
+    "gauge_total": "438"
   },
   {
     "md5": "5cd1401eb91214a76e1a605bd038cfb8",
@@ -1077,7 +1211,8 @@
     "title": "花たちに希望を [10K BOSS]",
     "artist": "Sound piercer feat.DAZBEE",
     "level": "7.38",
-    "comment": "[LV.14] CR:7.38 ReviveLv:15 10K BMSLv:14 obj:u_e"
+    "comment": "[LV.14] CR:7.38 ReviveLv:15 10K BMSLv:14 obj:u_e",
+    "gauge_total": "570"
   },
   {
     "md5": "8cb02a260729186429f5a2cbe34d0008",
@@ -1085,7 +1220,8 @@
     "title": "サカサマの空に在ったのは",
     "artist": "qfeileadh feat. レゾナンスもえこ",
     "level": "7.40",
-    "comment": "[10K SHD] CR:7.40 ReviveLv:15 10K BMSLv:15 obj:u_e"
+    "comment": "[10K SHD] CR:7.40 ReviveLv:15 10K BMSLv:15 obj:u_e",
+    "gauge_total": "446"
   },
   {
     "md5": "186e2237a34f0537a1e391452d5cd9de",
@@ -1093,7 +1229,8 @@
     "title": "Grandes Etudes No.6 - 10K HD",
     "artist": "Collection",
     "level": "7.41",
-    "comment": "[LV.12] CR:7.41 ReviveLv:15 10K BMSLv:12"
+    "comment": "[LV.12] CR:7.41 ReviveLv:15 10K BMSLv:12",
+    "gauge_total": "628"
   },
   {
     "md5": "d2adef2f88d043f48c5a0a1096a63883",
@@ -1101,7 +1238,8 @@
     "title": "CAT ROTATION",
     "artist": "かたぎり",
     "level": "7.57",
-    "comment": "[10K SPIИ] CR:7.57 ReviveLv:15 10K BMSLv:15 obj:Jakads"
+    "comment": "[10K SPIИ] CR:7.57 ReviveLv:15 10K BMSLv:15 obj:Jakads 손속",
+    "gauge_total": "500"
   },
   {
     "md5": "6a020079c2149a5dbf45efde73901dc4",
@@ -1109,7 +1247,8 @@
     "title": "妹様は彼女なのだっ！[10K SHD]",
     "artist": "otokaz",
     "level": "7.60",
-    "comment": "[LV.15] CR:7.60 ReviveLv:15 10K BMSLv:15"
+    "comment": "[LV.15] CR:7.60 ReviveLv:15 10K BMSLv:15",
+    "gauge_total": "436"
   },
   {
     "md5": "71b92499f09ad89c8f733a6a9581ad85",
@@ -1117,7 +1256,8 @@
     "title": "竹",
     "artist": "立秋 feat.ちょこ",
     "level": "7.70",
-    "comment": "[10K] CR:7.70 ReviveLv:15 10K BMSLv:14 obj:u_e"
+    "comment": "[10K] CR:7.70 ReviveLv:15 10K BMSLv:14 obj:u_e",
+    "gauge_total": "600"
   },
   {
     "md5": "96dd515a263ab1b8c58555d47e4917a5",
@@ -1125,7 +1265,8 @@
     "title": "Me & U [10K BOSS]",
     "artist": "siqlo",
     "level": "7.71",
-    "comment": "[LV.13] CR:7.71 ReviveLv:15 10K BMSLv:13 obj:u_e"
+    "comment": "[LV.13] CR:7.71 ReviveLv:15 10K BMSLv:13 obj:u_e",
+    "gauge_total": "520"
   },
   {
     "md5": "f4a244c231317fc80fed220c7d78dcb0",
@@ -1133,7 +1274,8 @@
     "title": "William Tell - 10K SHD",
     "artist": "Collection",
     "level": "7.71",
-    "comment": "[LV.15] CR:7.71 ReviveLv:15 10K BMSLv:15"
+    "comment": "[LV.15] CR:7.71 ReviveLv:15 10K BMSLv:15",
+    "gauge_total": "1759.5"
   },
   {
     "md5": "3fafbc3df9f000cb6b4978665455a535",
@@ -1141,7 +1283,8 @@
     "title": "魔法少女になるしかねぇ [10K BOSS]",
     "artist": "ねこみりん feat.小宮真央",
     "level": "7.71",
-    "comment": "[LV.15] CR:7.71 ReviveLv:15 10K BMSLv:15 obj:u_e"
+    "comment": "[LV.15] CR:7.71 ReviveLv:15 10K BMSLv:15 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "ac0ca471da6161670f7f67e3641299b8",
@@ -1149,7 +1292,8 @@
     "title": "Alien Artifact[10K]",
     "artist": "Yu^ta w. Satoguchi Yu",
     "level": "7.74",
-    "comment": "[LV.16] CR:7.74 ReviveLv:15 10K BMSLv:16 obj:u_e"
+    "comment": "[LV.16] CR:7.74 ReviveLv:15 10K BMSLv:16 obj:u_e",
+    "gauge_total": "320"
   },
   {
     "md5": "975c9a91d27b0dcbe241ee8fa5b67fd5",
@@ -1157,7 +1301,8 @@
     "title": "Life is PIANO",
     "artist": "Junk",
     "level": "7.74",
-    "comment": "10K CR:7.74 ReviveLv:15 10K BMSLv:13 obj:u_e"
+    "comment": "10K CR:7.74 ReviveLv:15 10K BMSLv:13 obj:u_e",
+    "gauge_total": "350"
   },
   {
     "md5": "bb2894509e546196672e81ce7982ef68",
@@ -1165,7 +1310,8 @@
     "title": "La Campanella - 10K Full",
     "artist": "Collection",
     "level": "8.03",
-    "comment": "[LV.15] CR:8.03 ReviveLv:15 10K BMSLv:15"
+    "comment": "[LV.15] CR:8.03 ReviveLv:15 10K BMSLv:15",
+    "gauge_total": "512.25"
   },
   {
     "md5": "ca2ece2ad03060d07c049fc2dcc88762",
@@ -1173,7 +1319,8 @@
     "title": "Etude for the Sinners - 10K SHD",
     "artist": "Ice (Trolled)",
     "level": "8.14",
-    "comment": "[LV.13] CR:8.14 ReviveLv:16 10K BMSLv:13"
+    "comment": "[LV.13] CR:8.14 ReviveLv:16 10K BMSLv:13",
+    "gauge_total": "594"
   },
   {
     "md5": "f42a05b141053c1194bb9fc6a46e4e96",
@@ -1181,7 +1328,8 @@
     "title": "滝行Lv28 [10K Insane]",
     "artist": "sentire",
     "level": "8.14",
-    "comment": "[LV.15] CR:8.14 ReviveLv:16 10K BMSLv:15 obj:u_e"
+    "comment": "[LV.15] CR:8.14 ReviveLv:16 10K BMSLv:15 obj:u_e",
+    "gauge_total": "625"
   },
   {
     "md5": "7cb002a6921d667e53b2a2f12657fb78",
@@ -1189,7 +1337,8 @@
     "title": "Amnehilesie [10K]",
     "artist": "MisomyL",
     "level": "8.28",
-    "comment": "[LV.15] CR:8.28 ReviveLv:16 10K BMSLv:15 obj:u_e"
+    "comment": "[LV.15] CR:8.28 ReviveLv:16 10K BMSLv:15 obj:u_e",
+    "gauge_total": "595"
   },
   {
     "md5": "1ce1eaf26109b91b978d3a4936d9f80e",
@@ -1197,7 +1346,8 @@
     "title": "夢/あるいは在りし日の - 10K EX",
     "artist": "BMS: Nego_tiator /Movie: Fiz",
     "level": "8.29",
-    "comment": "[LV.14] CR:8.29 ReviveLv:16 10K BMSLv:14"
+    "comment": "[LV.14] CR:8.29 ReviveLv:16 10K BMSLv:14",
+    "gauge_total": "290.75"
   },
   {
     "md5": "d8c9efb523ae036d78b8d23440fa118d",
@@ -1205,7 +1355,8 @@
     "title": "Grandes Etudes No.6 - 10K Full",
     "artist": "Collection",
     "level": "8.38",
-    "comment": "[LV.16] CR:8.38 ReviveLv:16 10K BMSLv:16"
+    "comment": "[LV.16] CR:8.38 ReviveLv:16 10K BMSLv:16",
+    "gauge_total": "580.62"
   },
   {
     "md5": "9703e9328b64caee17077b07fc14cc39",
@@ -1213,7 +1364,8 @@
     "title": "Hungarian Rhapsody - 10K Full",
     "artist": "Collection",
     "level": "8.47",
-    "comment": "[LV.14] CR:8.47 ReviveLv:16 10K BMSLv:14"
+    "comment": "[LV.14] CR:8.47 ReviveLv:16 10K BMSLv:14",
+    "gauge_total": "624.62"
   },
   {
     "md5": "63a4aebf00aa12cbafdcb032ea3c1b13",
@@ -1221,7 +1373,8 @@
     "title": "Rachmaninov Concerto No.3 - 10K EX",
     "artist": "Collection",
     "level": "8.51",
-    "comment": "[LV.16] CR:8.51 ReviveLv:16 10K BMSLv:16"
+    "comment": "[LV.16] CR:8.51 ReviveLv:16 10K BMSLv:16",
+    "gauge_total": "363.5"
   },
   {
     "md5": "662d30819ef09f0d149b93b8925e6f76",
@@ -1229,7 +1382,8 @@
     "title": "Berry Go!! - 10K EX",
     "artist": "Freezer feat. 妃苺",
     "level": "8.52",
-    "comment": "[LV.15] CR:8.52 ReviveLv:16 10K BMSLv:15"
+    "comment": "[LV.15] CR:8.52 ReviveLv:16 10K BMSLv:15",
+    "gauge_total": "320.62"
   },
   {
     "md5": "3a5fb569ff9f9876e39768e6f0efae62",
@@ -1237,7 +1391,8 @@
     "title": "Circus Galop - 10K HD",
     "artist": "Collection",
     "level": "8.55",
-    "comment": "[LV.13] CR:8.55 ReviveLv:16 10K BMSLv:13"
+    "comment": "[LV.13] CR:8.55 ReviveLv:16 10K BMSLv:13",
+    "gauge_total": "1268.5"
   },
   {
     "md5": "bab61ec20169050b8e71238be49e7261",
@@ -1245,7 +1400,8 @@
     "title": "アルスノヴァに喝采を [10K SHD]",
     "artist": "qfeileadh feat.レゾナンスもえこ",
     "level": "8.61",
-    "comment": "[LV.15] CR:8.61 ReviveLv:16 10K BMSLv:15 obj:u_e"
+    "comment": "[LV.15] CR:8.61 ReviveLv:16 10K BMSLv:15 obj:u_e",
+    "gauge_total": "700"
   },
   {
     "md5": "34627a9dc2ed0283b4b77c5fc71def1a",
@@ -1253,7 +1409,8 @@
     "title": "Unleashed World",
     "artist": "sak feat.みゅい",
     "level": "8.68",
-    "comment": "[10K] CR:8.68 ReviveLv:16 10K BMSLv:16 obj:u_e"
+    "comment": "[10K] CR:8.68 ReviveLv:16 10K BMSLv:16 obj:u_e",
+    "gauge_total": "590"
   },
   {
     "md5": "62a3d4a6c1f21db12acbd9a89bf73a7d",
@@ -1261,7 +1418,8 @@
     "title": "Myosotis",
     "artist": "椿./movie.D・ENNY/ill.のこのこ",
     "level": "8.76",
-    "comment": "[10K forget-me-not] CR:8.76 ReviveLv:16 10K BMSLv:17 obj:Jakads"
+    "comment": "[10K forget-me-not] CR:8.76 ReviveLv:17 10K BMSLv:17 obj:Jakads",
+    "gauge_total": "500"
   },
   {
     "md5": "a89f8a6d18fbc9b630edd6c796042c4f",
@@ -1269,7 +1427,8 @@
     "title": "R.I.P.",
     "artist": "eicateve",
     "level": "8.77",
-    "comment": "[10K R.I.P.) CR:8.77 ReviveLv:16 10K BMSLv:17 obj:u_e"
+    "comment": "[10K R.I.P.) CR:8.77 ReviveLv:16 10K BMSLv:17 obj:u_e",
+    "gauge_total": "625"
   },
   {
     "md5": "874aede4130f2fe3deedbb88cdba9948",
@@ -1277,7 +1436,8 @@
     "title": "エリフィと白昏の夜",
     "artist": "Se-U-Ra",
     "level": "8.78",
-    "comment": "[10K BOSS] CR:8.78 ReviveLv:16 10K BMSLv:15 obj:u_e"
+    "comment": "[10K BOSS] CR:8.78 ReviveLv:16 10K BMSLv:15 obj:u_e",
+    "gauge_total": "525"
   },
   {
     "md5": "f6972aaf9c338f5307db62d457c6d141",
@@ -1285,7 +1445,8 @@
     "title": "爽昧夢想ラバ[ズ [10K BOSS]",
     "artist": "qfeileadh feat.りこりす・らぢあ[た",
     "level": "8.84",
-    "comment": "[LV.18] CR:8.84 ReviveLv:16 10K BMSLv:18 obj:u_e"
+    "comment": "[LV.18] CR:8.84 ReviveLv:16 10K BMSLv:18 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "4298368bc9d3c27599a588e9079e5a82",
@@ -1293,7 +1454,8 @@
     "title": "FIONA - 10K SHD",
     "artist": "w_tre",
     "level": "8.89",
-    "comment": "[LV.14] CR:8.89 ReviveLv:16 10K BMSLv:14"
+    "comment": "[LV.14] CR:8.89 ReviveLv:16 10K BMSLv:14",
+    "gauge_total": "1307.5"
   },
   {
     "md5": "a96ad5a4c61ac8d62838883aaa0a04d0",
@@ -1301,7 +1463,8 @@
     "title": "Overjoy ★ OVERDOSE!! - 10K ◆ SHD",
     "artist": "Luna Fozer",
     "level": "8.98",
-    "comment": "[LV.16] CR:8.98 ReviveLv:16 10K BMSLv:16"
+    "comment": "[LV.16] CR:8.98 ReviveLv:16 10K BMSLv:16",
+    "gauge_total": "2664"
   },
   {
     "md5": "02aef20d48fbe2e29d1b321dee188233",
@@ -1309,7 +1472,8 @@
     "title": "alicemourn",
     "artist": "黒皇帝",
     "level": "9.02",
-    "comment": "[10K BOSS] CR:9.02 ReviveLv:17 10K BMSLv:15 obj:u_e"
+    "comment": "[10K BOSS] CR:9.02 ReviveLv:17 10K BMSLv:15 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "4721f1d84dc64d4bdb5d7bc4d791abb1",
@@ -1317,7 +1481,8 @@
     "title": "プナイプナイたいそう",
     "artist": "立秋 feat.ちょこ",
     "level": "9.03",
-    "comment": "[10K EX] CR:9.03 ReviveLv:17 10K BMSLv:17 obj:u_e"
+    "comment": "[10K EX] CR:9.03 ReviveLv:17 10K BMSLv:17 obj:u_e",
+    "gauge_total": "465"
   },
   {
     "md5": "eb43141ff7c3e0a3874c1693de39099c",
@@ -1325,7 +1490,8 @@
     "title": "Qualia[Delay10]",
     "artist": "Junk /  u_e",
     "level": "9.39",
-    "comment": "[LV.16] CR:9.39 ReviveLv:17 10K BMSLv:16"
+    "comment": "[LV.16] CR:9.39 ReviveLv:17 10K BMSLv:16",
+    "gauge_total": "675"
   },
   {
     "md5": "02174b3da8bd1fb5164b81ac7569394f",
@@ -1333,7 +1499,8 @@
     "title": "無機質世界に彩を",
     "artist": "MisomyL",
     "level": "9.39",
-    "comment": "[10K BOSS] CR:9.39 ReviveLv:17 10K BMSLv:16 obj:u_e"
+    "comment": "[10K BOSS] CR:9.39 ReviveLv:17 10K BMSLv:16 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "42452a30b4ceeedec8baeba002e23215",
@@ -1341,7 +1508,8 @@
     "title": "ニニ",
     "artist": "テヅカ ~ Qayo",
     "level": "9.46",
-    "comment": "[10K BOSS] CR:9.46 ReviveLv:17 10K BMSLv:15 obj:u_e"
+    "comment": "[10K BOSS] CR:9.46 ReviveLv:17 10K BMSLv:15 obj:u_e",
+    "gauge_total": "450"
   },
   {
     "md5": "5f75d58f27c84e546f9a4d5ec9aadae0",
@@ -1349,7 +1517,8 @@
     "title": "フロンティア↑↑エクスプロ?ラ?",
     "artist": "kei_iwata",
     "level": "9.51",
-    "comment": "[10K Boss] CR:9.51 ReviveLv:17 10K BMSLv:16 obj:u_e"
+    "comment": "[10K Boss] CR:9.51 ReviveLv:17 10K BMSLv:16 obj:u_e",
+    "gauge_total": "795"
   },
   {
     "md5": "7feecd469587c759744d417457dc01a4",
@@ -1357,7 +1526,8 @@
     "title": "Etude for the Sinners - 10K EX",
     "artist": "Ice (Trolled)",
     "level": "9.68",
-    "comment": "[LV.16] CR:9.68 ReviveLv:17 10K BMSLv:16"
+    "comment": "[LV.16] CR:9.68 ReviveLv:17 10K BMSLv:16",
+    "gauge_total": "585.56"
   },
   {
     "md5": "9aa3072c780460c09699aa67cefc2561",
@@ -1365,7 +1535,8 @@
     "title": "アルスノヴァに喝采を [10K BOSS]",
     "artist": "qfeileadh feat.レゾナンスもえこ",
     "level": "10.15",
-    "comment": "[LV.16] CR:10.15 ReviveLv:18 10K BMSLv:16 obj:u_e"
+    "comment": "[LV.16] CR:10.15 ReviveLv:18 10K BMSLv:16 obj:u_e",
+    "gauge_total": "700"
   },
   {
     "md5": "38c9c4937becdb5fe26f9a4a14b29efa",
@@ -1373,7 +1544,8 @@
     "title": "William Tell - 10K EX",
     "artist": "Collection",
     "level": "10.48",
-    "comment": "[LV.18] CR:10.48 ReviveLv:18 10K BMSLv:18"
+    "comment": "[LV.18] CR:10.48 ReviveLv:18 10K BMSLv:18",
+    "gauge_total": "2291"
   },
   {
     "md5": "f14fe8075009723944d64dba57e35d9b",
@@ -1381,7 +1553,8 @@
     "title": "Overjoy ★ OVERDOSE!! - 10K ◆ OVERJOY",
     "artist": "Luna Fozer",
     "level": "10.82",
-    "comment": "[LV.18] CR:10.82 ReviveLv:18 10K BMSLv:18"
+    "comment": "[LV.18] CR:10.82 ReviveLv:18 10K BMSLv:18",
+    "gauge_total": "3245"
   },
   {
     "md5": "bb72e9b21cf88ca0e6f6e3e5da2555bf",
@@ -1389,7 +1562,8 @@
     "title": "逋ｽ縺ｮ鬲疲ｳ輔ｮ蜈 (10K EX)",
     "artist": "縺薙←繧ゅｮ縺ｪ縺ｿ縺",
     "level": "11.07",
-    "comment": "[LV.17] CR:11.07 ReviveLv:18 10K BMSLv:17 obj:u_e"
+    "comment": "[LV.17] CR:11.07 ReviveLv:18 10K BMSLv:17 obj:u_e",
+    "gauge_total": "620"
   },
   {
     "md5": "8a2e21f7cc6616d4a2d6bc5179692ea5",
@@ -1397,7 +1571,8 @@
     "title": "Circus Galop - 10K SHD",
     "artist": "Collection",
     "level": "11.29",
-    "comment": "[LV.17] CR:11.29 ReviveLv:18 10K BMSLv:17"
+    "comment": "[LV.17] CR:11.29 ReviveLv:18 10K BMSLv:17",
+    "gauge_total": "1918.5"
   },
   {
     "md5": "458862d88180289a44665d33b251ee8f",
@@ -1405,7 +1580,8 @@
     "title": "FIONA - 10K HELL",
     "artist": "w_tre",
     "level": "11.59",
-    "comment": "[LV.18] CR:11.59 ReviveLv:19 10K BMSLv:18"
+    "comment": "[LV.18] CR:11.59 ReviveLv:19 10K BMSLv:18",
+    "gauge_total": "1627"
   },
   {
     "md5": "c9dc8ba8415a3b049c573efe60cd739b",
@@ -1413,6 +1589,7 @@
     "title": "10K HELL CIRCUS",
     "artist": "Collection",
     "level": "15.00",
-    "comment": "[LV.19] CR:15.00 ReviveLv:20 10K BMSLv:19"
+    "comment": "[LV.19] CR:15.00 ReviveLv:20 10K BMSLv:19",
+    "gauge_total": "10000"
   }
 ]
