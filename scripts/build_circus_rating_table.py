@@ -60,6 +60,16 @@ def _comment(parts: list[str], objecters: list[str]) -> str:
     return " ".join(clean_parts)
 
 
+def _format_number(value: Any) -> str:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return ""
+    if number.is_integer():
+        return str(int(number))
+    return f"{number:.2f}".rstrip("0").rstrip(".")
+
+
 def _header_for_bms(path: Path) -> dict[str, Any]:
     if path.suffix.lower() == ".osu":
         return {}
@@ -97,9 +107,11 @@ def _build_row(path: Path, config: dict[str, Any], pack_dir: Path) -> tuple[dict
     playlevel = str(header.get("PLAYLEVEL") or header.get("playlevel") or "").strip()
     key_label = str(result.get("key_label") or "").strip()
     revive_lv = result.get("revive_lv", "")
+    gauge_total = _format_number(header.get("TOTAL", header.get("total")))
     comment_parts = [
         name_diff,
         f"CR:{rating_level}",
+        f"TOTAL:{gauge_total}" if gauge_total else "",
         f"ReviveLv:{revive_lv}" if revive_lv not in ("", None) else "",
         key_label,
         f"BMSLv:{playlevel}" if playlevel else "",
@@ -111,8 +123,10 @@ def _build_row(path: Path, config: dict[str, Any], pack_dir: Path) -> tuple[dict
         "artist": artist,
         "level": rating_level,
         "comment": _comment(comment_parts, objecters),
+        "gauge_total": gauge_total,
     }
     result["circus_rating_level"] = rating_level
+    result["gauge_total"] = gauge_total
     return row, result
 
 
@@ -131,6 +145,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "level",
         "circus_rating_level",
         "revive_lv",
+        "gauge_total",
         "avg_nps",
         "peak_nps",
         "notes",
@@ -235,7 +250,8 @@ def main() -> int:
                 "Upload `header.json` and `body.json` as a separate BMSTable difficulty table.",
                 "",
                 "- `level` is the calculator Circus Rating rounded to 2 decimals.",
-                "- `comment` keeps the original chart diff name, key mode, Revive Lv, BMS PLAYLEVEL, and obj credit when available.",
+                "- `gauge_total` keeps the BMS `#TOTAL` gauge recovery amount when available.",
+                "- `comment` keeps the original chart diff name, Circus Rating, gauge TOTAL, key mode, Revive Lv, BMS PLAYLEVEL, and obj credit when available.",
                 "- `batch_results_circus_rating.json` and `.csv` are audit files, not required for upload.",
                 "",
                 f"Generated from `{pack_dir}`.",
