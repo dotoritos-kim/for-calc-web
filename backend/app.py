@@ -39,6 +39,19 @@ def _find_repo_root() -> Path:
     return PACKAGE_ROOT
 
 
+def _env_int(name: str, default: int) -> int:
+    raw_value = os.getenv(name)
+    if raw_value is None:
+        return default
+    value = raw_value.strip()
+    if not value:
+        return default
+    try:
+        return int(value)
+    except ValueError:
+        return default
+
+
 REPO_ROOT = _find_repo_root()
 CALC_ROOT = REPO_ROOT / "10k-calc"
 CONFIG_PATH = CALC_ROOT / "config.yaml"
@@ -62,14 +75,14 @@ DISCORD_ADMIN_USER_IDS = {
     if item.strip()
 }
 DISCORD_UPLOAD_DB_PATH = Path(os.getenv("DISCORD_UPLOAD_DB", str(PACKAGE_ROOT / ".discord_uploads.json")))
-DISCORD_UPLOAD_MAX_BYTES = int(os.getenv("DISCORD_UPLOAD_MAX_BYTES", str(24 * 1024 * 1024)))
+DISCORD_UPLOAD_MAX_BYTES = _env_int("DISCORD_UPLOAD_MAX_BYTES", 24 * 1024 * 1024)
 DISCORD_GATEWAY_ENABLED = os.getenv("DISCORD_GATEWAY_ENABLED", "1").strip().lower() not in ("0", "false", "no", "off")
 DISCORD_REGISTER_COMMANDS = os.getenv("DISCORD_REGISTER_COMMANDS", "1").strip().lower() not in ("0", "false", "no", "off")
 PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "").strip().rstrip("/")
 PASSWORD_HASH_ITERATIONS = 210_000
-SESSION_TTL_SECONDS = int(os.getenv("TABLE_ADMIN_SESSION_TTL_SECONDS", str(60 * 60 * 24 * 30)))
-APPROVAL_TTL_SECONDS = int(os.getenv("TABLE_ADMIN_APPROVAL_TTL_SECONDS", str(60 * 60 * 24 * 7)))
-DISCORD_UPLOAD_TTL_SECONDS = int(os.getenv("DISCORD_UPLOAD_TTL_SECONDS", str(60 * 60 * 24 * 7)))
+SESSION_TTL_SECONDS = _env_int("TABLE_ADMIN_SESSION_TTL_SECONDS", 60 * 60 * 24 * 30)
+APPROVAL_TTL_SECONDS = _env_int("TABLE_ADMIN_APPROVAL_TTL_SECONDS", 60 * 60 * 24 * 7)
+DISCORD_UPLOAD_TTL_SECONDS = _env_int("DISCORD_UPLOAD_TTL_SECONDS", 60 * 60 * 24 * 7)
 TABLE_ROW_FIELDS = ("md5", "sha256", "title", "artist", "level", "comment")
 EDITABLE_TABLE_FIELDS = ("title", "artist", "level", "comment", "md5", "sha256")
 OBJ_PATTERN = re.compile(r"\bobj(?:ecter)?\s*[:：]?\s*([^\s,\[\]()/]+)", re.IGNORECASE)
