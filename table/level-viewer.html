@@ -405,7 +405,7 @@
       <header>
         <div>
           <h1>10Key Revive Pack Level Viewer</h1>
-          <p class="sub">Revive Lv, Circus Rating, 게이지 TOTAL 기준으로 현재 테이블 항목을 확인합니다.</p>
+          <p class="sub">Revive Lv, Circus Rating, 게이지 회복량 기준으로 현재 테이블 항목을 확인합니다.</p>
         </div>
         <div class="tools">
           <a class="discord-link" href="https://discord.gg/2vwNSa54X9" target="_blank" rel="noreferrer">10키 한국 디스코드</a>
@@ -531,19 +531,40 @@
         return found;
       }
 
-      function formatGaugeTotal(value) {
+      function parseFiniteNumber(value) {
         const raw = String(value ?? "").trim();
-        if (!raw) return "";
-        const number = Number(raw);
-        if (!Number.isFinite(number)) return raw;
-        return number.toFixed(2).replace(/\.?0+$/, "");
+        if (!raw) return Number.NaN;
+        const numeric = raw.match(/[0-9]+(?:\.[0-9]+)?/);
+        if (!numeric) return Number.NaN;
+        const number = Number(numeric[0]);
+        return Number.isFinite(number) ? number : Number.NaN;
       }
 
-      function extractGaugeTotal(value) {
+      function formatPercentValue(percent) {
+        if (!Number.isFinite(percent)) return "";
+        return `${percent.toFixed(2).replace(/\.?0+$/, "")}%`;
+      }
+
+      function formatGaugeRecoveryPercent(value, totalNotes, chartFormat = "bms") {
+        const raw = String(value ?? "").trim();
+        if (!raw) return "";
+        const total = parseFiniteNumber(raw);
+        if (!Number.isFinite(total)) return raw.includes("%") ? raw : "";
+        if (raw.includes("%")) return formatPercentValue(total);
+        const notes = parseFiniteNumber(totalNotes);
+        if (!Number.isFinite(notes) || notes <= 0 || total <= 0) return "";
+        const percent =
+          chartFormat.includes("bmson")
+            ? Math.abs((0.07605 * total) / (0.01 * notes + 6.5))
+            : total / notes;
+        return formatPercentValue(percent);
+      }
+
+      function extractGaugeTotal(value, totalNotes, chartFormat = "bms") {
         const match = String(value ?? "")
           .normalize("NFKC")
-          .match(/(?:#?\b(?:TOTAL|GaugeTotal|gauge_total)\b|게이지\s*회복량)\s*[:：]?\s*([0-9]+(?:\.[0-9]+)?)/i);
-        return match ? formatGaugeTotal(match[1]) : "";
+          .match(/(?:#?\b(?:TOTAL|GaugeTotal|gauge_total)\b|게이지\s*회복량)\s*[:：]?\s*([0-9]+(?:\.[0-9]+)?%?)/i);
+        return match ? formatGaugeRecoveryPercent(match[1], totalNotes, chartFormat) : "";
       }
 
       function mergeUnique(values) {
@@ -565,14 +586,23 @@
           .filter((row) => row && typeof row === "object")
           .map((row) => {
             const comment = String(row.comment ?? row.name_diff ?? "");
-            const gaugeTotal = formatGaugeTotal(row.gauge_total ?? row.gaugeTotal ?? row.TOTAL ?? "");
+            const totalNotes = row.notes ?? row.note_count ?? row.noteCount ?? row.total_notes ?? row.totalNotes ?? "";
+            const chartFormat = String(row.chart_format ?? row.chartFormat ?? row.format ?? "").toLowerCase();
+            const explicitGaugeRecovery = formatGaugeRecoveryPercent(
+              row.gauge_recovery ?? row.gaugeRecovery ?? row.gauge_total_recovery ?? row.gaugeTotalRecovery ?? "",
+              "",
+              chartFormat,
+            );
+            const gaugeTotal =
+              explicitGaugeRecovery ||
+              formatGaugeRecoveryPercent(row.gauge_total ?? row.gaugeTotal ?? row.TOTAL ?? "", totalNotes, chartFormat);
             const normalized = {
               tableType,
               level: String(row.level ?? ""),
               title: String(row.title ?? ""),
               artist: String(row.artist ?? ""),
               comment,
-              gaugeTotal: gaugeTotal || extractGaugeTotal(comment),
+              gaugeTotal: gaugeTotal || extractGaugeTotal(comment, totalNotes, chartFormat),
               md5: String(row.md5 ?? ""),
               sha256: String(row.sha256 ?? ""),
               objecters: [],
@@ -786,7 +816,7 @@
       function gaugeCell(entry) {
         const total = gaugeTotalForEntry(entry);
         return total
-          ? `<span class="metric gauge">TOTAL ${escapeHtml(total)}</span>`
+          ? `<span class="metric gauge">회복 ${escapeHtml(total)}</span>`
           : '<span class="metric empty">-</span>';
       }
 
@@ -828,7 +858,7 @@
             <thead>
               <tr>
                 ${metricHeaders}
-                <th class="col-gauge">TOTAL</th>
+                <th class="col-gauge">회복량</th>
                 <th class="col-title">Title</th>
                 <th>Artist</th>
                 <th>Obj</th>
@@ -850,7 +880,7 @@
                   return `
                     <tr>
                       ${metricCells}
-                      <td class="col-gauge" data-label="TOTAL">${gaugeCell(entry)}</td>
+                      <td class="col-gauge" data-label="회복량">${gaugeCell(entry)}</td>
                       <td class="col-title" data-label="Title">${escapeHtml(primary?.title ?? "")}</td>
                       <td data-label="Artist">${escapeHtml(primary?.artist ?? "")}</td>
                       <td data-label="Obj">${

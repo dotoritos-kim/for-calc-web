@@ -70,6 +70,21 @@ def _format_number(value: Any) -> str:
     return f"{number:.2f}".rstrip("0").rstrip(".")
 
 
+def _format_gauge_recovery_percent(value: Any, total_notes: Any, chart_format: str = "bms") -> str:
+    try:
+        total = float(value)
+        notes = float(total_notes)
+    except (TypeError, ValueError):
+        return ""
+    if total <= 0 or notes <= 0:
+        return ""
+    if chart_format == "bmson":
+        percent = abs(0.07605 * total / (0.01 * notes + 6.5))
+    else:
+        percent = total / notes
+    return f"{_format_number(percent)}%"
+
+
 def _header_for_bms(path: Path) -> dict[str, Any]:
     if path.suffix.lower() == ".osu":
         return {}
@@ -107,7 +122,8 @@ def _build_row(path: Path, config: dict[str, Any], pack_dir: Path) -> tuple[dict
     playlevel = str(header.get("PLAYLEVEL") or header.get("playlevel") or "").strip()
     key_label = str(result.get("key_label") or "").strip()
     revive_lv = result.get("revive_lv", "")
-    gauge_total = _format_number(header.get("TOTAL", header.get("total")))
+    total_notes = result.get("notes")
+    gauge_total = _format_gauge_recovery_percent(header.get("TOTAL", header.get("total")), total_notes)
     comment_parts = [
         name_diff,
         f"CR:{rating_level}",
@@ -124,6 +140,7 @@ def _build_row(path: Path, config: dict[str, Any], pack_dir: Path) -> tuple[dict
         "level": rating_level,
         "comment": _comment(comment_parts, objecters),
         "gauge_total": gauge_total,
+        "notes": total_notes,
     }
     result["circus_rating_level"] = rating_level
     result["gauge_total"] = gauge_total
@@ -250,8 +267,8 @@ def main() -> int:
                 "Upload `header.json` and `body.json` as a separate BMSTable difficulty table.",
                 "",
                 "- `level` is the calculator Circus Rating rounded to 2 decimals.",
-                "- `gauge_total` keeps the BMS `#TOTAL` gauge recovery amount when available.",
-                "- `comment` keeps the original chart diff name, Circus Rating, gauge TOTAL, key mode, Revive Lv, BMS PLAYLEVEL, and obj credit when available.",
+                "- `gauge_total` keeps the Qwilight per-note gauge recovery percentage computed from BMS `#TOTAL` and note count when available.",
+                "- `comment` keeps the original chart diff name, Circus Rating, gauge recovery percentage, key mode, Revive Lv, BMS PLAYLEVEL, and obj credit when available.",
                 "- `batch_results_circus_rating.json` and `.csv` are audit files, not required for upload.",
                 "",
                 f"Generated from `{pack_dir}`.",

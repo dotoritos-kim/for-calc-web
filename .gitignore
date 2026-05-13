@@ -16,6 +16,12 @@ frontend-source/dist-ssr/
 .env
 .env.*
 !.env.example
+.admin_auth.json
+.admin_audit.jsonl
+.discord_uploads.json
+..discord_uploads.json.tmp
+..admin_auth.json.tmp
+..admin_audit.jsonl.tmp
 
 # Editor
 .vscode/*
