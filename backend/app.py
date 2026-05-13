@@ -52,6 +52,16 @@ def _env_int(name: str, default: int) -> int:
         return default
 
 
+def _env_path(name: str, default: Path) -> Path:
+    raw_value = os.getenv(name)
+    if raw_value is None:
+        return default
+    value = raw_value.strip()
+    if not value or value == ".":
+        return default
+    return Path(value)
+
+
 REPO_ROOT = _find_repo_root()
 CALC_ROOT = REPO_ROOT / "10k-calc"
 CONFIG_PATH = CALC_ROOT / "config.yaml"
@@ -61,8 +71,8 @@ LEVEL_VIEWER_HTML = PACKAGE_ROOT / "table" / "level-viewer.html"
 ADMIN_HTML = PACKAGE_ROOT / "table" / "admin.html"
 DUAL_TABLE_DIR = PACKAGE_ROOT / "dual-difficulty-table-upload"
 TABLE_ADMIN_TOKEN = os.getenv("TABLE_ADMIN_TOKEN", "").strip()
-ADMIN_AUTH_DB_PATH = Path(os.getenv("TABLE_ADMIN_AUTH_DB", str(PACKAGE_ROOT / ".admin_auth.json")))
-ADMIN_AUDIT_LOG_PATH = Path(os.getenv("TABLE_ADMIN_AUDIT_LOG", str(PACKAGE_ROOT / ".admin_audit.jsonl")))
+ADMIN_AUTH_DB_PATH = _env_path("TABLE_ADMIN_AUTH_DB", PACKAGE_ROOT / ".admin_auth.json")
+ADMIN_AUDIT_LOG_PATH = _env_path("TABLE_ADMIN_AUDIT_LOG", PACKAGE_ROOT / ".admin_audit.jsonl")
 ADMIN_SESSION_COOKIE = "table_admin_session"
 DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN", "").strip()
 DISCORD_ADMIN_CHANNEL_ID = os.getenv("DISCORD_ADMIN_CHANNEL_ID", "").strip()
@@ -74,7 +84,7 @@ DISCORD_ADMIN_USER_IDS = {
     for item in os.getenv("DISCORD_ADMIN_USER_IDS", "").split(",")
     if item.strip()
 }
-DISCORD_UPLOAD_DB_PATH = Path(os.getenv("DISCORD_UPLOAD_DB", str(PACKAGE_ROOT / ".discord_uploads.json")))
+DISCORD_UPLOAD_DB_PATH = _env_path("DISCORD_UPLOAD_DB", PACKAGE_ROOT / ".discord_uploads.json")
 DISCORD_UPLOAD_MAX_BYTES = _env_int("DISCORD_UPLOAD_MAX_BYTES", 24 * 1024 * 1024)
 DISCORD_GATEWAY_ENABLED = os.getenv("DISCORD_GATEWAY_ENABLED", "1").strip().lower() not in ("0", "false", "no", "off")
 DISCORD_REGISTER_COMMANDS = os.getenv("DISCORD_REGISTER_COMMANDS", "1").strip().lower() not in ("0", "false", "no", "off")
