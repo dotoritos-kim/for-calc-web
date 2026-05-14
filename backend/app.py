@@ -564,13 +564,13 @@ def _discord_command_payloads() -> list[dict[str, Any]]:
     return [
         {
             "name": "업로드",
-            "description": "차분 파일을 분석하고 어드민 승인 후 난이도 테이블에 추가합니다.",
+            "description": "차분 파일을 분석하고 어드민 승인 후 추가합니다. #10K가 없으면 자동 추가합니다.",
             "dm_permission": False,
             "options": [
                 {
                     "type": 11,
                     "name": "파일",
-                    "description": "업로드할 .bms/.bme/.bml/.pms 파일",
+                    "description": "업로드할 .bms/.bme/.bml/.pms 파일. #10K가 있으면 변경하지 않습니다.",
                     "required": True,
                 },
                 {
@@ -805,6 +805,12 @@ def _ensure_discord_upload_10k_directive(data: bytes, extension: str) -> tuple[b
     return b"#10K\r\n" + data, True
 
 
+def _discord_upload_10k_notice(analysis: dict[str, Any]) -> str:
+    if analysis.get("added10KDirective"):
+        return "#10K 처리: 원본 파일에 #10K가 없어 업로드 분석용 파일에 추가했습니다."
+    return "#10K 처리: 원본 파일에 #10K가 있으면 변경하지 않습니다."
+
+
 def _row_owner_key(row: dict[str, Any]) -> str:
     md5 = str(row.get("md5") or "").strip().lower()
     if md5:
@@ -952,6 +958,7 @@ def _discord_upload_summary(row: dict[str, Any], analysis: dict[str, Any]) -> st
         f"CR 레벨: {cr_level}\n"
         f"코멘트: {_truncate_text(_strip_cr_markers(row.get('comment')), 220) or '-'}\n"
         f"노트: {row.get('notes') or '-'} / 회복: {row.get('gauge_total') or '-'}\n"
+        f"{_discord_upload_10k_notice(analysis)}\n"
         f"MD5: `{row.get('md5') or '-'}`"
     )
 
