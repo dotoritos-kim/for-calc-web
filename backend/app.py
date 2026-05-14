@@ -631,6 +631,29 @@ def _discord_command_payloads() -> list[dict[str, Any]]:
                 },
             ],
         },
+        {
+            "name": "랜덤",
+            "description": "10키 테이블에서 할 패턴을 랜덤으로 추천합니다.",
+            "dm_permission": False,
+            "options": [
+                {
+                    "type": 4,
+                    "name": "난이도",
+                    "description": "특정 Revive Lv 안에서만 추천합니다.",
+                    "required": False,
+                    "min_value": 1,
+                    "max_value": 99,
+                },
+                {
+                    "type": 4,
+                    "name": "개수",
+                    "description": "추천할 패턴 수",
+                    "required": False,
+                    "min_value": 1,
+                    "max_value": 5,
+                },
+            ],
+        },
     ]
 
 
@@ -1228,6 +1251,55 @@ def _discord_build_row_list(interaction: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _table_row_level_int(row: dict[str, Any]) -> int | None:
+    try:
+        return int(str(row.get("level") or "").strip())
+    except (TypeError, ValueError):
+        return None
+
+
+def _discord_random_row_line(index: int, row: dict[str, Any]) -> str:
+    title = _truncate_text(row.get("title"), 56) or "-"
+    artist = _truncate_text(row.get("artist"), 34) or "-"
+    level = str(row.get("level") or "-").strip() or "-"
+    cr_level = _discord_row_cr_level(row)
+    comment = _truncate_text(_strip_cr_markers(row.get("comment")), 92) or "-"
+    details = [f"#{index}", f"Revive Lv.{level}"]
+    if cr_level:
+        details.append(f"CR {cr_level}")
+    if row.get("notes") not in (None, ""):
+        details.append(f"{row.get('notes')} notes")
+    if row.get("gauge_total") not in (None, ""):
+        details.append(f"TOTAL {row.get('gauge_total')}")
+    return f"{' | '.join(details)}\n{title} - {artist}\n코멘트: {comment}"
+
+
+def _discord_build_random_recommendation(interaction: dict[str, Any]) -> str:
+    options = _discord_option_map(interaction.get("data", {}).get("options"))
+    level_filter = int(options["난이도"]) if options.get("난이도") is not None else None
+    count = int(options.get("개수") or 1)
+    count = max(1, min(5, count))
+    candidates: list[tuple[int, dict[str, Any]]] = []
+    for index, row in enumerate(_load_table_rows()):
+        if not str(row.get("title") or "").strip():
+            continue
+        if level_filter is not None and _table_row_level_int(row) != level_filter:
+            continue
+        candidates.append((index, row))
+    if not candidates:
+        if level_filter is not None:
+            return f"Revive Lv.{level_filter}에서 추천할 10키 패턴이 없습니다."
+        return "추천할 10키 패턴이 없습니다."
+    selected = secrets.SystemRandom().sample(candidates, min(count, len(candidates)))
+    title = "10키 랜덤 추천"
+    if level_filter is not None:
+        title += f" (Revive Lv.{level_filter})"
+    lines = [f"{title} - 후보 {len(candidates)}개 중 {len(selected)}개"]
+    for index, row in selected:
+        lines.append(_discord_random_row_line(index, row))
+    return "\n\n".join(lines)
+
+
 def _discord_update_row_marking(interaction: dict[str, Any], options: dict[str, Any]) -> str:
     if not _discord_is_admin(interaction):
         raise HTTPException(status_code=403, detail="Only server admins can edit row labels")
@@ -1310,6 +1382,26 @@ async def _discord_handle_marking_command(interaction: dict[str, Any], options: 
         _discord_interaction_callback,
         interaction,
         {"type": 4, "data": {"content": _truncate_text(message, 1900), "flags": 64}},
+    )
+
+
+async def _discord_handle_random_command(interaction: dict[str, Any]) -> None:
+    ephemeral = False
+    try:
+        message = await asyncio.to_thread(_discord_build_random_recommendation, interaction)
+    except HTTPException as exc:
+        message = f"랜덤 추천 실패: {exc.detail}"
+        ephemeral = True
+    except Exception as exc:
+        message = f"랜덤 추천 실패: {exc}"
+        ephemeral = True
+    data: dict[str, Any] = {"content": _truncate_text(message, 1900), "allowed_mentions": {"parse": []}}
+    if ephemeral:
+        data["flags"] = 64
+    await asyncio.to_thread(
+        _discord_interaction_callback,
+        interaction,
+        {"type": 4, "data": data},
     )
 
 
@@ -1415,6 +1507,9 @@ async def _discord_handle_interaction(interaction: dict[str, Any]) -> None:
             command_name = str(data.get("name") or "")
             if command_name == "업로드":
                 await _discord_handle_upload_command(interaction)
+                return
+            if command_name == "랜덤":
+                await _discord_handle_random_command(interaction)
                 return
             if command_name == "차분":
                 subcommand = (data.get("options") or [{}])[0]
