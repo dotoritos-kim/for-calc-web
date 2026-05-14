@@ -547,7 +547,11 @@ class BMSParser:
                 if key_count < best_key_count:
                     best_match = mode_name
                     best_key_count = key_count
-        header_keys = self.header.keys()
+        header_keys = {str(key).strip().upper() for key in self.header.keys()}
+        explicit_10k = "10K" in header_keys
+        if explicit_10k:
+            best_match = '10K'
+            best_key_count = 10
         # 매칭되지 않으면 사용된 채널 수로 추정
         if best_match is None:
             # 2P 채널(21-29) 사용 여부로 DP/SP 구분
@@ -568,7 +572,7 @@ class BMSParser:
                 # SP 모드: 사용된 채널 수로 키 모드 추정
                 if '16' in used_note_channels:  # 스크래치 있음
                     if '18' in used_note_channels or '19' in used_note_channels:
-                        if header_keys is not None and ("8K" in header_keys or "8k" in header_keys):
+                        if "8K" in header_keys:
                             best_match = '8K'
                             best_key_count = 8
                         else:
@@ -589,7 +593,7 @@ class BMSParser:
                         best_match = '4K'
                         best_key_count = 4
         elif best_key_count == 8:
-            if header_keys is not None and ("8K" in header_keys or "8k" in header_keys):
+            if "8K" in header_keys:
                 best_match = '8K'
         # 결과 저장
         if best_match == 'DP12':
