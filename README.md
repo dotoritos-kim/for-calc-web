@@ -53,6 +53,7 @@ If you prefer an incoming webhook instead of a bot token, set `DISCORD_APPROVAL_
 When `DISCORD_BOT_TOKEN` is set, the backend also runs a Discord Gateway bot and registers slash commands:
 
 - `/업로드 파일:<chart> 코멘트:<text> 난이도:<optional>` accepts `.bms`, `.bme`, `.bml`, and `.pms` only, analyzes the chart, then posts an approval request to the admin channel.
+- `/랜덤 난이도:<optional> 개수:<optional>` recommends random patterns from the 10Key table. If `난이도` is set, it only picks from that Revive Lv; `개수` is capped at 5.
 - Admins approve or reject the upload in `DISCORD_ADMIN_CHANNEL_ID`; only approved uploads are appended to the server BMSTable body.
 - `/차분 목록` shows Discord-approved uploads only, with table number, edited Revive Lv, calculated CR, title, comment, and uploader.
 - `/차분 표기수정 번호:<index> 난이도:<optional> 코멘트:<optional>` edits only the displayed Revive Lv/comment when the caller is a server admin; CR remains the calculated value.
