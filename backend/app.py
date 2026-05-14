@@ -122,6 +122,7 @@ app.add_middleware(
 
 ALLOWED_EXTENSIONS = {".bms", ".bme", ".bml", ".pms", ".osu"}
 DISCORD_UPLOAD_EXTENSIONS = {".bms", ".bme", ".bml", ".pms"}
+BMS_10K_DIRECTIVE_PATTERN = re.compile(br"(?im)^\s*#10K(?:\s|$)")
 LIFE_GAUGES = [
     {"token": "Score % Acc %", "label": "Score % Acc %"},
     {"token": "Full Combo", "label": "Full Combo"},
@@ -796,6 +797,14 @@ def _download_discord_attachment(attachment: dict[str, Any]) -> bytes:
     return bytes(data)
 
 
+def _ensure_discord_upload_10k_directive(data: bytes, extension: str) -> tuple[bytes, bool]:
+    if extension.lower() not in DISCORD_UPLOAD_EXTENSIONS:
+        return data, False
+    if BMS_10K_DIRECTIVE_PATTERN.search(data):
+        return data, False
+    return b"#10K\r\n" + data, True
+
+
 def _row_owner_key(row: dict[str, Any]) -> str:
     md5 = str(row.get("md5") or "").strip().lower()
     if md5:
@@ -988,6 +997,7 @@ def _discord_prepare_upload(interaction: dict[str, Any]) -> str:
         raise HTTPException(status_code=400, detail="Discord upload only accepts BMS-family files: .bms, .bme, .bml, .pms")
 
     upload_data = _download_discord_attachment(attachment)
+    upload_data, added_10k_directive = _ensure_discord_upload_10k_directive(upload_data, extension)
     temp_path: Path | None = None
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix=extension) as temp_file:
@@ -996,6 +1006,7 @@ def _discord_prepare_upload(interaction: dict[str, Any]) -> str:
         stdout_buffer = io.StringIO()
         with contextlib.redirect_stdout(stdout_buffer):
             row, analysis = _build_discord_upload_row(temp_path, filename, comment, level_override)
+            analysis["added10KDirective"] = added_10k_directive
     finally:
         if temp_path and temp_path.exists():
             try:
