@@ -1259,19 +1259,34 @@ def _table_row_level_int(row: dict[str, Any]) -> int | None:
 
 
 def _discord_random_row_line(index: int, row: dict[str, Any]) -> str:
-    title = _truncate_text(row.get("title"), 56) or "-"
-    artist = _truncate_text(row.get("artist"), 34) or "-"
+    title = _truncate_text(row.get("title"), 48) or "-"
+    artist = _truncate_text(row.get("artist"), 28) or "-"
     level = str(row.get("level") or "-").strip() or "-"
     cr_level = _discord_row_cr_level(row)
-    comment = _truncate_text(_strip_cr_markers(row.get("comment")), 92) or "-"
-    details = [f"#{index}", f"Revive Lv.{level}"]
+    comment = _truncate_text(_strip_cr_markers(row.get("comment")), 72) or "-"
+    heading = f"#{index} | Revive Lv.{level}"
+    details = []
     if cr_level:
         details.append(f"CR {cr_level}")
     if row.get("notes") not in (None, ""):
         details.append(f"{row.get('notes')} notes")
     if row.get("gauge_total") not in (None, ""):
         details.append(f"TOTAL {row.get('gauge_total')}")
-    return f"{' | '.join(details)}\n{title} - {artist}\n코멘트: {comment}"
+    lines = [
+        heading,
+        f"{title} - {artist}",
+    ]
+    if details:
+        lines.append(" / ".join(details))
+    lines.append(f"코멘트: {comment}")
+    return "\n".join(lines)
+
+
+def _truncate_discord_message(value: Any, limit: int = 1900) -> str:
+    text = str(value or "").strip()
+    if len(text) <= limit:
+        return text
+    return text[: max(0, limit - 1)].rstrip() + "…"
 
 
 def _discord_build_random_recommendation(interaction: dict[str, Any]) -> str:
@@ -1294,9 +1309,9 @@ def _discord_build_random_recommendation(interaction: dict[str, Any]) -> str:
     title = "10키 랜덤 추천"
     if level_filter is not None:
         title += f" (Revive Lv.{level_filter})"
-    lines = [f"{title} - 후보 {len(candidates)}개 중 {len(selected)}개"]
-    for index, row in selected:
-        lines.append(_discord_random_row_line(index, row))
+    lines = [title, f"후보 {len(candidates)}개 중 {len(selected)}개"]
+    for position, (index, row) in enumerate(selected, 1):
+        lines.append(f"{position}. {_discord_random_row_line(index, row)}")
     return "\n\n".join(lines)
 
 
@@ -1395,7 +1410,7 @@ async def _discord_handle_random_command(interaction: dict[str, Any]) -> None:
     except Exception as exc:
         message = f"랜덤 추천 실패: {exc}"
         ephemeral = True
-    data: dict[str, Any] = {"content": _truncate_text(message, 1900), "allowed_mentions": {"parse": []}}
+    data: dict[str, Any] = {"content": _truncate_discord_message(message), "allowed_mentions": {"parse": []}}
     if ephemeral:
         data["flags"] = 64
     await asyncio.to_thread(
