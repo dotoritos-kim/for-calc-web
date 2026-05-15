@@ -84,6 +84,7 @@ DISCORD_ADMIN_USER_IDS = {
     for item in os.getenv("DISCORD_ADMIN_USER_IDS", "").split(",")
     if item.strip()
 }
+DISCORD_DAN_ROLE_IDS = os.getenv("DISCORD_DAN_ROLE_IDS", "").strip()
 DISCORD_UPLOAD_DB_PATH = _env_path("DISCORD_UPLOAD_DB", PACKAGE_ROOT / ".discord_uploads.json")
 DISCORD_UPLOAD_MAX_BYTES = _env_int("DISCORD_UPLOAD_MAX_BYTES", 24 * 1024 * 1024)
 DISCORD_GATEWAY_ENABLED = os.getenv("DISCORD_GATEWAY_ENABLED", "1").strip().lower() not in ("0", "false", "no", "off")
@@ -95,6 +96,26 @@ APPROVAL_TTL_SECONDS = _env_int("TABLE_ADMIN_APPROVAL_TTL_SECONDS", 60 * 60 * 24
 DISCORD_UPLOAD_TTL_SECONDS = _env_int("DISCORD_UPLOAD_TTL_SECONDS", 60 * 60 * 24 * 7)
 TABLE_ROW_FIELDS = ("md5", "sha256", "title", "artist", "level", "comment")
 EDITABLE_TABLE_FIELDS = ("title", "artist", "level", "comment", "md5", "sha256")
+DISCORD_RANDOM_DAN_MIN = 1
+DISCORD_RANDOM_DAN_MAX = 16
+DISCORD_DAN_COURSE_LEVEL_RANGES: dict[int, tuple[int, int]] = {
+    1: (1, 2),
+    2: (3, 4),
+    3: (5, 7),
+    4: (6, 8),
+    5: (7, 9),
+    6: (8, 10),
+    7: (10, 10),
+    8: (11, 11),
+    9: (12, 12),
+    10: (12, 13),
+    11: (13, 13),
+    12: (13, 14),
+    13: (14, 14),
+    14: (13, 15),
+    15: (15, 16),
+    16: (16, 17),
+}
 OBJ_PATTERN = re.compile(r"\bobj(?:ecter)?\s*[:：]?\s*([^\s,\[\]()/]+)", re.IGNORECASE)
 LOGIN_ID_PATTERN = re.compile(r"^[a-z0-9_.-]{3,32}$")
 DISCORD_API_BASE = "https://discord.com/api/v10"
@@ -638,6 +659,18 @@ def _discord_command_payloads() -> list[dict[str, Any]]:
             "options": [
                 {
                     "type": 4,
+                    "name": "단위",
+                    "description": "1단~16단 기준 추천 범위. 비우면 Role 단위를 자동 사용합니다.",
+                    "required": False,
+                    "min_value": DISCORD_RANDOM_DAN_MIN,
+                    "max_value": DISCORD_RANDOM_DAN_MAX,
+                    "choices": [
+                        {"name": f"{dan}단", "value": dan}
+                        for dan in range(DISCORD_RANDOM_DAN_MIN, DISCORD_RANDOM_DAN_MAX + 1)
+                    ],
+                },
+                {
+                    "type": 4,
                     "name": "난이도",
                     "description": "특정 Revive Lv 안에서만 추천합니다.",
                     "required": False,
@@ -775,6 +808,70 @@ def _discord_is_admin(interaction: dict[str, Any]) -> bool:
     manage_guild = 1 << 5
     manage_messages = 1 << 13
     return bool(permissions & (administrator | manage_guild | manage_messages))
+
+
+def _coerce_discord_dan(value: Any) -> int | None:
+    try:
+        dan = int(str(value).strip())
+    except (TypeError, ValueError):
+        return None
+    if DISCORD_RANDOM_DAN_MIN <= dan <= DISCORD_RANDOM_DAN_MAX:
+        return dan
+    return None
+
+
+def _discord_dan_level_range(dan: int) -> tuple[int, int]:
+    current_range = DISCORD_DAN_COURSE_LEVEL_RANGES.get(dan)
+    next_range = DISCORD_DAN_COURSE_LEVEL_RANGES.get(dan + 1)
+    if current_range is not None and next_range is not None:
+        return min(current_range[0], next_range[0]), max(current_range[1], next_range[1])
+    if current_range is not None:
+        return current_range
+    return max(1, dan - 1), dan + 2
+
+
+def _discord_dan_role_map() -> dict[str, int]:
+    role_map: dict[str, int] = {}
+    for dan in range(DISCORD_RANDOM_DAN_MIN, DISCORD_RANDOM_DAN_MAX + 1):
+        for env_name in (f"DISCORD_DAN_ROLE_{dan}_ID", f"DISCORD_DAN_{dan}_ROLE_ID"):
+            role_id = os.getenv(env_name, "").strip()
+            if role_id:
+                role_map[role_id] = dan
+    for item in DISCORD_DAN_ROLE_IDS.split(","):
+        raw = item.strip()
+        if not raw:
+            continue
+        match = re.fullmatch(r"(\d+)\s*[:=]\s*(\d+)", raw)
+        if not match:
+            continue
+        left, right = match.groups()
+        left_dan = _coerce_discord_dan(left)
+        right_dan = _coerce_discord_dan(right)
+        if left_dan is not None and right_dan is None:
+            role_map[right] = left_dan
+        elif right_dan is not None and left_dan is None:
+            role_map[left] = right_dan
+    return role_map
+
+
+def _discord_member_role_ids(interaction: dict[str, Any]) -> set[str]:
+    member = interaction.get("member")
+    roles = member.get("roles") if isinstance(member, dict) else None
+    if not isinstance(roles, list):
+        return set()
+    return {str(role_id).strip() for role_id in roles if str(role_id).strip()}
+
+
+def _discord_member_dan(interaction: dict[str, Any]) -> int | None:
+    role_map = _discord_dan_role_map()
+    if not role_map:
+        return None
+    matched = [
+        dan
+        for role_id, dan in role_map.items()
+        if role_id in _discord_member_role_ids(interaction)
+    ]
+    return max(matched) if matched else None
 
 
 def _discord_option_map(options: list[dict[str, Any]] | None) -> dict[str, Any]:
@@ -1292,23 +1389,43 @@ def _truncate_discord_message(value: Any, limit: int = 1900) -> str:
 def _discord_build_random_recommendation(interaction: dict[str, Any]) -> str:
     options = _discord_option_map(interaction.get("data", {}).get("options"))
     level_filter = int(options["난이도"]) if options.get("난이도") is not None else None
+    dan_filter = (
+        _coerce_discord_dan(options.get("단위"))
+        if options.get("단위") is not None
+        else _discord_member_dan(interaction)
+    )
+    level_min: int | None = None
+    level_max: int | None = None
+    if level_filter is None and dan_filter is not None:
+        level_min, level_max = _discord_dan_level_range(dan_filter)
     count = int(options.get("개수") or 1)
     count = max(1, min(5, count))
     candidates: list[tuple[int, dict[str, Any]]] = []
     for index, row in enumerate(_load_table_rows()):
         if not str(row.get("title") or "").strip():
             continue
-        if level_filter is not None and _table_row_level_int(row) != level_filter:
+        row_level = _table_row_level_int(row)
+        if level_filter is not None and row_level != level_filter:
+            continue
+        if (
+            level_min is not None
+            and level_max is not None
+            and (row_level is None or row_level < level_min or row_level > level_max)
+        ):
             continue
         candidates.append((index, row))
     if not candidates:
         if level_filter is not None:
             return f"Revive Lv.{level_filter}에서 추천할 10키 패턴이 없습니다."
+        if dan_filter is not None and level_min is not None and level_max is not None:
+            return f"{dan_filter}단 기준 Revive Lv.{level_min}~{level_max}에서 추천할 10키 패턴이 없습니다."
         return "추천할 10키 패턴이 없습니다."
     selected = secrets.SystemRandom().sample(candidates, min(count, len(candidates)))
     title = "10키 랜덤 추천"
     if level_filter is not None:
         title += f" (Revive Lv.{level_filter})"
+    elif dan_filter is not None and level_min is not None and level_max is not None:
+        title += f" ({dan_filter}단 기준 Revive Lv.{level_min}~{level_max})"
     lines = [title, f"후보 {len(candidates)}개 중 {len(selected)}개"]
     for position, (index, row) in enumerate(selected, 1):
         lines.append(f"{position}. {_discord_random_row_line(index, row)}")
