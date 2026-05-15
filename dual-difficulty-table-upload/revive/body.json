@@ -960,6 +960,16 @@
     "notes": 1315
   },
   {
+    "md5": "74b2146f0b98f6f86f1f98abad6abf38",
+    "sha256": "fceb7faf81491dde69509c59030681c1772945749c2f403056a7dd2835d97360",
+    "title": "Strahv",
+    "artist": "Feryquitous",
+    "level": "11",
+    "comment": "[10K HD] obj:u_e",
+    "gauge_total": "0.19%",
+    "notes": 1295
+  },
+  {
     "md5": "0d2a2cd8b5f98dbec12760146d6dc929",
     "sha256": "7463218a4c758a610d0884128e0d1e64706521903960df372dd58dc771d8e646",
     "title": "Black Key",
@@ -1400,6 +1410,26 @@
     "notes": 1823
   },
   {
+    "md5": "5294813601095c7aca698b137a97d16d",
+    "sha256": "0d409f4fe57134aeaa0645020bfdc76c2abf8dda3f10d41829e2a7519e1e1d95",
+    "title": "未来のコピヌ [10K SHD]",
+    "artist": "yoayua (yoa + yuayua)",
+    "level": "14",
+    "comment": "[LV.14] obj:u_e",
+    "gauge_total": "0.19%",
+    "notes": 2121
+  },
+  {
+    "md5": "17076d20ff68b79efdeba44b9c39cd3b",
+    "sha256": "4be811e0f3ad21970b5c5f4cf44114cb733da0f40736f0c9daab5a508fbc4918",
+    "title": "Strahv",
+    "artist": "Feryquitous",
+    "level": "14",
+    "comment": "[10K SHD] obj:u_e",
+    "gauge_total": "0.19%",
+    "notes": 1815
+  },
+  {
     "md5": "ac0ca471da6161670f7f67e3641299b8",
     "sha256": "606e05552faef812e66008b2675d94f35938918b6852bceae06e3de545c112bd",
     "title": "Alien Artifact",
@@ -1758,16 +1788,5 @@
     "comment": "[10K HELL CIRCUS] Piano BMS Set obj:CircusGalop",
     "gauge_total": "0.81%",
     "notes": 12326
-  },
-  {
-    "md5": "17076d20ff68b79efdeba44b9c39cd3b",
-    "sha256": "4be811e0f3ad21970b5c5f4cf44114cb733da0f40736f0c9daab5a508fbc4918",
-    "title": "Strahv",
-    "artist": "Feryquitous",
-    "level": "15",
-    "comment": "테스트2",
-    "gauge_total": "0.19%",
-    "notes": 1815,
-    "cr_level": "7.18"
   }
 ]
