@@ -53,7 +53,7 @@ If you prefer an incoming webhook instead of a bot token, set `DISCORD_APPROVAL_
 When `DISCORD_BOT_TOKEN` is set, the backend also runs a Discord Gateway bot and registers slash commands:
 
 - `/업로드 파일:<chart> 코멘트:<text> 난이도:<optional>` accepts `.bms`, `.bme`, `.bml`, and `.pms` only, analyzes the chart, then posts an approval request to the admin channel.
-- `/랜덤 난이도:<optional> 개수:<optional>` recommends random patterns from the 10Key table. If `난이도` is set, it only picks from that Revive Lv; `개수` is capped at 5.
+- `/랜덤 단위:<optional> 난이도:<optional> 개수:<optional>` recommends random patterns from the 10Key table. If `난이도` is set, it only picks from that Revive Lv; otherwise `단위` uses the current dan and next dan range, for example `14단` recommends Revive Lv.13~16. If neither `단위` nor a mapped dan Role is found, it uses the full table. `개수` is capped at 5.
 - Admins approve or reject the upload in `DISCORD_ADMIN_CHANNEL_ID`; only approved uploads are appended to the server BMSTable body.
 - `/차분 목록` shows Discord-approved uploads only, with table number, edited Revive Lv, calculated CR, title, comment, and uploader.
 - `/차분 표기수정 번호:<index> 난이도:<optional> 코멘트:<optional>` edits only the displayed Revive Lv/comment when the caller is a server admin; CR remains the calculated value.
@@ -64,6 +64,7 @@ Useful `.env` values:
 DISCORD_APPLICATION_ID=
 DISCORD_GUILD_ID=
 DISCORD_ADMIN_USER_IDS=
+DISCORD_DAN_ROLE_IDS=
 DISCORD_UPLOAD_DB=
 DISCORD_UPLOAD_MAX_BYTES=
 DISCORD_GATEWAY_ENABLED=1
@@ -71,6 +72,8 @@ DISCORD_REGISTER_COMMANDS=1
 ```
 
 Set `DISCORD_GUILD_ID` during testing if you want to force a specific server. If it is omitted, the backend tries to infer the server from `DISCORD_ADMIN_CHANNEL_ID` and registers guild commands there; if that lookup fails, commands are registered globally and Discord may take longer to show them. `DISCORD_ADMIN_USER_IDS` is a comma-separated allowlist; users with Administrator, Manage Server, or Manage Messages permission are also treated as admins. Pending uploads, approval history, and uploader ownership are stored in `.discord_uploads.json` by default.
+
+For automatic dan-based random recommendations, set Discord Role IDs with `DISCORD_DAN_ROLE_IDS`, for example `1=ROLE_ID,2=ROLE_ID,...,16=ROLE_ID`. Direct local runs also accept individual process env vars like `DISCORD_DAN_ROLE_14_ID=ROLE_ID`. If a member has multiple mapped dan roles, the highest dan is used.
 
 Docker Compose reads the values automatically:
 
