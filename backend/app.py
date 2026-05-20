@@ -585,13 +585,13 @@ def _discord_command_payloads() -> list[dict[str, Any]]:
     return [
         {
             "name": "업로드",
-            "description": "차분 파일을 분석하고 어드민 승인 후 추가합니다. #10K가 없으면 자동 추가합니다.",
+            "description": "차분 파일을 분석하고 어드민 승인 후 추가합니다. #10K 확장명령은 자동 추가하지 않습니다.",
             "dm_permission": False,
             "options": [
                 {
                     "type": 11,
                     "name": "파일",
-                    "description": "업로드할 .bms/.bme/.bml/.pms 파일. #10K가 있으면 변경하지 않습니다.",
+                    "description": "업로드할 .bms/.bme/.bml/.pms 파일. #10K가 없어도 변경하지 않습니다.",
                     "required": True,
                 },
                 {
@@ -917,18 +917,18 @@ def _download_discord_attachment(attachment: dict[str, Any]) -> bytes:
     return bytes(data)
 
 
-def _ensure_discord_upload_10k_directive(data: bytes, extension: str) -> tuple[bytes, bool]:
+def _has_discord_upload_10k_directive(data: bytes, extension: str) -> bool:
     if extension.lower() not in DISCORD_UPLOAD_EXTENSIONS:
-        return data, False
-    if BMS_10K_DIRECTIVE_PATTERN.search(data):
-        return data, False
-    return b"#10K\r\n" + data, True
+        return False
+    return bool(BMS_10K_DIRECTIVE_PATTERN.search(data))
 
 
 def _discord_upload_10k_notice(analysis: dict[str, Any]) -> str:
     if analysis.get("added10KDirective"):
-        return "#10K 처리: 원본 파일에 #10K가 없어 업로드 분석용 파일에 추가했습니다."
-    return "#10K 처리: 원본 파일에 #10K가 있으면 변경하지 않습니다."
+        return "#10K 처리: 이전 요청에서 업로드 분석용 파일에 #10K가 추가된 상태입니다."
+    if analysis.get("has10KDirective"):
+        return "#10K 처리: 원본 파일에 #10K가 있어 그대로 사용합니다."
+    return "#10K 처리: 원본 파일에 #10K가 없어도 자동 추가하지 않습니다."
 
 
 def _row_owner_key(row: dict[str, Any]) -> str:
@@ -1124,7 +1124,7 @@ def _discord_prepare_upload(interaction: dict[str, Any]) -> str:
         raise HTTPException(status_code=400, detail="Discord upload only accepts BMS-family files: .bms, .bme, .bml, .pms")
 
     upload_data = _download_discord_attachment(attachment)
-    upload_data, added_10k_directive = _ensure_discord_upload_10k_directive(upload_data, extension)
+    has_10k_directive = _has_discord_upload_10k_directive(upload_data, extension)
     temp_path: Path | None = None
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix=extension) as temp_file:
@@ -1133,7 +1133,8 @@ def _discord_prepare_upload(interaction: dict[str, Any]) -> str:
         stdout_buffer = io.StringIO()
         with contextlib.redirect_stdout(stdout_buffer):
             row, analysis = _build_discord_upload_row(temp_path, filename, comment, level_override)
-            analysis["added10KDirective"] = added_10k_directive
+            analysis["has10KDirective"] = has_10k_directive
+            analysis["added10KDirective"] = False
     finally:
         if temp_path and temp_path.exists():
             try:
