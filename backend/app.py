@@ -13,7 +13,9 @@ import secrets
 import sys
 import tempfile
 import time
+import unicodedata
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from functools import lru_cache
@@ -125,6 +127,14 @@ LOGIN_ID_PATTERN = re.compile(r"^[a-z0-9_.-]{3,32}$")
 DISCORD_API_BASE = "https://discord.com/api/v10"
 DISCORD_INTENT_GUILD_MEMBERS = 1 << 1
 DISCORD_TEXT_CHANNEL_TYPES = (0, 5)
+QWILIGHT_API_BASE = os.getenv("QWILIGHT_API_BASE", "https://taehui.net/qwilight/www").strip().rstrip("/")
+QWILIGHT_HTTP_TIMEOUT_SECONDS = _env_int("QWILIGHT_HTTP_TIMEOUT_SECONDS", 15)
+QWILIGHT_SEARCH_MAX_PAGES = _env_int("QWILIGHT_SEARCH_MAX_PAGES", 5)
+QWILIGHT_RANKING_LIMIT = _env_int("QWILIGHT_RANKING_LIMIT", 10)
+QWILIGHT_NOTE_CACHE_TTL_SECONDS = _env_int("QWILIGHT_NOTE_CACHE_TTL_SECONDS", 60 * 60 * 12)
+QWILIGHT_RANKING_CACHE_TTL_SECONDS = _env_int("QWILIGHT_RANKING_CACHE_TTL_SECONDS", 60 * 5)
+DISCORD_RANKING_TABLE_LIMIT = 8
+DISCORD_AUTOCOMPLETE_LIMIT = 25
 
 if str(CALC_ROOT) not in sys.path:
     sys.path.insert(0, str(CALC_ROOT))
@@ -695,6 +705,29 @@ def _discord_command_payloads() -> list[dict[str, Any]]:
                 },
             ],
         },
+        {
+            "name": "랭킹",
+            "description": "10키 리바이브 테이블 패턴의 Qwilight 온라인 랭킹을 조회합니다.",
+            "dm_permission": False,
+            "options": [
+                {
+                    "type": 3,
+                    "name": "곡명",
+                    "description": "테이블에 있는 곡 제목. 일부만 입력해도 되고 자동완성에서 고를 수 있습니다.",
+                    "required": True,
+                    "autocomplete": True,
+                    "max_length": 100,
+                },
+                {
+                    "type": 4,
+                    "name": "레벨",
+                    "description": "같은 곡이 여러 개일 때 구분할 Revive Lv",
+                    "required": False,
+                    "min_value": 1,
+                    "max_value": 99,
+                },
+            ],
+        },
     ]
 
 
@@ -807,6 +840,15 @@ def _discord_edit_original(interaction: dict[str, Any], content: str, components
     }
     if components is not None:
         payload["components"] = components
+    app_id = _discord_interaction_app_id(interaction)
+    return _discord_api_request("PATCH", f"/webhooks/{app_id}/{interaction['token']}/messages/@original", payload)
+
+
+def _discord_edit_original_lines(interaction: dict[str, Any], content: str) -> Any:
+    payload: dict[str, Any] = {
+        "content": _truncate_discord_message(content),
+        "allowed_mentions": {"parse": []},
+    }
     app_id = _discord_interaction_app_id(interaction)
     return _discord_api_request("PATCH", f"/webhooks/{app_id}/{interaction['token']}/messages/@original", payload)
 
@@ -1503,6 +1545,403 @@ def _discord_build_random_recommendation(interaction: dict[str, Any]) -> str:
     return "\n\n".join(lines)
 
 
+QWILIGHT_TEXT_NOISE_PATTERN = re.compile("[^0-9a-z가-힣぀-ヿ一-鿿]+")
+QWILIGHT_10K_MARKER_PATTERN = re.compile(r"(?:^|[\s\[\(~\-_])10\s*k(?:ey)?s?(?:$|[\s\]\)~\-_])", re.IGNORECASE)
+QWILIGHT_NOTE_LEVEL_PATTERN = re.compile(r"([0-9]+)")
+TABLE_ROW_TAG_PATTERN = re.compile(r"\s*\[([^\]]+)\]")
+TABLE_ROW_LEVEL_TAG_PATTERN = re.compile(r"lv\.?\s*[0-9]+", re.IGNORECASE)
+RANKING_LEVEL_HINT_PATTERN = re.compile(r"\[\s*(?:lv|레벨)\.?\s*([0-9]{1,3})\s*\]\s*$", re.IGNORECASE)
+
+_qwilight_search_cache: dict[str, tuple[float, list[dict[str, Any]]]] = {}
+_qwilight_note_cache: dict[str, tuple[float, tuple[dict[str, Any] | None, list[dict[str, Any]]]]] = {}
+_qwilight_ranking_cache: dict[str, tuple[float, list[dict[str, Any]]]] = {}
+
+
+def _qwilight_cache_get(cache: dict[str, tuple[float, Any]], key: str, ttl_seconds: int) -> tuple[Any, bool]:
+    entry = cache.get(key)
+    if entry is None:
+        return None, False
+    stored_at, value = entry
+    if ttl_seconds > 0 and time.time() - stored_at > ttl_seconds:
+        cache.pop(key, None)
+        return None, False
+    return value, True
+
+
+def _qwilight_cache_put(cache: dict[str, tuple[float, Any]], key: str, value: Any, limit: int = 256) -> None:
+    if len(cache) >= limit:
+        for stale_key in sorted(cache, key=lambda item: cache[item][0])[: max(1, limit // 4)]:
+            cache.pop(stale_key, None)
+    cache[key] = (time.time(), value)
+
+
+def _qwilight_normalize_text(value: Any) -> str:
+    text = unicodedata.normalize("NFKC", str(value or "")).casefold()
+    return QWILIGHT_TEXT_NOISE_PATTERN.sub("", text)
+
+
+def _table_row_chart_tag(row: dict[str, Any]) -> str:
+    match = TABLE_ROW_TAG_PATTERN.match(str(row.get("comment") or ""))
+    if not match:
+        return ""
+    tag = match.group(1).strip()
+    if TABLE_ROW_LEVEL_TAG_PATTERN.fullmatch(tag):
+        return ""
+    return tag
+
+
+def _qwilight_api_get(path: str, params: dict[str, Any]) -> Any:
+    url = f"{QWILIGHT_API_BASE}/{path}?{urllib.parse.urlencode(params)}"
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": "for-calc-web-discord-bot", "Accept": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=QWILIGHT_HTTP_TIMEOUT_SECONDS) as response:
+            body = response.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as exc:
+        raise HTTPException(status_code=502, detail=f"Qwilight API HTTP {exc.code}") from exc
+    except urllib.error.URLError as exc:
+        raise HTTPException(status_code=502, detail=f"Qwilight API failed: {exc.reason}") from exc
+    except TimeoutError as exc:
+        raise HTTPException(status_code=504, detail="Qwilight API timed out") from exc
+    if not body:
+        return {}
+    try:
+        return json.loads(body)
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=502, detail="Qwilight API returned invalid JSON") from exc
+
+
+def _qwilight_search_notes(want: str) -> list[dict[str, Any]]:
+    """Qwilight note search matches titles by prefix, so `want` must start the chart title."""
+    key = str(want or "").strip()
+    if not key:
+        return []
+    cached, hit = _qwilight_cache_get(_qwilight_search_cache, key, QWILIGHT_NOTE_CACHE_TTL_SECONDS)
+    if hit:
+        return cached
+    notes: list[dict[str, Any]] = []
+    page = 1
+    while page <= max(1, QWILIGHT_SEARCH_MAX_PAGES):
+        payload = _qwilight_api_get("note", {"fit": 0, "src": 0, "want": key, "page": page})
+        if not isinstance(payload, dict):
+            break
+        notes.extend(note for note in payload.get("notes") or [] if isinstance(note, dict))
+        if page >= int(payload.get("lastPage") or 1):
+            break
+        page += 1
+    _qwilight_cache_put(_qwilight_search_cache, key, notes)
+    return notes
+
+
+def _qwilight_score_note(
+    note: dict[str, Any],
+    normalized_title: str,
+    normalized_artist: str,
+    normalized_tag: str,
+) -> float | None:
+    note_title = _qwilight_normalize_text(note.get("title"))
+    if not note_title.startswith(normalized_title):
+        return None
+    rest = note_title[len(normalized_title):]
+    if normalized_tag:
+        if rest == normalized_tag:
+            score = 100.0
+        elif normalized_tag in rest:
+            score = 60.0
+        elif not rest and normalized_tag in normalized_title:
+            score = 50.0
+        else:
+            return None
+    elif rest:
+        return None
+    else:
+        score = 30.0
+    note_artist = _qwilight_normalize_text(note.get("artist"))
+    if normalized_artist and (note_artist.startswith(normalized_artist) or normalized_artist in note_artist):
+        score += 10.0
+    return score
+
+
+def _qwilight_resolve_note(row: dict[str, Any]) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+    """Map a table row to its Qwilight chart.
+
+    Returns the matched chart, or `None` plus the other Qwilight charts of the same song so the
+    caller can show what does exist instead of silently reporting the wrong difficulty.
+    """
+    title = str(row.get("title") or "").strip()
+    if not title:
+        return None, []
+    tag = _table_row_chart_tag(row)
+    cache_key = _row_owner_key(row) or f"title:{title}|{tag}"
+    cached, hit = _qwilight_cache_get(_qwilight_note_cache, cache_key, QWILIGHT_NOTE_CACHE_TTL_SECONDS)
+    if hit:
+        return cached
+    normalized_title = _qwilight_normalize_text(title)
+    normalized_artist = _qwilight_normalize_text(row.get("artist"))
+    normalized_tag = _qwilight_normalize_text(tag)
+    result: tuple[dict[str, Any] | None, list[dict[str, Any]]] | None = None
+    near_misses: list[dict[str, Any]] = []
+    for want in ([f"{title} - {tag}"] if tag else []) + [title]:
+        scored: list[tuple[float, int, dict[str, Any]]] = []
+        near_misses = []
+        for note in _qwilight_search_notes(want):
+            score = _qwilight_score_note(note, normalized_title, normalized_artist, normalized_tag)
+            if score is None:
+                near_misses.append(note)
+                continue
+            scored.append((score, int(note.get("topCount") or 0), note))
+        if scored:
+            scored.sort(key=lambda item: (item[0], item[1]), reverse=True)
+            result = (scored[0][2], [])
+            break
+    if result is None:
+        near_misses.sort(key=lambda note: int(note.get("topCount") or 0), reverse=True)
+        result = (None, near_misses)
+    _qwilight_cache_put(_qwilight_note_cache, cache_key, result)
+    return result
+
+
+def _qwilight_fetch_ranking(note_id: str) -> list[dict[str, Any]]:
+    key = str(note_id or "").strip()
+    if not key:
+        return []
+    cached, hit = _qwilight_cache_get(_qwilight_ranking_cache, key, QWILIGHT_RANKING_CACHE_TTL_SECONDS)
+    if hit:
+        return cached
+    payload = _qwilight_api_get("comment", {"noteID": key, "avatarID": "", "language": "ko-KR"})
+    comments = (
+        [comment for comment in payload.get("comments") or [] if isinstance(comment, dict)]
+        if isinstance(payload, dict)
+        else []
+    )
+    _qwilight_cache_put(_qwilight_ranking_cache, key, comments)
+    return comments
+
+
+def _qwilight_quit_grade(point: float, stand: int, is_f: bool) -> str:
+    if is_f:
+        return "F"
+    if point < 0.8:
+        return "D"
+    if point < 0.85:
+        return "C"
+    if point < 0.9:
+        return "B"
+    if point < 0.95:
+        return "A"
+    if stand < 900000:
+        return "A+"
+    if point < 1:
+        return "S"
+    return "S+"
+
+
+def _qwilight_ranking_line(place: int, comment: dict[str, Any]) -> str:
+    try:
+        stand = int(comment.get("stand") or 0)
+    except (TypeError, ValueError):
+        stand = 0
+    try:
+        point = float(comment.get("point") or 0.0)
+    except (TypeError, ValueError):
+        point = 0.0
+    grade = _qwilight_quit_grade(point, stand, bool(comment.get("isF")))
+    name = _truncate_text(comment.get("avatarName"), 16) or "-"
+    date = str(comment.get("date") or "")[:10]
+    return f"{place:>2}. {grade:<2} {stand:>9,}  {point * 100:6.2f}%  {name}  {date}"
+
+
+def _qwilight_note_objecter(note: dict[str, Any]) -> str:
+    """10키 차분은 아티스트 필드에 `obj : GCS` 처럼 차분자가 붙는다."""
+    objecters = _explicit_objecters_from_values([note.get("artist"), note.get("title")])
+    return objecters[0] if objecters else ""
+
+
+def _qwilight_is_10k_note(note: dict[str, Any]) -> bool:
+    return bool(
+        QWILIGHT_10K_MARKER_PATTERN.search(str(note.get("title") or ""))
+        or QWILIGHT_10K_MARKER_PATTERN.search(str(note.get("artist") or ""))
+    )
+
+
+def _qwilight_note_level_int(note: dict[str, Any]) -> int | None:
+    match = QWILIGHT_NOTE_LEVEL_PATTERN.search(str(note.get("levelText") or ""))
+    return int(match.group(1)) if match else None
+
+
+def _qwilight_10k_notes(query: str, level: int | None) -> list[dict[str, Any]]:
+    """Qwilight에 등록된 10키 차분을 곡 제목으로 찾는다. 제목 검색은 접두사 일치라 앞부분이 맞아야 한다."""
+    found: dict[str, dict[str, Any]] = {}
+    for note in _qwilight_search_notes(query):
+        if not _qwilight_is_10k_note(note):
+            continue
+        if level is not None and _qwilight_note_level_int(note) != level:
+            continue
+        note_id = str(note.get("noteID") or "")
+        if note_id:
+            found[note_id] = note
+    return sorted(found.values(), key=lambda note: int(note.get("topCount") or 0), reverse=True)
+
+
+def _qwilight_note_summary(note: dict[str, Any]) -> str:
+    title = _truncate_text(note.get("title"), 60) or "-"
+    level_text = _truncate_text(note.get("levelText"), 12) or "-"
+    objecter = _qwilight_note_objecter(note)
+    summary = f"{title} ({level_text})"
+    if objecter:
+        summary += f" | obj:{_truncate_text(objecter, 20)}"
+    return f"{summary} | 기록 {int(note.get('topCount') or 0)}개 / 플레이 {int(note.get('totalCount') or 0)}회"
+
+
+def _discord_ranking_table_matches(query: str, level: int | None) -> list[tuple[int, dict[str, Any]]]:
+    normalized_query = _qwilight_normalize_text(query)
+    matches: list[tuple[int, int, int, dict[str, Any]]] = []
+    for index, row in enumerate(_load_table_rows()):
+        title = str(row.get("title") or "").strip()
+        if not title:
+            continue
+        row_level = _table_row_level_int(row)
+        if level is not None and row_level != level:
+            continue
+        normalized_title = _qwilight_normalize_text(title)
+        if not normalized_query:
+            rank = 3
+        elif normalized_query == normalized_title:
+            rank = 0
+        elif normalized_title.startswith(normalized_query):
+            rank = 1
+        elif normalized_query in normalized_title + _qwilight_normalize_text(_table_row_chart_tag(row)):
+            rank = 2
+        else:
+            continue
+        matches.append((rank, row_level if row_level is not None else 0, index, row))
+    matches.sort(key=lambda item: (item[0], item[1], item[2]))
+    return [(index, row) for _, _, index, row in matches]
+
+
+def _discord_ranking_table_line(index: int, row: dict[str, Any]) -> str:
+    title = _truncate_text(row.get("title"), 48) or "-"
+    tag = _table_row_chart_tag(row)
+    line = f"#{index} | Revive Lv.{str(row.get('level') or '-').strip() or '-'} | {title}"
+    if tag:
+        line += f" [{tag}]"
+    return line
+
+
+def _discord_ranking_records(heading: list[str], note: dict[str, Any]) -> str:
+    comments = _qwilight_fetch_ranking(str(note.get("noteID") or ""))
+    lines = heading + [f"Qwilight: {_qwilight_note_summary(note)}"]
+    if not comments:
+        lines.append("")
+        lines.append("아직 등록된 기록이 없습니다.")
+        return "\n".join(lines)
+    shown = comments[: max(1, QWILIGHT_RANKING_LIMIT)]
+    lines.append("```")
+    for place, comment in enumerate(shown, 1):
+        lines.append(_qwilight_ranking_line(place, comment))
+    lines.append("```")
+    if len(comments) > len(shown):
+        lines.append(f"전체 기록 {len(comments)}개 중 상위 {len(shown)}개")
+    return "\n".join(lines)
+
+
+def _discord_ranking_10k_notes(heading: list[str], notes: list[dict[str, Any]], query: str) -> str:
+    """리바이브 테이블 밖에 있는 10키 차분(GCS 10K 등)을 목록으로 보여준다."""
+    if len(notes) == 1:
+        return _discord_ranking_records(heading, notes[0])
+    lines = list(heading)
+    lines.append("")
+    lines.append(f"Qwilight에 등록된 10키 차분이 {len(notes)}개입니다. 레벨을 지정해 주세요.")
+    for note in notes[:DISCORD_RANKING_TABLE_LIMIT]:
+        lines.append(f"- {_qwilight_note_summary(note)}")
+    if len(notes) > DISCORD_RANKING_TABLE_LIMIT:
+        lines.append(f"...외 {len(notes) - DISCORD_RANKING_TABLE_LIMIT}개")
+    lines.append("")
+    lines.append(f"/랭킹 곡명:{_truncate_text(query, 40)} 레벨:<Qwilight LV>")
+    return "\n".join(lines)
+
+
+def _discord_build_ranking(interaction: dict[str, Any]) -> str:
+    options = _discord_option_map(interaction.get("data", {}).get("options"))
+    query = str(options.get("곡명") or "").strip()
+    level = int(options["레벨"]) if options.get("레벨") is not None else None
+    hint = RANKING_LEVEL_HINT_PATTERN.search(query)
+    if hint:
+        query = query[: hint.start()].strip()
+        if level is None:
+            level = int(hint.group(1))
+    if not query:
+        return "조회할 곡명을 입력해 주세요."
+    matches = _discord_ranking_table_matches(query, level)
+    if len(matches) > 1:
+        lines = [
+            f"'{_truncate_text(query, 60)}'에 해당하는 패턴이 {len(matches)}개입니다. 레벨을 지정해 주세요.",
+            "",
+        ]
+        for index, row in matches[:DISCORD_RANKING_TABLE_LIMIT]:
+            lines.append(_discord_ranking_table_line(index, row))
+        if len(matches) > DISCORD_RANKING_TABLE_LIMIT:
+            lines.append(f"...외 {len(matches) - DISCORD_RANKING_TABLE_LIMIT}개")
+        lines.append("")
+        lines.append("/랭킹 곡명:<제목> 레벨:<Revive Lv>")
+        return "\n".join(lines)
+    if not matches:
+        # 리바이브 테이블에 없는 곡은 Qwilight에 등록된 10키 차분(GCS 10K 등)에서 찾는다.
+        notes = _qwilight_10k_notes(query, level)
+        if not notes:
+            scope = f"레벨 {level}의 " if level is not None else ""
+            return (
+                f"10키 리바이브 테이블과 Qwilight 10키 차분 어디에서도 {scope}"
+                f"'{_truncate_text(query, 60)}' 패턴을 찾지 못했습니다.\n"
+                "Qwilight 제목 검색은 앞부분부터 일치해야 하니 곡 제목 앞쪽을 그대로 입력해 주세요."
+            )
+        heading = [f"🏅 Qwilight 랭킹 | 테이블 외 10키 차분 | '{_truncate_text(query, 40)}'"]
+        return _discord_ranking_10k_notes(heading, notes, query)
+    index, row = matches[0]
+    note, alternatives = _qwilight_resolve_note(row)
+    heading = [
+        f"🏅 Qwilight 랭킹 | {_discord_ranking_table_line(index, row)}",
+        f"{_truncate_text(row.get('artist'), 48) or '-'}",
+    ]
+    if note is None:
+        lines = heading + ["", "Qwilight 온라인 랭킹에서 이 차트를 찾지 못했습니다."]
+        # 같은 곡의 다른 차트 중 10키를 먼저 보여준다. 캐시된 목록이라 제자리 정렬하지 않는다.
+        if alternatives:
+            lines.append("같은 곡의 다른 Qwilight 차트:")
+            for alternative in sorted(alternatives, key=_qwilight_is_10k_note, reverse=True)[
+                :DISCORD_RANKING_TABLE_LIMIT
+            ]:
+                lines.append(f"- {_qwilight_note_summary(alternative)}")
+        return "\n".join(lines)
+    return _discord_ranking_records(heading, note)
+
+
+def _discord_ranking_autocomplete_choices(interaction: dict[str, Any]) -> list[dict[str, str]]:
+    options = _discord_option_map(interaction.get("data", {}).get("options"))
+    query = str(options.get("곡명") or "").strip()
+    level = int(options["레벨"]) if options.get("레벨") is not None else None
+    hint = RANKING_LEVEL_HINT_PATTERN.search(query)
+    if hint:
+        query = query[: hint.start()].strip()
+        if level is None:
+            level = int(hint.group(1))
+    choices: list[dict[str, str]] = []
+    for _, row in _discord_ranking_table_matches(query, level)[:DISCORD_AUTOCOMPLETE_LIMIT]:
+        title = str(row.get("title") or "").strip()
+        level_text = str(row.get("level") or "").strip() or "-"
+        tag = _table_row_chart_tag(row)
+        name = f"Lv.{level_text} | {title}" + (f" | {tag}" if tag else "")
+        choices.append(
+            {
+                "name": _truncate_text(name, 100),
+                "value": _truncate_text(f"{title} [Lv.{level_text}]", 100),
+            }
+        )
+    return choices
+
+
 def _discord_update_row_marking(interaction: dict[str, Any], options: dict[str, Any]) -> str:
     if not _discord_is_admin(interaction):
         raise HTTPException(status_code=403, detail="Only server admins can edit row labels")
@@ -1605,6 +2044,30 @@ async def _discord_handle_random_command(interaction: dict[str, Any]) -> None:
         _discord_interaction_callback,
         interaction,
         {"type": 4, "data": data},
+    )
+
+
+async def _discord_handle_ranking_command(interaction: dict[str, Any]) -> None:
+    await asyncio.to_thread(_discord_interaction_callback, interaction, {"type": 5})
+    try:
+        message = await asyncio.to_thread(_discord_build_ranking, interaction)
+    except HTTPException as exc:
+        message = f"랭킹 조회 실패: {exc.detail}"
+    except Exception as exc:
+        message = f"랭킹 조회 실패: {exc}"
+    await asyncio.to_thread(_discord_edit_original_lines, interaction, message)
+
+
+async def _discord_handle_ranking_autocomplete(interaction: dict[str, Any]) -> None:
+    try:
+        choices = await asyncio.to_thread(_discord_ranking_autocomplete_choices, interaction)
+    except Exception as exc:
+        print(f"[discord] ranking autocomplete failed: {exc}", flush=True)
+        choices = []
+    await asyncio.to_thread(
+        _discord_interaction_callback,
+        interaction,
+        {"type": 8, "data": {"choices": choices}},
     )
 
 
@@ -1714,6 +2177,9 @@ async def _discord_handle_interaction(interaction: dict[str, Any]) -> None:
             if command_name == "랜덤":
                 await _discord_handle_random_command(interaction)
                 return
+            if command_name == "랭킹":
+                await _discord_handle_ranking_command(interaction)
+                return
             if command_name == "차분":
                 subcommand = (data.get("options") or [{}])[0]
                 sub_name = str(subcommand.get("name") or "")
@@ -1726,6 +2192,10 @@ async def _discord_handle_interaction(interaction: dict[str, Any]) -> None:
                     return
         elif interaction_type == 3:
             await _discord_handle_component(interaction)
+            return
+        elif interaction_type == 4:
+            if str(data.get("name") or "") == "랭킹":
+                await _discord_handle_ranking_autocomplete(interaction)
             return
         elif interaction_type == 5:
             await _discord_handle_deny_modal(interaction)
