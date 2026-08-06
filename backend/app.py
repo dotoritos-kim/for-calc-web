@@ -89,6 +89,10 @@ DISCORD_UPLOAD_DB_PATH = _env_path("DISCORD_UPLOAD_DB", PACKAGE_ROOT / ".discord
 DISCORD_UPLOAD_MAX_BYTES = _env_int("DISCORD_UPLOAD_MAX_BYTES", 24 * 1024 * 1024)
 DISCORD_GATEWAY_ENABLED = os.getenv("DISCORD_GATEWAY_ENABLED", "1").strip().lower() not in ("0", "false", "no", "off")
 DISCORD_REGISTER_COMMANDS = os.getenv("DISCORD_REGISTER_COMMANDS", "1").strip().lower() not in ("0", "false", "no", "off")
+DISCORD_WELCOME_ENABLED = os.getenv("DISCORD_WELCOME_ENABLED", "1").strip().lower() not in ("0", "false", "no", "off")
+DISCORD_WELCOME_CHANNEL_ID = os.getenv("DISCORD_WELCOME_CHANNEL_ID", "").strip()
+DISCORD_WELCOME_CHANNEL_NAME = os.getenv("DISCORD_WELCOME_CHANNEL_NAME", "일반").strip()
+DISCORD_WELCOME_MESSAGE = os.getenv("DISCORD_WELCOME_MESSAGE", "환영합니다 {mention}님").strip()
 PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "").strip().rstrip("/")
 PASSWORD_HASH_ITERATIONS = 210_000
 SESSION_TTL_SECONDS = _env_int("TABLE_ADMIN_SESSION_TTL_SECONDS", 60 * 60 * 24 * 30)
@@ -119,6 +123,8 @@ DISCORD_DAN_COURSE_LEVEL_RANGES: dict[int, tuple[int, int]] = {
 OBJ_PATTERN = re.compile(r"\bobj(?:ecter)?\s*[:：]?\s*([^\s,\[\]()/]+)", re.IGNORECASE)
 LOGIN_ID_PATTERN = re.compile(r"^[a-z0-9_.-]{3,32}$")
 DISCORD_API_BASE = "https://discord.com/api/v10"
+DISCORD_INTENT_GUILD_MEMBERS = 1 << 1
+DISCORD_TEXT_CHANNEL_TYPES = (0, 5)
 
 if str(CALC_ROOT) not in sys.path:
     sys.path.insert(0, str(CALC_ROOT))
@@ -567,6 +573,8 @@ def _discord_api_request(method: str, path: str, payload: Any | None = None, ret
 
 _discord_runtime_application_id = DISCORD_APPLICATION_ID
 _discord_gateway_task: asyncio.Task[Any] | None = None
+_discord_welcome_channel_cache = ""
+_discord_member_intent_disallowed = False
 
 
 def _discord_application_id() -> str:
@@ -701,6 +709,68 @@ def _discord_registration_guild_id() -> str:
     except HTTPException:
         return ""
     return str(channel.get("guild_id") or "")
+
+
+def _discord_welcome_channel_id(guild_id: str = "") -> str:
+    global _discord_welcome_channel_cache
+    if DISCORD_WELCOME_CHANNEL_ID:
+        if DISCORD_WELCOME_CHANNEL_ID.isdigit():
+            return DISCORD_WELCOME_CHANNEL_ID
+        matches = re.findall(r"\d{15,25}", DISCORD_WELCOME_CHANNEL_ID)
+        return matches[-1] if matches else DISCORD_WELCOME_CHANNEL_ID
+    if _discord_welcome_channel_cache:
+        return _discord_welcome_channel_cache
+    wanted = DISCORD_WELCOME_CHANNEL_NAME.lstrip("#").strip().lower()
+    target_guild = guild_id or _discord_registration_guild_id()
+    if not wanted or not target_guild:
+        return ""
+    try:
+        channels = _discord_api_request("GET", f"/guilds/{target_guild}/channels")
+    except HTTPException as exc:
+        print(f"[discord] welcome channel lookup failed: {exc.detail}", flush=True)
+        return ""
+    for channel in channels if isinstance(channels, list) else []:
+        if not isinstance(channel, dict):
+            continue
+        if int(channel.get("type") or 0) not in DISCORD_TEXT_CHANNEL_TYPES:
+            continue
+        if str(channel.get("name") or "").strip().lower() == wanted:
+            _discord_welcome_channel_cache = str(channel.get("id") or "")
+            return _discord_welcome_channel_cache
+    print(f"[discord] welcome channel '{DISCORD_WELCOME_CHANNEL_NAME}' was not found", flush=True)
+    return ""
+
+
+def _discord_welcome_text(user: dict[str, Any]) -> str:
+    user_id = str(user.get("id") or "")
+    name = str(user.get("global_name") or user.get("username") or user_id or "새 멤버")
+    mention = f"<@{user_id}>" if user_id else name
+    template = DISCORD_WELCOME_MESSAGE or "환영합니다 {mention}님"
+    try:
+        return template.format(mention=mention, name=name, user=name)
+    except (IndexError, KeyError):
+        return f"환영합니다 {mention}님"
+
+
+def _discord_send_welcome(data: dict[str, Any]) -> None:
+    user = data.get("user")
+    if not isinstance(user, dict) or user.get("bot"):
+        return
+    channel_id = _discord_welcome_channel_id(str(data.get("guild_id") or ""))
+    if not channel_id:
+        return
+    _discord_send_channel_message(channel_id, _discord_welcome_text(user))
+
+
+async def _discord_handle_member_add(data: dict[str, Any]) -> None:
+    if not DISCORD_WELCOME_ENABLED:
+        return
+    try:
+        await asyncio.to_thread(_discord_send_welcome, data)
+    except HTTPException as exc:
+        print(f"[discord] welcome message failed: {exc.detail}", flush=True)
+    except Exception as exc:
+        print(f"[discord] welcome message failed: {exc}", flush=True)
 
 
 def _discord_register_commands() -> None:
@@ -1671,6 +1741,7 @@ async def _discord_heartbeat(ws: Any, interval_ms: int, seq_holder: dict[str, An
 
 
 async def _discord_gateway_loop() -> None:
+    global _discord_member_intent_disallowed
     if not DISCORD_GATEWAY_ENABLED or not DISCORD_BOT_TOKEN:
         return
     if websockets is None:
@@ -1698,7 +1769,11 @@ async def _discord_gateway_loop() -> None:
                                     "op": 2,
                                     "d": {
                                         "token": DISCORD_BOT_TOKEN,
-                                        "intents": 0,
+                                        "intents": (
+                                            DISCORD_INTENT_GUILD_MEMBERS
+                                            if DISCORD_WELCOME_ENABLED and not _discord_member_intent_disallowed
+                                            else 0
+                                        ),
                                         "properties": {
                                             "os": "windows",
                                             "browser": "for-calc-web",
@@ -1721,6 +1796,8 @@ async def _discord_gateway_loop() -> None:
                             print("[discord] gateway bot online", flush=True)
                         elif event_name == "INTERACTION_CREATE":
                             asyncio.create_task(_discord_handle_interaction(data))
+                        elif event_name == "GUILD_MEMBER_ADD":
+                            asyncio.create_task(_discord_handle_member_add(data))
                     elif op in (7, 9):
                         break
         except asyncio.CancelledError:
@@ -1728,7 +1805,15 @@ async def _discord_gateway_loop() -> None:
                 heartbeat_task.cancel()
             raise
         except Exception as exc:
-            print(f"[discord] gateway error: {exc}", flush=True)
+            if getattr(exc, "code", None) == 4014 and not _discord_member_intent_disallowed:
+                _discord_member_intent_disallowed = True
+                print(
+                    "[discord] GUILD_MEMBERS intent is disallowed; enable 'Server Members Intent' "
+                    "in the Discord Developer Portal. reconnecting without welcome messages",
+                    flush=True,
+                )
+            else:
+                print(f"[discord] gateway error: {exc}", flush=True)
         finally:
             if heartbeat_task:
                 heartbeat_task.cancel()
