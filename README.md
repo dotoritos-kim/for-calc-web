@@ -57,6 +57,41 @@ When `DISCORD_BOT_TOKEN` is set, the backend also runs a Discord Gateway bot and
 - Admins approve or reject the upload in `DISCORD_ADMIN_CHANNEL_ID`; only approved uploads are appended to the server BMSTable body.
 - `/차분 목록` shows Discord-approved uploads only, with table number, edited Revive Lv, calculated CR, title, comment, and uploader.
 - `/차분 표기수정 번호:<index> 난이도:<optional> 코멘트:<optional>` edits only the displayed Revive Lv/comment when the caller is a server admin; CR remains the calculated value.
+- `/랭킹 곡명:<title> 레벨:<optional>` looks up the Qwilight online ranking for a 10Key chart, covering both the Revive table and 10K charts that only exist on Qwilight. See below.
+
+## Discord Ranking Lookup
+
+`/랭킹` answers "who has the best scores on this 10Key Revive table chart" using the Qwilight online ranking.
+
+- `곡명` is autocompleted from the local table body. Each suggestion is labelled `Lv.<Revive Lv> | <title> | <chart tag>` and inserts `<title> [Lv.<n>]`, so picking one identifies a single row.
+- Typing by hand also works: the title is matched case-insensitively against the table, ignoring spacing and symbols, and a partial title is enough.
+- `레벨` is the Revive Lv, used when one title exists at several levels (`William Tell` is in the table six times). Without it the bot lists the matching rows and asks for a level instead of guessing.
+- The reply shows the matched Qwilight chart, its record/play counts, then the top `QWILIGHT_RANKING_LIMIT` records as `place, grade, score, accuracy, player, date` in Qwilight's own ranking order.
+
+Table rows carry `md5`/`sha256`, but Qwilight keys its ranking by a different chart hash, so rows are matched to Qwilight charts by title instead:
+
+1. Qwilight's note search matches titles by prefix, so the bot searches for the table title (first narrowing with `<title> - <tag>` when the comment starts with a chart tag like `[10K SHD]`).
+2. Candidates must start with the table title, and their remaining text must contain that chart tag, which is what separates `William Tell - 10K SHD` from `William Tell - 10K EX`. Artist agreement and record count break ties.
+3. Charts nobody has submitted a record for are absent from the Qwilight ranking entirely. The bot says so and lists the other Qwilight charts for the same song (10K ones first) rather than reporting a wrong difficulty.
+
+### Charts outside the Revive table (GCS 10K)
+
+Most 10K charts are not in the Revive table — GCS 10K charts in particular live only on Qwilight, where they are marked by an objecter in the artist field (`DETRO / obj : GCS`) and a 10K tag in the title (`volcanic ~10K HD~ GCS 10K 1.7`).
+
+When `곡명` matches no table row, the bot searches Qwilight for that song and keeps the charts carrying a 10K marker in the title or artist. Each result is labelled with its objecter, parsed with the same `OBJ_PATTERN` the upload flow already uses, so `obj:GCS` and `obj:u_e` charts are told apart. A single hit is answered with its ranking; several hits are listed so `레벨` can narrow them.
+
+Two things to keep in mind for this path: `레벨` here filters on the Qwilight LV rather than a Revive Lv, because these charts have no Revive Lv, and Qwilight's title search matches by prefix, so the front of the song title has to be typed as-is. Autocomplete stays table-only, since it answers per keystroke and must not call out to `taehui.net`.
+
+Resolved chart lookups are cached for `QWILIGHT_NOTE_CACHE_TTL_SECONDS` and ranking pages for `QWILIGHT_RANKING_CACHE_TTL_SECONDS` to keep repeat queries off `taehui.net`.
+
+```text
+QWILIGHT_API_BASE=https://taehui.net/qwilight/www
+QWILIGHT_RANKING_LIMIT=10
+QWILIGHT_SEARCH_MAX_PAGES=5
+QWILIGHT_HTTP_TIMEOUT_SECONDS=15
+QWILIGHT_NOTE_CACHE_TTL_SECONDS=43200
+QWILIGHT_RANKING_CACHE_TTL_SECONDS=300
+```
 
 Useful `.env` values:
 
