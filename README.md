@@ -69,7 +69,20 @@ DISCORD_UPLOAD_DB=
 DISCORD_UPLOAD_MAX_BYTES=
 DISCORD_GATEWAY_ENABLED=1
 DISCORD_REGISTER_COMMANDS=1
+DISCORD_WELCOME_ENABLED=1
+DISCORD_WELCOME_CHANNEL_ID=
+DISCORD_WELCOME_CHANNEL_NAME=일반
+DISCORD_WELCOME_MESSAGE=환영합니다 {mention}님
 ```
+
+## Discord Welcome Message
+
+When a member joins the guild, the bot posts `환영합니다 XXX님` in the `#일반` channel.
+
+- The channel is taken from `DISCORD_WELCOME_CHANNEL_ID` (numeric ID or channel URL). If unset, the bot resolves the channel named `DISCORD_WELCOME_CHANNEL_NAME` (default `일반`) once and caches it.
+- `DISCORD_WELCOME_MESSAGE` supports `{mention}` (pings the member) and `{name}` (display name only).
+- Bots that join are ignored, and `DISCORD_WELCOME_ENABLED=0` turns the feature off.
+- This requires the privileged **Server Members Intent**: enable it in the Discord Developer Portal under Bot → Privileged Gateway Intents. If it is disabled, the gateway logs the warning and reconnects without welcome messages so slash commands keep working.
 
 Set `DISCORD_GUILD_ID` during testing if you want to force a specific server. If it is omitted, the backend tries to infer the server from `DISCORD_ADMIN_CHANNEL_ID` and registers guild commands there; if that lookup fails, commands are registered globally and Discord may take longer to show them. `DISCORD_ADMIN_USER_IDS` is a comma-separated allowlist; users with Administrator, Manage Server, or Manage Messages permission are also treated as admins. Pending uploads, approval history, and uploader ownership are stored in `.discord_uploads.json` by default.
 
