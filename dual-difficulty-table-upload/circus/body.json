@@ -360,6 +360,16 @@
     "notes": 580
   },
   {
+    "md5": "cdc9f1500f899ef8ee6977a3e5fe73f5",
+    "sha256": "477880d95e4a1ed44117fb5df13d0031058d06b21b248149804828962e2004a7",
+    "title": "きりんさん進化論",
+    "artist": "qfeileadh feat.レゾナンスもえこ",
+    "level": "3.28",
+    "comment": "[10K MiNi Giraffe] 잘가 기린... 10K BMSLv:7 ReviveLv:7 obj:u_e",
+    "gauge_total": "0.5%",
+    "notes": 760
+  },
+  {
     "md5": "0f38f06a9062ad8bf47cb0ac0549f0bc",
     "sha256": "f22202b9088fed958134d9276521f47a84d0e27c4c02883a16903be16522bb46",
     "title": "Chopin Nocturne - 10K Full",
@@ -548,6 +558,16 @@
     "comment": "[LV.8] CR:3.94 ReviveLv:8 10K BMSLv:8",
     "gauge_total": "0.48%",
     "notes": 1084
+  },
+  {
+    "md5": "fe1bccdccbdb2e3acdd864925a92b83b",
+    "sha256": "9aa84d011663a3bb187e002252c7667e79e5f61d3f70bd1a646b89a8b2c5174e",
+    "title": "Kafig",
+    "artist": "Chicala Lpis",
+    "level": "3.95",
+    "comment": "[10K NM] 한손 단련 10K BMSLv:9 ReviveLv:8 obj:u_e",
+    "gauge_total": "0.44%",
+    "notes": 909
   },
   {
     "md5": "7a3b6acc24f80b3df2fbad194b571154",
@@ -1000,6 +1020,16 @@
     "notes": 2196
   },
   {
+    "md5": "49afb84f0adaee63e1dd3fcfd0cdfb7e",
+    "sha256": "848438b48eb49fbae0ff7c768f9c71151c6ec381ee7e3b32b1c2777d57fd36b7",
+    "title": "きりんさん進化論",
+    "artist": "qfeileadh feat.レゾナンスもえこ",
+    "level": "6.10",
+    "comment": "[10K Giraffe] 반 스트림 반 동시치기, 순간 고폭타 10K BMSLv:13 ReviveLv:13 obj:u_e",
+    "gauge_total": "0.19%",
+    "notes": 1346
+  },
+  {
     "md5": "1f794fcf0ac09897a8efc9b6be48aa4c",
     "sha256": "da79c7a3e30397b8f12e71b41585b66d0e6eb38ed6eca7cfcaea221e1781633f",
     "title": "Berry Go!! - 10K HD",
@@ -1090,6 +1120,16 @@
     "notes": 1595
   },
   {
+    "md5": "7d58c85d1b2a017a025818e87b258c4c",
+    "sha256": "93c7fc6a3bf1f7a3e1f6bb911ab92d299424cd9a6441b0ca308b227f966cd4b7",
+    "title": "Can't it be true",
+    "artist": "Zris feat. Kri",
+    "level": "6.40",
+    "comment": "[10K BOSS] 양손 동시치기 + 무리배치 10K BMSLv:13 ReviveLv:13 obj:u_e",
+    "gauge_total": "0.19%",
+    "notes": 1932
+  },
+  {
     "md5": "c9c7da06710d533da34f640730f9b63a",
     "sha256": "4449c4b37999adc6895e22ce561620b255069e82827db8af6bad08e9ccd0fd0d",
     "title": "Moonlight 3rd movement - 10K EX",
@@ -1160,6 +1200,16 @@
     "notes": 1306
   },
   {
+    "md5": "4e858f34a8ea6da5e18531bcab16f566",
+    "sha256": "935686bf81b6e38e7341f637436972fb8409291f696a4a6b7000f84d028cc143",
+    "title": "きりんさん進化論",
+    "artist": "qfeileadh feat.レゾナンスもえこ",
+    "level": "6.78",
+    "comment": "[10K BOSS Giraffe] 반 스트림 반 동시치기, 순간 고폭타 10K BMSLv:14 ReviveLv:14 obj:u_e",
+    "gauge_total": "0.18%",
+    "notes": 1577
+  },
+  {
     "md5": "043c045c9f46bcd3e55e97f742991b40",
     "sha256": "f6c246599a53cc548da98a8f55a5260409fddaef3bef8b5faa2becc6946a679d",
     "title": "La Campanella - 10K SHD",
@@ -1188,6 +1238,16 @@
     "comment": "[LV.13] CR:6.88 ReviveLv:14 10K BMSLv:13 obj:u_e",
     "gauge_total": "0.22%",
     "notes": 2559
+  },
+  {
+    "md5": "8f3594e5db757aecaacd2a901142ad28",
+    "sha256": "3a95fe14927992e969d70c76ea36788e4514376dd18c14ee262070325b641ba0",
+    "title": "ZERO",
+    "artist": "Notorious(Nota & TRIAL)",
+    "level": "6.90",
+    "comment": "[10K BOSS] 200bpm 폭타, 딜레이, 동시치기 10K BMSLv:14 ReviveLv:14 obj:u_e",
+    "gauge_total": "0.19%",
+    "notes": 1962
   },
   {
     "md5": "a6519a2eed753431cfee31f40bcbe867",
@@ -1658,6 +1718,16 @@
     "comment": "[10K EX] CR:9.03 ReviveLv:17 10K BMSLv:17 obj:u_e",
     "gauge_total": "0.23%",
     "notes": 1994
+  },
+  {
+    "md5": "c957dee5d191c65e815f863dad416d50",
+    "sha256": "f79b927a01444ab89430b453ef2e224b2b74bd31b65facd38c2357affe1d025e",
+    "title": "桜シロガネ妖狐伝説 -10K BOSS-",
+    "artist": "LiA",
+    "level": "9.32",
+    "comment": "17이 적절하다 판단 (윾이, 갤럽) ReviveLv:17",
+    "gauge_total": "0.19%",
+    "notes": 3531
   },
   {
     "md5": "eb43141ff7c3e0a3874c1693de39099c",
