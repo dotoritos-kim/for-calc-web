@@ -139,7 +139,9 @@ cd backend
 python -m uvicorn app:app --host 127.0.0.1 --port 8000
 ```
 
-Approved users and pending approvals are stored in `.admin_auth.json` by default. Admin page visits, login events, approval decisions, and table edits are appended to `.admin_audit.jsonl`. Set `TABLE_ADMIN_AUTH_DB` or `TABLE_ADMIN_AUDIT_LOG` if you want those files written somewhere else. `TABLE_ADMIN_TOKEN` is still accepted as a legacy API fallback, but the admin page no longer asks for it.
+Approved users and pending approvals are stored in `.admin_auth.json` by default. Admin page visits, login events, approval decisions, and table edits are appended to `.admin_audit.jsonl`. Set `TABLE_ADMIN_AUTH_DB` or `TABLE_ADMIN_AUDIT_LOG` if you want those files written somewhere else. `TABLE_STATE_DIR` moves all three state files (`.admin_auth.json`, `.admin_audit.jsonl`, `.discord_uploads.json`) at once; `docker-compose.yml` points it at the `table-state` volume so redeploys keep admin accounts and upload records. `TABLE_ADMIN_TOKEN` is still accepted as a legacy API fallback, but the admin page no longer asks for it.
+
+Logged-in admins can remove a chart with the 삭제 button in the editor. The row is removed from every Revive `body.json` copy and from the circus table, and the deletion is written to the audit log.
 
 ## Frontend Output
 

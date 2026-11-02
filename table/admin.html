@@ -97,6 +97,18 @@
         font-weight: 700;
       }
 
+      button.danger {
+        border-color: #c62828;
+        background: #fff;
+        color: #c62828;
+        font-weight: 700;
+      }
+
+      button.danger:hover {
+        border-color: #8e1c1c;
+        background: #fdecec;
+      }
+
       button.active {
         border-color: #1b6bff;
         background: #edf4ff;
@@ -455,6 +467,7 @@
               <div class="actions" style="margin-top: 14px">
                 <button id="submitButton" class="primary" type="submit">저장</button>
                 <button id="resetButton" type="button">되돌리기</button>
+                <button id="deleteButton" class="danger" type="button" hidden>삭제</button>
               </div>
             </form>
             <div id="status" class="status" hidden></div>
@@ -495,6 +508,7 @@
       const statusEl = document.getElementById("status");
       const resetButtonEl = document.getElementById("resetButton");
       const submitButtonEl = document.getElementById("submitButton");
+      const deleteButtonEl = document.getElementById("deleteButton");
       const fields = {
         title: document.getElementById("titleInput"),
         artist: document.getElementById("artistInput"),
@@ -566,6 +580,7 @@
         objecterInputEl.readOnly = !canEdit;
         submitButtonEl.disabled = !canEdit;
         resetButtonEl.disabled = !canEdit;
+        deleteButtonEl.hidden = !canEdit || state.mode !== "edit";
       }
 
       function normalizeSearchText(value) {
@@ -801,6 +816,28 @@
         }
         const row = selectedRow();
         if (row) fillForm(row);
+      });
+
+      deleteButtonEl.addEventListener("click", async () => {
+        if (!requireLogin()) return;
+        const row = selectedRow();
+        if (state.mode !== "edit" || !row) return;
+        const label = `Lv.${row.level} ${row.title}${row.comment ? ` (${row.comment})` : ""}`;
+        if (!window.confirm(`이 패턴을 난이도표에서 삭제할까요?\n\n${label}\n\n되돌릴 수 없습니다.`)) return;
+        try {
+          const query = row.md5 ? `?md5=${encodeURIComponent(row.md5)}` : "";
+          const payload = await fetchJson(`/api/table/body/${row._index}${query}`, { method: "DELETE" });
+          state.mode = "edit";
+          state.selectedIndex = null;
+          editFormEl.hidden = true;
+          selectionEmptyEl.hidden = false;
+          clearForm();
+          syncEditorAccess();
+          await loadRows();
+          setStatus(`삭제 완료: ${row.title} (${(payload.written || []).length}개 파일 갱신)`);
+        } catch (error) {
+          setStatus(error.message || "삭제 실패", true);
+        }
       });
 
       async function loadAuthStatus() {

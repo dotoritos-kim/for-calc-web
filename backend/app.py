@@ -73,8 +73,10 @@ LEVEL_VIEWER_HTML = PACKAGE_ROOT / "table" / "level-viewer.html"
 ADMIN_HTML = PACKAGE_ROOT / "table" / "admin.html"
 DUAL_TABLE_DIR = PACKAGE_ROOT / "dual-difficulty-table-upload"
 TABLE_ADMIN_TOKEN = os.getenv("TABLE_ADMIN_TOKEN", "").strip()
-ADMIN_AUTH_DB_PATH = _env_path("TABLE_ADMIN_AUTH_DB", PACKAGE_ROOT / ".admin_auth.json")
-ADMIN_AUDIT_LOG_PATH = _env_path("TABLE_ADMIN_AUDIT_LOG", PACKAGE_ROOT / ".admin_audit.jsonl")
+# Admin accounts, audit log and Discord upload records live here; mount a volume on it so redeploys keep them.
+STATE_DIR = _env_path("TABLE_STATE_DIR", PACKAGE_ROOT)
+ADMIN_AUTH_DB_PATH = _env_path("TABLE_ADMIN_AUTH_DB", STATE_DIR / ".admin_auth.json")
+ADMIN_AUDIT_LOG_PATH = _env_path("TABLE_ADMIN_AUDIT_LOG", STATE_DIR / ".admin_audit.jsonl")
 ADMIN_SESSION_COOKIE = "table_admin_session"
 DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN", "").strip()
 DISCORD_ADMIN_CHANNEL_ID = os.getenv("DISCORD_ADMIN_CHANNEL_ID", "").strip()
@@ -87,7 +89,7 @@ DISCORD_ADMIN_USER_IDS = {
     if item.strip()
 }
 DISCORD_DAN_ROLE_IDS = os.getenv("DISCORD_DAN_ROLE_IDS", "").strip()
-DISCORD_UPLOAD_DB_PATH = _env_path("DISCORD_UPLOAD_DB", PACKAGE_ROOT / ".discord_uploads.json")
+DISCORD_UPLOAD_DB_PATH = _env_path("DISCORD_UPLOAD_DB", STATE_DIR / ".discord_uploads.json")
 DISCORD_UPLOAD_MAX_BYTES = _env_int("DISCORD_UPLOAD_MAX_BYTES", 24 * 1024 * 1024)
 DISCORD_GATEWAY_ENABLED = os.getenv("DISCORD_GATEWAY_ENABLED", "1").strip().lower() not in ("0", "false", "no", "off")
 DISCORD_REGISTER_COMMANDS = os.getenv("DISCORD_REGISTER_COMMANDS", "1").strip().lower() not in ("0", "false", "no", "off")
@@ -2669,6 +2671,26 @@ def _write_circus_table_row(row: dict[str, Any]) -> list[str]:
     return written
 
 
+def _remove_circus_table_row(row: dict[str, Any]) -> list[str]:
+    owner_key = _row_owner_key(row)
+    if not owner_key:
+        return []
+    written: list[str] = []
+    for path in _circus_body_paths():
+        if not path.exists():
+            continue
+        rows = _load_json_rows_from_path(path)
+        kept = [existing_row for existing_row in rows if not _row_matches_owner_key(existing_row, owner_key)]
+        if len(kept) == len(rows):
+            continue
+        _write_json_atomic(path, kept)
+        written.append(str(path))
+        header_written = _sync_circus_header_levels(path, kept)
+        if header_written:
+            written.append(header_written)
+    return written
+
+
 def _extract_objecters_from_row(row: dict[str, Any]) -> list[str]:
     values = [str(row.get(key, "")) for key in ("title", "artist", "comment")]
     found: list[str] = []
@@ -3422,6 +3444,50 @@ def update_table_body_row(
         "ok": True,
         "changed": changed,
         "row": _public_table_row(row_index, row),
+        "written": written,
+    }
+
+
+@app.delete("/api/table/body/{row_index}")
+def delete_table_body_row(
+    request: Request,
+    row_index: int,
+    md5: str | None = None,
+    x_admin_token: str | None = Header(default=None, alias="X-Admin-Token"),
+    table_admin_session: str | None = Cookie(default=None),
+) -> dict[str, Any]:
+    admin_user = _require_admin_access(table_admin_session, x_admin_token)
+    rows = _load_table_rows()
+    if row_index < 0 or row_index >= len(rows):
+        raise HTTPException(status_code=404, detail="Row not found")
+    row = rows[row_index]
+    # The index can shift when another admin edits the table, so the caller names the chart it saw.
+    if md5 is not None and str(row.get("md5") or "").strip().lower() != md5.strip().lower():
+        raise HTTPException(status_code=409, detail="Row changed, reload the table and try again")
+
+    del rows[row_index]
+    written = _write_table_rows(rows)
+    written.extend(_remove_circus_table_row(row))
+
+    owner_key = _row_owner_key(row)
+    if owner_key:
+        state = _load_discord_upload_state()
+        if state["ownership"].pop(owner_key, None) is not None:
+            _save_discord_upload_state(state)
+
+    _append_admin_audit(
+        "table_row_deleted",
+        request,
+        admin_user,
+        index=row_index,
+        row=_public_table_row(row_index, row),
+        written=written,
+    )
+    return {
+        "ok": True,
+        "index": row_index,
+        "row": _public_table_row(row_index, row),
+        "count": len(rows),
         "written": written,
     }
 
