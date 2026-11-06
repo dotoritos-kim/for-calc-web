@@ -3554,6 +3554,20 @@ async def stop_discord_bot() -> None:
         _discord_gateway_task = None
 
 
+BMS_STUDIO_DIST = PACKAGE_ROOT / "bms-studio" / "dist"
+
+
+@app.get("/Editor.html")
+def serve_bms_studio() -> FileResponse:
+    index = BMS_STUDIO_DIST / "index.html"
+    if not index.is_file():
+        raise HTTPException(status_code=503, detail="Build BMS Studio with node bms-studio/build.mjs.")
+    return FileResponse(index, media_type="text/html")
+
+
+if BMS_STUDIO_DIST.is_dir():
+    app.mount("/bms-studio", StaticFiles(directory=BMS_STUDIO_DIST), name="bms-studio")
+
 _STATIC_DIR = Path("/app/static")
 if _STATIC_DIR.exists():
     app.mount("/", StaticFiles(directory=str(_STATIC_DIR), html=True), name="static")
