@@ -12,6 +12,9 @@ venv/
 node_modules/
 frontend-source/dist/
 frontend-source/dist-ssr/
+bms-studio/.source/
+bms-studio/dist/
+bms-studio/.preview/
 *.local
 .env
 .env.*

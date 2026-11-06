@@ -8,12 +8,12 @@ Packaged output for the local `10k-calc` web wrapper.
 - `backend/requirements.txt`
 - `frontend-dist/`
 - `frontend-source/`
+- `bms-studio/`
 - `compare_parity.py`
 - `parity-scan-10Key-Revive-pack.txt`
 
 ## Notes
 
-- This package is meant to stay inside the TenRiff repo.
 - `backend/app.py` resolves the original calculator from the repo-root `10k-calc/` folder.
 - The frontend output in `frontend-dist/` is already built and verified.
 - `frontend-source/` is the editable React + Tailwind source package for the web designer.
@@ -21,10 +21,36 @@ Packaged output for the local `10k-calc` web wrapper.
 ## Run Backend
 
 ```powershell
-cd Baepoks\for-calc-web\backend
-python -m pip install -r requirements.txt
-python -m uvicorn app:app --host 127.0.0.1 --port 8000
+python -m pip install -r backend/requirements.txt
+$env:DISCORD_GATEWAY_ENABLED = "0"
+python -m uvicorn app:app --app-dir backend --host 127.0.0.1 --port 8000
 ```
+
+## Browser BMS Editor and Player
+
+Open `/table.html` and follow the web editor and player link to `/Editor.html`.
+The page uses the BMS Desktop v0.6.0 renderer and pinned library sources.
+Choose a folder containing both the chart and its keysounds. When opening
+only a chart file, use the editor's keysound upload button to select audio
+files. Matching missing sounds keep their existing WAV IDs.
+Chart saves download a BMS-family file. The open files, sidecar edits and
+autosaves are held in the current page. For charts with keysounds, give the
+downloaded chart a new name and place it in the folder with its source chart.
+WAV slicing is available in BMS Desktop.
+
+For a local build, run this from the repository root with Git and Node.js 22
+available. The first build fetches the pinned sources and installs their npm
+dependencies.
+
+```powershell
+node bms-studio/build.mjs
+python -m uvicorn app:app --app-dir backend --host 127.0.0.1 --port 8000
+```
+
+Open `http://127.0.0.1:8000/table.html` after starting the server.
+The backend Dockerfile builds the same browser bundle and includes it in the image.
+See [배포 인수 문서](docs/deploy-bms-studio.md) for an isolated Docker preview
+and the setup and update procedures for a host.
 
 ## Admin Login Approval
 
@@ -123,11 +149,15 @@ Set `DISCORD_GUILD_ID` during testing if you want to force a specific server. If
 
 For automatic dan-based random recommendations, set Discord Role IDs with `DISCORD_DAN_ROLE_IDS`, for example `1=ROLE_ID,2=ROLE_ID,...,16=ROLE_ID`. Direct local runs also accept individual process env vars like `DISCORD_DAN_ROLE_14_ID=ROLE_ID`. If a member has multiple mapped dan roles, the highest dan is used.
 
-Docker Compose reads the values automatically:
+Docker Compose reads the values automatically. For a new project, start it
+with the following command.
 
 ```powershell
-docker compose up -d --build --force-recreate backend
+docker compose up -d --build backend
 ```
+
+For an existing project, follow the [host update steps](docs/deploy-bms-studio.md#기존-호스트-업데이트)
+to carry over the current table files.
 
 For direct local backend runs, load the values before starting Uvicorn:
 

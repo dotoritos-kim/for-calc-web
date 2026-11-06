@@ -1,0 +1,33 @@
+body.bms-studio {
+  display: flex;
+  flex-direction: column;
+}
+
+body.bms-studio #root {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+.bms-studio-guide {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #3f3f46;
+  font-size: 0.875rem;
+}
+
+.bms-studio-guide a {
+  color: #93c5fd;
+}
+
+.bms-studio-guide span {
+  color: #d4d4d8;
+}
+
+/* Slicing writes a batch of WAVs to a local chart folder in the desktop app. */
+.bms-studio [data-testid='slicer-btn'] {
+  display: none;
+}
