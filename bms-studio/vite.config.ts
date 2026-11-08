@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import desktop from './.source/electron.vite.config';
+import { patchEditorSource } from './editor-patches.mjs';
 
 const renderer = desktop.renderer!;
 
@@ -70,8 +71,9 @@ export default {
       },
       transform(code: string, id: string) {
         const path = id.replaceAll('\\', '/');
+        code = patchEditorSource(code, id);
         if (path.endsWith('/src/renderer/routes/Editor.tsx')) return patchKeysoundImport(code);
-        if (!path.endsWith('/src/renderer/lib/sessionStorage.ts')) return;
+        if (!path.endsWith('/src/renderer/lib/sessionStorage.ts')) return code;
         // File picker handles last for this page. Avoid restoring paths after reload.
         return [
           'const sessionValues = new Map();',

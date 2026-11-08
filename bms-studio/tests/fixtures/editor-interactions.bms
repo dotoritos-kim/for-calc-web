@@ -1,0 +1,12 @@
+#PLAYER 1
+#KEYMODE 9K
+#TITLE Editor interaction fixture
+#ARTIST Test
+#BPM 188
+#WAV01 test-1.wav
+#WAV02 test-2.wav
+#WAV03 test-3.wav
+#00101:01
+#00101:02
+#00101:03
+#00801:01
