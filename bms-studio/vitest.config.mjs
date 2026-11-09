@@ -24,7 +24,9 @@ export default {
     include: [
       'tests/**/*.test.ts', 'tests/**/*.test.tsx',
       '.source/tests/unit/lib/bgmLanes.test.ts',
+      '.source/tests/unit/lib/autoKeysound.test.ts',
       '.source/tests/unit/stores/editorOptionsStore.test.ts',
+      '.source/tests/unit/stores/editorStore.test.ts',
       '.source/tests/unit/stores/editorStore-placement.test.ts',
       '.source/tests/integration/editor-workflow.test.ts',
       // writer.test.ts requires the upstream author's external S: music library.

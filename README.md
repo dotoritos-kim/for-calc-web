@@ -29,7 +29,7 @@ python -m uvicorn app:app --app-dir backend --host 127.0.0.1 --port 8000
 ## Browser BMS Editor and Player
 
 Open `/table.html` and follow the web editor and player link to `/Editor.html`.
-The page uses the BMS Desktop v0.6.0 renderer and pinned library sources.
+The page uses the BMS Desktop 0.7.0 renderer (pinned at `1a96e2e`) and pinned library sources.
 Choose a folder containing both the chart and its keysounds. When opening
 only a chart file, use the editor's keysound upload button to select audio
 files. Matching missing sounds keep their existing WAV IDs.
