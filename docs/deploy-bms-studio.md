@@ -4,7 +4,9 @@
 
 ## 소스와 빌드
 
-검토한 `for-calc-web` 커밋이나 그 커밋의 소스 ZIP을 사용한다. `backend/Dockerfile`은 계산기 프런트와 웹 에디터를 빌드한 뒤 같은 FastAPI 이미지에 넣는다. `bms-studio/build.mjs`는 BMS Desktop v0.6.0과 세 라이브러리의 고정 커밋을 확인하고 잠금 파일로 의존성을 설치한다. 처음 빌드할 때는 Docker 이미지 레지스트리, GitHub, npm, PyPI에 접속할 수 있어야 한다.
+검토한 `for-calc-web` 커밋이나 그 커밋의 소스 ZIP을 사용한다. `backend/Dockerfile`은 계산기 프런트와 웹 에디터를 빌드한 뒤 같은 FastAPI 이미지에 넣는다. `bms-studio/build.mjs`는 BMS Desktop 0.7.0의 문서 후속 커밋 `1a96e2e`와 세 라이브러리의 고정 커밋을 확인하고 잠금 파일로 의존성을 설치한다. 브랜치의 최신 상태를 자동으로 따라가지 않고 검토한 커밋만 가져온다. 처음 빌드할 때는 Docker 이미지 레지스트리, GitHub, npm, PyPI에 접속할 수 있어야 한다.
+
+이전 버전의 `bms-studio/.source`가 있는 로컬 작업 폴더에서는 버전 불일치로 빌드를 중단한다. 그 폴더에 필요한 변경이 없는지 확인하고 별도 백업 위치로 보관한 뒤 다시 빌드하거나, 새 체크아웃에서 빌드한다. 빌드 스크립트는 기존 소스를 강제로 되돌리지 않는다.
 
 ## 운영 전 로컬 확인
 

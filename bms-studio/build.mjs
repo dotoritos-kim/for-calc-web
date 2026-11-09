@@ -9,11 +9,12 @@ const dist = join(root, 'dist');
 if (existsSync(dist) && realpathSync(dist) !== join(realpathSync(root), 'dist')) {
   throw new Error('BMS Studio build output must be a local dist directory.');
 }
-const revision = '886b0f935959c120f5555736989c56f05d8cb0a0';
+// Upstream 0.7.0, including its documentation follow-up on main.
+const revision = '1a96e2e3107ad29a2449d74023813b469e652ec5';
 const vendors = {
-  'bms-core': '1398d587ac233bce9ca5d4c9f4de634808360ad0',
-  'bms-editor': '65a7fce2137a646a2283c237ef05c9a40fc8576f',
-  'bms-player': '94152230824e2c8dda0e31f2300b2550b9d7fbc5',
+  'bms-core': 'c5aea5d336432f330aa26968ac3f72ccada77eb6',
+  'bms-editor': '096c821e169c1874d8d6fbf3a12fed19f0b60704',
+  'bms-player': '6b5e5b1003ced36735ef4d14fd778a988ddf5c68',
 };
 
 function run(command, args, cwd, capture = false) {
@@ -38,10 +39,13 @@ function checkRevision(directory, expected) {
 }
 
 if (!existsSync(source)) {
-  run('git', [
-    'clone', '--depth', '1', '--branch', 'v0.6.0', '--recurse-submodules',
-    '--shallow-submodules', '--', 'https://github.com/dotoritos-kim/bms-electron-app.git', '.source',
-  ], root);
+  // Fetch the reviewed commit directly so a moving branch/tag cannot change
+  // a fresh build. Existing source directories are checked, never reset.
+  run('git', ['init', source], root);
+  run('git', ['remote', 'add', 'origin', 'https://github.com/dotoritos-kim/bms-electron-app.git'], source);
+  run('git', ['fetch', '--depth', '1', 'origin', revision], source);
+  run('git', ['checkout', '--detach', revision], source);
+  run('git', ['submodule', 'update', '--init', '--recursive', '--depth', '1'], source);
 }
 checkRevision(source, revision);
 for (const [name, expected] of Object.entries(vendors)) {
